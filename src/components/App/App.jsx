@@ -9,9 +9,8 @@ import Header from "../Header/Header";
 import GameIconBanner from "../GameIconBanner/GameIconBanner";
 import Main from "../Main/Main";
 import Profile from "../Profile/Profile";
-import Categories from "../Categories/Categories";
 import GamesSection from "../GamesSection/GamesSection";
-import SearchResults from "../SearchResults/SearchResults";
+import SearchPage from "../SearchPage/SearchPage";
 import Footer from "../Footer/Footer";
 
 function App() {
@@ -27,9 +26,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="profile" element={<Profile />} />
-          <Route path="categories" element={<Categories />} />
           <Route path="games" element={<GamesSection />} />
-          <Route path="search" element={<SearchResults />} />
+          <Route path="search" element={<SearchPage />} />
         </Routes>
         <Footer />
       </div>

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-import searchBtn from "../../assets/btns/search-btn.png";
 import mobileMenuBtn from "../../assets/btns/mobile-menu-btn.png";
 import mobileCloseBtnBlue from "../../assets/btns/close-btn-blue.png";
 import "./Header.css";
@@ -24,21 +23,6 @@ const Header = () => {
           </div>
         </Link>
       </div>
-      {/* SEARCH BAR */}
-      <div className="header__search-bar">
-        <button className="header__search-btn" type="submit">
-          <img
-            className="header__search-icon"
-            src={searchBtn}
-            alt="search icon"
-          />
-        </button>
-        <input
-          className="header__search-input"
-          type="search"
-          placeholder="Search"
-        />
-      </div>
 
       {/* RIGHT SECTION */}
       <div className="header__right-container">
@@ -46,8 +30,8 @@ const Header = () => {
         <Link className="header__tab-link" to="/">
           <p className="header__tab header__tab_active">Home</p>
         </Link>
-        <Link className="header__tab-link" to="/categories">
-          <p className="header__tab">Categories</p>
+        <Link className="header__tab-link" to="/search">
+          <p className="header__tab">Search</p>
         </Link>
         <Link className="header__tab-link" to="/games">
           <p className="header__tab">All Games</p>
@@ -104,28 +88,12 @@ const Header = () => {
                 Home
               </p>
             </Link>
-            <Link className="header__mobile-tab-link" to="/categories">
-              <p className="header__mobile-tab">Categories</p>
+            <Link className="header__mobile-tab-link" to="/search">
+              <p className="header__mobile-tab">Search</p>
             </Link>
             <Link className="header__mobile-tab-link" to="/games">
               <p className="header__mobile-tab">All Games</p>
             </Link>
-
-            {/* MOBILE SEARCH */}
-            <div className="header__mobile-search-bar">
-              <button className="header__mobile-search-btn" type="submit">
-                <img
-                  className="header__mobile-search-icon"
-                  src={searchBtn}
-                  alt="search icon"
-                />
-              </button>
-              <input
-                className="header__mobile-search-input"
-                type="search"
-                placeholder="Search"
-              />
-            </div>
           </div>
         </div>
       )}
