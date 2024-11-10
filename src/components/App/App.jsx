@@ -7,6 +7,7 @@ import "./App.css";
 import Main from "../Main/Main";
 import Profile from "../Profile/Profile";
 import Header from "../Header/Header";
+import GameIconBanner from "../GameIconBanner/GameIconBanner";
 import Footer from "../Footer/Footer";
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
       <div className="page__content">
         <Preloader />
         <Header />
+        <GameIconBanner />
 
         {/* <Routes>
         <Route path="/" element={<Main />} />
