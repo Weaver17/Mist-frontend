@@ -16,11 +16,13 @@ const Header = () => {
     <div className="header">
       {/* LEFT/LOGO SECTION */}
       <div className="header__logo-container">
-        <div className="header__logo">
-          <div className="header__logo-bar-one"></div>
-          <h1 className="header__logo-text">MIST</h1>
-          <div className="header__logo-bar-two"></div>
-        </div>
+        <Link className="header__logo-link" to="/">
+          <div className="header__logo">
+            <div className="header__logo-bar-one"></div>
+            <h1 className="header__logo-text">MIST</h1>
+            <div className="header__logo-bar-two"></div>
+          </div>
+        </Link>
       </div>
       {/* SEARCH BAR */}
       <div className="header__search-bar">
@@ -41,15 +43,15 @@ const Header = () => {
       {/* RIGHT SECTION */}
       <div className="header__right-container">
         {/* TABS */}
-        <p className="header__tab header__tab_active">
-          {/* <Link to="/">Home</Link> */}Home
-        </p>
-        <p className="header__tab">
-          {/* <Link to="/">Categories</Link> */}Categories
-        </p>
-        <p className="header__tab">
-          {/* <Link to="/">All Games</Link> */}All Games
-        </p>
+        <Link className="header__tab-link" to="/">
+          <p className="header__tab header__tab_active">Home</p>
+        </Link>
+        <Link className="header__tab-link" to="/categories">
+          <p className="header__tab">Categories</p>
+        </Link>
+        <Link className="header__tab-link" to="/games">
+          <p className="header__tab">All Games</p>
+        </Link>
 
         {/* PROFILE BUTTONS */}
         <button type="button" className="header__btn header__btn_login">
@@ -97,15 +99,17 @@ const Header = () => {
             </button>
 
             {/* MOBILE TABS */}
-            <p className="header__mobile-tab header__mobile-tab_active">
-              {/* <Link to="/">Home</Link> */}Home
-            </p>
-            <p className="header__mobile-tab">
-              {/* <Link to="/">Categories</Link> */}Categories
-            </p>
-            <p className="header__mobile-tab">
-              {/* <Link to="/">All Games</Link> */}All Games
-            </p>
+            <Link className="header__mobile-tab-link" to="/">
+              <p className="header__mobile-tab header__mobile-tab_active">
+                Home
+              </p>
+            </Link>
+            <Link className="header__mobile-tab-link" to="/categories">
+              <p className="header__mobile-tab">Categories</p>
+            </Link>
+            <Link className="header__mobile-tab-link" to="/games">
+              <p className="header__mobile-tab">All Games</p>
+            </Link>
 
             {/* MOBILE SEARCH */}
             <div className="header__mobile-search-bar">

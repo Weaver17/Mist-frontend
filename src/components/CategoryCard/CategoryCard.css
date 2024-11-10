@@ -1,0 +1,21 @@
+.category-card {
+  border-radius: 16px;
+  background: #fff;
+  width: 350px;
+  height: 350px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
+}
+
+.category-card__img {
+    width: 350px;
+    border-radius: 16px 16px 0 0;
+    object-fit: cover;
+}
+
+.category-card__title {
+    margin: 16px;
+    padding: 0;
+    font-size: 40px;
+    line-height: 50px;
+    text-align: center;
+}
