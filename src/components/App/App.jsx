@@ -16,9 +16,10 @@ function App() {
   return (
     <div className="page">
       <div className="page__content">
-        <Preloader />
+        {/* <Preloader /> */}
         <Header />
         <GameIconBanner />
+        <Main />
 
         {/* <Routes>
         <Route path="/" element={<Main />} />

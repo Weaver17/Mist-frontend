@@ -189,6 +189,8 @@
 
 .header__mobile-register-btn:hover {
     color: #0255E5;
+    transition: 0.2s linear;
+
 }
 
 @media screen and (max-width: 1235px) {
@@ -308,6 +310,8 @@
 
     .header__mobile-tab:hover {
         color: rgba(0, 0, 0, .8);
+        transition: 0.2s linear;
+
     }
 }
 
