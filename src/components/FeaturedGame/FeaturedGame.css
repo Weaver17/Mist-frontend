@@ -1,7 +1,14 @@
 .featured {
     margin: 0 auto;
     padding: 20px 0 40px;
-    border-top: solid 1px #cfcfcf;
+    border-bottom: solid 1px #cfcfcf;
+
+}
+
+.featured__heading-border {
+    margin: 0;
+    padding: 0;
+    height: 80px;
     border-bottom: solid 1px #cfcfcf;
 
 }
@@ -16,7 +23,7 @@
 
 .featured__card {
     background-color: #fff;
-    margin: 0 auto;
+    margin: 40px auto 0;
     padding: 0;
     height: 400px;
     max-width: 1240px;
@@ -57,6 +64,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 
 .featured__info {
@@ -68,6 +76,7 @@
     position: absolute;
     top: 0;
     right: 0;
+    cursor: pointer;
 }
 
 .featured__category {

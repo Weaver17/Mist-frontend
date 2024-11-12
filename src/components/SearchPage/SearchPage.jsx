@@ -17,6 +17,7 @@ const SearchPage = () => {
         <input className="search__input" type="search" placeholder="Search" />
       </div>
       {/* SEARCH RESULTS-- NEEDS LOGIC FOR 'NO GAMES FOUND' */}
+      <h3 className="search__results-heading">Search Results:</h3>
       <ul className="search__results">
         <GameCard />
         <GameCard />

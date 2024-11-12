@@ -5,7 +5,7 @@ import mobileMenuBtn from "../../assets/btns/mobile-menu-btn.png";
 import mobileCloseBtnBlue from "../../assets/btns/close-btn-blue.png";
 import "./Header.css";
 
-const Header = () => {
+const Header = ({ handleSignUpClick, handleSignInClick }) => {
   const [isMobileMenuOpened, setMobileMenuOpened] = useState(false);
 
   const toggleMobileMenu = () => {
@@ -38,10 +38,18 @@ const Header = () => {
         </Link>
 
         {/* PROFILE BUTTONS */}
-        <button type="button" className="header__btn header__btn_login">
+        <button
+          type="button"
+          className="header__btn header__btn_login"
+          onClick={handleSignInClick}
+        >
           Sign In
         </button>
-        <button type="button" className="header__btn header__btn_register">
+        <button
+          type="button"
+          className="header__btn header__btn_register"
+          onClick={handleSignUpClick}
+        >
           Sign Up
         </button>
       </div>

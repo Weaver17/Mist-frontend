@@ -21,7 +21,9 @@ const FeaturedGame = () => {
   };
   return (
     <div className="featured">
-      <h2 className="featured__heading">Today's Featured Game:</h2>
+      <div className="featured__heading-border">
+        <h2 className="featured__heading">Today's Featured Game:</h2>
+      </div>
       <div className="featured__card">
         <div className="featured__thumbnail-container">
           <img
