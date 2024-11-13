@@ -12,7 +12,7 @@ function ModalWithForm({
   onSubmit,
 }) {
   return (
-    <Modal name={name} onClose={handleCloseClick} isOpen={isOpen}>
+    <Modal name={name} handleCloseClick={handleCloseClick} isOpen={isOpen}>
       <h3 className={`modal__title modal__title_type_${name}`}>{title}</h3>
       <Form name={name} onSubmit={onSubmit} buttonText={buttonText}>
         {children}

@@ -5,7 +5,9 @@ import mobileMenuBtn from "../../assets/btns/mobile-menu-btn.png";
 import mobileCloseBtnBlue from "../../assets/btns/close-btn-blue.png";
 import "./Header.css";
 
-const Header = ({ handleSignUpClick, handleSignInClick }) => {
+import profile from "../../assets/icons/profile-icon-blue.png";
+
+const Header = ({ handleSignUpClick, handleSignInClick, isLoggedIn }) => {
   const [isMobileMenuOpened, setMobileMenuOpened] = useState(false);
 
   const toggleMobileMenu = () => {
@@ -38,28 +40,51 @@ const Header = ({ handleSignUpClick, handleSignInClick }) => {
         </Link>
 
         {/* PROFILE BUTTONS */}
-        <button
-          type="button"
-          className="header__btn header__btn_login"
-          onClick={handleSignInClick}
-        >
-          Sign In
-        </button>
-        <button
-          type="button"
-          className="header__btn header__btn_register"
-          onClick={handleSignUpClick}
-        >
-          Sign Up
-        </button>
+        {isLoggedIn ? (
+          <div className="header__signed-container">
+            <button className="header__btn header__btn_profile">
+              Username
+            </button>
+          </div>
+        ) : (
+          <div className="header__signed-container">
+            <button
+              type="button"
+              className="header__btn header__btn_login"
+              onClick={handleSignInClick}
+            >
+              Sign In
+            </button>
+            <button
+              type="button"
+              className="header__btn header__btn_register"
+              onClick={handleSignUpClick}
+            >
+              Sign Up
+            </button>
+          </div>
+        )}
       </div>
 
       <div className="header__mobile-btn-container">
         {/* MOBILE REGISTER BTN */}
-
-        <button className="header__mobile-register-btn" type="button">
-          Sign Up
-        </button>
+        {isLoggedIn ? (
+          <div className="header__signed-container">
+            <button className="header__mobile-profile-btn" type="button">
+              Username
+            </button>
+          </div>
+        ) : (
+          <div className="header__signed-container">
+            <button
+              className="header__mobile-register-btn"
+              type="button"
+              onClick={handleSignUpClick}
+            >
+              Sign Up
+            </button>
+          </div>
+        )}
 
         {/* MOBILE OPEN/CLOSE BTNS */}
         <button
@@ -86,9 +111,15 @@ const Header = ({ handleSignUpClick, handleSignInClick }) => {
       {isMobileMenuOpened && (
         <div className="header__mobile">
           <div className="header__mobile-container">
-            <button className="header__mobile-login-btn" type="button">
-              Sign in
-            </button>
+            <div className="header__mobile-login-btn-container">
+              {isLoggedIn ? (
+                <div className="header__mobile-login-btn-hidden"></div>
+              ) : (
+                <button className="header__mobile-login-btn" type="button">
+                  Sign in
+                </button>
+              )}
+            </div>
 
             {/* MOBILE TABS */}
             <Link className="header__mobile-tab-link" to="/">

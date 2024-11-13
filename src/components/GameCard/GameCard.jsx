@@ -8,7 +8,7 @@ import favoriteBtnFilled from "../../assets/btns/favorite-btn-filled.png";
 
 import "./GameCard.css";
 
-const GameCard = () => {
+const GameCard = ({ onGameTitleClick }) => {
   const [isSaved, setIsSaved] = useState(false);
   const [isFavorited, setIsFavorited] = useState(false);
 
@@ -20,146 +20,40 @@ const GameCard = () => {
     setIsFavorited(!isFavorited);
   };
 
+  const handleGameClick = () => {
+    onGameTitleClick(game);
+  };
+
   return (
-    <>
-      <li className="card">
-        <div className="card__thumbnail-container">
-          <img className="card__thumbnail" src={thumbnail} alt="" />
-          <div className="card__save-bg">
-            <img
-              className="card__save-btn"
-              src={isSaved ? saveGame : gameSaved}
-              alt={isSaved ? "Save Icon" : "Blue Checkmark"}
-              onClick={toggleIsSaved}
-            />
-          </div>
-        </div>
-        <div className="card__info">
+    <li className="card">
+      <div className="card__thumbnail-container">
+        <img className="card__thumbnail" src={thumbnail} alt="" />
+        <div className="card__save-bg">
           <img
-            className="card__fav-btn"
-            src={isFavorited ? favoriteBtnFilled : favoriteBtn}
-            alt={isFavorited ? "Star" : "Blue Star"}
-            onClick={toggleIsFavorited}
+            className="card__save-btn"
+            src={isSaved ? saveGame : gameSaved}
+            alt={isSaved ? "Save Icon" : "Blue Checkmark"}
+            onClick={toggleIsSaved}
           />
-          <p className="card__category">Category</p>
-          <h3 className="card__title">Game Title</h3>
-          <p className="card__description">
-            Short Description qweqwe qweqweqweqwe qweqwe q qweqweqweqw
-          </p>
-          <p className="card__platform">Platform</p>
         </div>
-      </li>
-      {/* // GAME CARD COPIES */}
-      <li className="card">
-        <div className="card__thumbnail-container">
-          <img className="card__thumbnail" src={thumbnail} alt="" />
-          <div className="card__save-bg">
-            <img
-              className="card__save-btn"
-              src={isSaved ? saveGame : gameSaved}
-              alt={isSaved ? "Save Icon" : "Blue Checkmark"}
-              onClick={toggleIsSaved}
-            />
-          </div>
-        </div>
-        <div className="card__info">
-          <img
-            className="card__fav-btn"
-            src={isFavorited ? favoriteBtnFilled : favoriteBtn}
-            alt={isFavorited ? "Star" : "Blue Star"}
-            onClick={toggleIsFavorited}
-          />
-          <p className="card__category">Category</p>
-          <h3 className="card__title">Game Title</h3>
-          <p className="card__description">
-            Short Description qweqwe qweqweqweqwe qweqwe q qweqweqweqw
-          </p>
-          <p className="card__platform">Platform</p>
-        </div>
-      </li>
-      {/* // GAME CARD COPIES */}
-      <li className="card">
-        <div className="card__thumbnail-container">
-          <img className="card__thumbnail" src={thumbnail} alt="" />
-          <div className="card__save-bg">
-            <img
-              className="card__save-btn"
-              src={isSaved ? saveGame : gameSaved}
-              alt={isSaved ? "Save Icon" : "Blue Checkmark"}
-              onClick={toggleIsSaved}
-            />
-          </div>
-        </div>
-        <div className="card__info">
-          <button
-            className="card__fav-btn"
-            type="button"
-            onClick={toggleIsFavorited}
-          >
-            {!isFavorited ? (
-              <img
-                className="card__fav-btn-star"
-                src={favoriteBtn}
-                alt="Star"
-              />
-            ) : (
-              <img
-                className="card__fav-btn-star"
-                src={favoriteBtnFilled}
-                alt="Blue Star"
-              />
-            )}
-          </button>
-          <p className="card__category">Category</p>
-          <h3 className="card__title">Game Title</h3>
-          <p className="card__description">
-            Short Description qweqwe qweqweqweqwe qweqwe q qweqweqweqw
-          </p>
-          <p className="card__platform">Platform</p>
-        </div>
-      </li>
-      {/* // GAME CARD COPIES */}
-      <li className="card">
-        <div className="card__thumbnail-container">
-          <img className="card__thumbnail" src={thumbnail} alt="" />
-          <div className="card__save-bg">
-            <img
-              className="card__save-btn"
-              src={isSaved ? saveGame : gameSaved}
-              alt={isSaved ? "Save Icon" : "Blue Checkmark"}
-              onClick={toggleIsSaved}
-            />
-          </div>
-        </div>
-        <div className="card__info">
-          <button
-            className="card__fav-btn"
-            type="button"
-            onClick={toggleIsFavorited}
-          >
-            {!isFavorited ? (
-              <img
-                className="card__fav-btn-star"
-                src={favoriteBtn}
-                alt="Star"
-              />
-            ) : (
-              <img
-                className="card__fav-btn-star"
-                src={favoriteBtnFilled}
-                alt="Blue Star"
-              />
-            )}
-          </button>
-          <p className="card__category">Category</p>
-          <h3 className="card__title">Game Title</h3>
-          <p className="card__description">
-            Short Description qweqwe qweqweqweqwe qweqwe q qweqweqweqw
-          </p>
-          <p className="card__platform">Platform</p>
-        </div>
-      </li>
-    </>
+      </div>
+      <div className="card__info">
+        <img
+          className="card__fav-btn"
+          src={isFavorited ? favoriteBtnFilled : favoriteBtn}
+          alt={isFavorited ? "Star" : "Blue Star"}
+          onClick={toggleIsFavorited}
+        />
+        <p className="card__category">Category</p>
+        <h3 className="card__title" onClick={handleGameClick}>
+          Game Title
+        </h3>
+        <p className="card__description">
+          Short Description qweqwe qweqweqweqwe qweqwe q qweqweqweqw
+        </p>
+        <p className="card__platform">Platform</p>
+      </div>
+    </li>
   );
 };
 

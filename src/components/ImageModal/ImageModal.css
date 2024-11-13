@@ -1,0 +1,7 @@
+.image-modal__image {
+    height: 700px;
+    width: 700px;
+    object-fit: cover;
+    border-radius: 16px;
+
+}

@@ -8,7 +8,7 @@ import favoriteBtnFilled from "../../assets/btns/favorite-btn-filled.png";
 
 import "./FeaturedGame.css";
 
-const FeaturedGame = () => {
+const FeaturedGame = ({ onGameTitleClick }) => {
   const [isSaved, setIsSaved] = useState(false);
   const [isFavorited, setIsFavorited] = useState(false);
 
@@ -19,6 +19,11 @@ const FeaturedGame = () => {
   const toggleIsFavorited = () => {
     setIsFavorited(!isFavorited);
   };
+
+  const handleGameClick = () => {
+    onGameTitleClick(game);
+  };
+
   return (
     <div className="featured">
       <div className="featured__heading-border">
@@ -48,7 +53,9 @@ const FeaturedGame = () => {
             onClick={toggleIsFavorited}
           />
           <p className="featured__category">Category</p>
-          <h2 className="featured__title">Game Title</h2>
+          <h2 className="featured__title" onClick={handleGameClick}>
+            Game Title
+          </h2>
           <p className="featured__description">
             Lorem ipsum odor amet, consectetuer adipiscing elit. Eu quam natoque
             at neque tortor; risus habitasse integer. Cras neque augue elit eros

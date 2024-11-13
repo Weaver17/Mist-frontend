@@ -13,7 +13,7 @@ const CompletedModal = ({
       name="completed"
       isOpen={isOpen}
       buttonText={isLoading ? "...to Sign In" : "Sign In"}
-      handleCloseClick={handleCloseClick}
+      onClose={handleCloseClick}
     >
       <div className="modal__complete-container">
         <h3 className="modal__complete-signup">

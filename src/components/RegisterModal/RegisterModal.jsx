@@ -38,6 +38,7 @@ const RegisterModal = ({
       handleCloseClick={handleCloseClick}
       buttonText={isLoading ? "Signing Up..." : "Sign Up"}
       onSubmit={handleSubmit}
+      onClose={handleCloseClick}
     >
       <div className="modal__input-container">
         <label className="modal__label">

@@ -23,7 +23,18 @@
     font-weight: 500;
     font-size: 18px;
     line-height: 24px;
+    text-decoration: none;
+    color: #f5f5f5;
     cursor: pointer;
+}
+
+.footer__nav-link-text {
+    margin: 0;
+    padding: 0;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 24px;
+    color: #f5f5f5;
 }
 
 .footer__social-icons {
@@ -42,6 +53,12 @@
     margin: 24px auto 0;
     padding: 0;
     text-align: center;
+}
+
+.footer__nav-link_thin {
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 400;
 }
 
 .footer__nav-link:hover {

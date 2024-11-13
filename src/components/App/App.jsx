@@ -15,10 +15,15 @@ import Footer from "../Footer/Footer";
 import RegisterModal from "../RegisterModal/RegisterModal";
 import LoginModal from "../LoginModal/LoginModal";
 import CompletedModal from "../CompletedModal/CompletedModal";
+import GameModal from "../GameModal/GameModal";
+import ImageModal from "../ImageModal/ImageModal";
 
 function App() {
   const [activeModal, setActiveModal] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedGame, setSelectedGame] = useState({});
+  const [selectedImage, setSelectedImage] = useState({});
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   const closeActiveModal = () => {
     setActiveModal("");
@@ -41,18 +46,36 @@ function App() {
     setActiveModal("completed");
   };
 
+  const handleGameTitleClick = (game) => {
+    setActiveModal("game");
+    setSelectedGame(game);
+  };
+
+  const handleImageClick = (image) => {
+    setActiveModal("image");
+    setSelectedImage(image);
+  };
+
+  const closeImageModal = () => {
+    setActiveModal("game");
+  };
+
   return (
     <div className="page">
       <div className="page__content">
         {/* <Preloader /> */}
         <Header
+          isLoggedIn={isLoggedIn}
           handleSignUpClick={handleSignUpClick}
           handleSignInClick={handleSignInClick}
         />
         <GameIconBanner />
 
         <Routes>
-          <Route path="/" element={<Main />} />
+          <Route
+            path="/"
+            element={<Main handleGameTitleClick={handleGameTitleClick} />}
+          />
           <Route path="profile" element={<Profile />} />
           <Route path="games" element={<GamesSection />} />
           <Route path="search" element={<SearchPage />} />
@@ -76,6 +99,15 @@ function App() {
       <CompletedModal
         isOpen={activeModal === "completed"}
         handleSignInClick={handleSignInClick}
+      />
+      <GameModal
+        handleImageClick={handleImageClick}
+        handleCloseClick={closeActiveModal}
+        isOpen={activeModal === "game"}
+      />
+      <ImageModal
+        handleCloseClick={closeImageModal}
+        isOpen={activeModal === "image"}
       />
     </div>
   );

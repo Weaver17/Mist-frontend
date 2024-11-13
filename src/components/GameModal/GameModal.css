@@ -1,0 +1,264 @@
+.game-modal {
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.game-modal__title-container {
+    margin: 0 0 20px;
+    padding: 0;
+    display: flex;
+    gap: 40px;
+    align-items: center;
+}
+
+.game-modal__title {
+    margin: 0;
+    padding: 0;
+    
+    font-size: 40px;
+    line-height: 50px;
+    font-weight: 700;
+}
+
+.game-modal__fav-btn {
+    height: 40px;
+    width: 40px;
+    cursor: pointer;
+}
+
+.game-modal__info-container {
+    display: flex;
+}
+
+.game-modal__thumbnail-container {
+    position: relative;
+}
+
+.game-modal__thumbnail {
+    border-radius: 16px;
+    height: 400px;
+    width: 580px;
+}
+
+.game-modal__download-container {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.game-modal__cat-plat-container {
+    margin: 8px 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.game-modal__category {
+    margin: 0;
+    padding: 0;
+    color: #8b8b8b;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.game-modal__platform {
+    margin: 0;
+    padding: 0;
+    
+    color: #cfcfcf;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 20px;
+    text-transform: uppercase;
+}
+
+.game-modal__download-btn {
+    background-color: #2f71e5;
+  border: solid 2px #f5f5f5;
+  color: #f5f5f5;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 18px;
+  border-radius: 100px;
+  margin: 0 0 0 20px;
+  padding: 18px 32px;
+  height: 60px;
+  cursor: pointer;
+}
+
+.game-modal__info-container-right {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.game-modal__info-container-right-top {
+    display: flex;
+    justify-content: space-between;
+}
+
+.game-modal__save-btn {
+    margin: 4px 0px 0 20px;
+    padding: 0;
+    background-color: #fff;
+    height: 48px;
+    width: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.game-modal__dev-info-container {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 24px;
+    justify-content: end;
+}
+
+.game-modal__dev-info-wrapper {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.game-modal__dev-info-type {
+    font-weight: 400;
+    color: #8b8b8b;
+    font-size: 14px;
+    line-height: 20px;
+    text-transform: uppercase;
+    margin: 0;
+    padding: 0;
+}
+
+.game-modal__dev-info {
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
+}
+
+.game-modal__description {
+    margin: 0 20px;
+    font-weight: 400;
+}
+
+.game-modal__bottom-container {
+    margin: 16px 0 0;
+    padding: 0;
+    display: grid;
+    align-items: center;
+    grid-template-areas:
+    "title title title"
+    "screenshot screenshot specs";
+    gap: 20px;
+}
+
+.game-modal__screenshot-container {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 10px;
+    grid-area: screenshot;
+    max-width: 800px;
+    flex-wrap: wrap;
+}
+
+.game-modal__screenshot-title {
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 500;
+    justify-self: center;
+    grid-area: "title";
+}
+
+.game-modal__screenshot {
+    margin: 0;
+    padding: 0;
+    border-radius: 8px;
+    max-width: 390px;
+    object-fit: contain;
+}
+
+.game-modal__specs-container {
+    margin: 0 auto auto;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    grid-area: specs;
+}
+
+.game-modal__specs-title {
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 500;
+    align-self: center;
+}
+
+.game-modal__specs-name {
+    margin: 4px 0 0;
+    padding: 0;
+    font-weight: 400;
+    color: #8b8b8b;
+    font-size: 14px;
+    line-height: 20px;
+    text-transform: uppercase;
+
+}
+
+.game-modal__specs-spec {
+    margin: 0;
+    padding: 0;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.game-modal__download-btn:hover {
+    background-color: #0255e5;
+  transition: 0.2s linear;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background-color: #efefef; 
+  border-radius: 4px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #2f71e5; 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #2f71e5; 
+}
+
+::-webkit-scrollbar-button {
+    display: none;
+}
+
+
