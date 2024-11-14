@@ -1,11 +1,9 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 import mobileMenuBtn from "../../assets/btns/mobile-menu-btn.png";
 import mobileCloseBtnBlue from "../../assets/btns/close-btn-blue.png";
 import "./Header.css";
-
-import profile from "../../assets/icons/profile-icon-blue.png";
 
 const Header = ({ handleSignUpClick, handleSignInClick, isLoggedIn }) => {
   const [isMobileMenuOpened, setMobileMenuOpened] = useState(false);
@@ -29,22 +27,24 @@ const Header = ({ handleSignUpClick, handleSignInClick, isLoggedIn }) => {
       {/* RIGHT SECTION */}
       <div className="header__right-container">
         {/* TABS */}
-        <Link className="header__tab-link" to="/">
-          <p className="header__tab header__tab_active">Home</p>
-        </Link>
-        <Link className="header__tab-link" to="/search">
+        <NavLink className="header__tab-link" to="/">
+          <p className="header__tab ">Home</p>
+        </NavLink>
+        <NavLink className="header__tab-link" to="/search">
           <p className="header__tab">Search</p>
-        </Link>
-        <Link className="header__tab-link" to="/games">
+        </NavLink>
+        <NavLink className="header__tab-link" to="/games">
           <p className="header__tab">All Games</p>
-        </Link>
+        </NavLink>
 
         {/* PROFILE BUTTONS */}
         {isLoggedIn ? (
           <div className="header__signed-container">
-            <button className="header__btn header__btn_profile">
-              Username
-            </button>
+            <Link className="header__btn-link" to="/profile">
+              <button className="header__btn header__btn_profile" type="button">
+                Username
+              </button>
+            </Link>
           </div>
         ) : (
           <div className="header__signed-container">
@@ -70,9 +70,11 @@ const Header = ({ handleSignUpClick, handleSignInClick, isLoggedIn }) => {
         {/* MOBILE REGISTER BTN */}
         {isLoggedIn ? (
           <div className="header__signed-container">
-            <button className="header__mobile-profile-btn" type="button">
-              Username
-            </button>
+            <Link className="header__btn-link" to="/profile">
+              <button className="header__mobile-profile-btn" type="button">
+                Username
+              </button>
+            </Link>
           </div>
         ) : (
           <div className="header__signed-container">
@@ -122,17 +124,15 @@ const Header = ({ handleSignUpClick, handleSignInClick, isLoggedIn }) => {
             </div>
 
             {/* MOBILE TABS */}
-            <Link className="header__mobile-tab-link" to="/">
-              <p className="header__mobile-tab header__mobile-tab_active">
-                Home
-              </p>
-            </Link>
-            <Link className="header__mobile-tab-link" to="/search">
+            <NavLink className="header__mobile-tab-link" to="/">
+              <p className="header__mobile-tab">Home</p>
+            </NavLink>
+            <NavLink className="header__mobile-tab-link" to="/search">
               <p className="header__mobile-tab">Search</p>
-            </Link>
-            <Link className="header__mobile-tab-link" to="/games">
+            </NavLink>
+            <NavLink className="header__mobile-tab-link" to="/games">
               <p className="header__mobile-tab">All Games</p>
-            </Link>
+            </NavLink>
           </div>
         </div>
       )}

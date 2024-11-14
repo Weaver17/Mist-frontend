@@ -11,6 +11,7 @@ import Main from "../Main/Main";
 import Profile from "../Profile/Profile";
 import GamesSection from "../GamesSection/GamesSection";
 import SearchPage from "../SearchPage/SearchPage";
+import About from "../About/About";
 import Footer from "../Footer/Footer";
 import RegisterModal from "../RegisterModal/RegisterModal";
 import LoginModal from "../LoginModal/LoginModal";
@@ -79,6 +80,7 @@ function App() {
           <Route path="profile" element={<Profile />} />
           <Route path="games" element={<GamesSection />} />
           <Route path="search" element={<SearchPage />} />
+          <Route path="about" element={<About />} />
         </Routes>
         <Footer />
       </div>
