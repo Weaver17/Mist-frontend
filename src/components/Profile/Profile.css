@@ -21,7 +21,7 @@
 
 .profile__mobile-btn {
   margin: 8px 0;
-  padding: 0;
+  padding: 0 0 0 32px;
   height: 36px;
   width: 36px;
   cursor: pointer;

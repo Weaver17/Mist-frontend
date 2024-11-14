@@ -47,6 +47,10 @@ function App() {
     setActiveModal("completed");
   };
 
+  const handleLogin = (values) => {
+    // Sign up logic
+  };
+
   const handleGameTitleClick = (game) => {
     setActiveModal("game");
     setSelectedGame(game);
@@ -59,6 +63,14 @@ function App() {
 
   const closeImageModal = () => {
     setActiveModal("game");
+  };
+
+  const handleEditClick = () => {
+    setActiveModal("edit");
+  };
+
+  const handleEditUsername = (values) => {
+    // set up logic
   };
 
   return (
@@ -77,7 +89,18 @@ function App() {
             path="/"
             element={<Main handleGameTitleClick={handleGameTitleClick} />}
           />
-          <Route path="profile" element={<Profile />} />
+          <Route
+            path="profile"
+            element={
+              <Profile
+                handleEditClick={handleEditClick}
+                isOpen={activeModal === "edit"}
+                handleCloseClick={closeActiveModal}
+                handleEditUsername={handleEditUsername}
+                isLoading={isLoading}
+              />
+            }
+          />
           <Route path="games" element={<GamesSection />} />
           <Route path="search" element={<SearchPage />} />
           <Route path="about" element={<About />} />
@@ -96,6 +119,7 @@ function App() {
         handleSignUpClick={handleSignUpClick}
         isOpen={activeModal === "signin"}
         handleCloseClick={closeActiveModal}
+        handleLogin={handleLogin}
       />
 
       <CompletedModal

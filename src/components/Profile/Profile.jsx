@@ -4,9 +4,17 @@ import Sidebar from "../Sidebar/Sidebar";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 import GameCard from "../GameCard/GameCard";
 
+import EditModal from "../EditModal/EditModal";
+
 import "./Profile.css";
 
-const Profile = () => {
+const Profile = ({
+  handleEditClick,
+  isOpen,
+  handleCloseClick,
+  handleEditUsername,
+  isLoading,
+}) => {
   const [isFavoritesChecked, setIsFavoritesChecked] = useState(true);
 
   const toggleFavoritesAndSaved = () => {
@@ -18,11 +26,22 @@ const Profile = () => {
   const toggleMobileMenu = () => {
     setMobileMenuOpened(!isMobileMenuOpened);
   };
+
+  const handleMobileEditClick = () => {
+    handleEditClick();
+    setMobileMenuOpened(!isMobileMenuOpened);
+  };
   return (
     <div className="profile">
       {/* SIDEBAR  */}
       <section className="profile__sidebar">
-        <Sidebar />
+        <Sidebar
+          isOpen={isOpen}
+          handleCloseClick={handleCloseClick}
+          handleEditUsername={handleEditUsername}
+          isLoading={isLoading}
+          handleEditClick={handleEditClick}
+        />
       </section>
       {/* GAMES  */}
       <section className="profile__games">
@@ -30,7 +49,9 @@ const Profile = () => {
           className="profile__mobile-btn"
           type="button"
           onClick={toggleMobileMenu}
-        ></button>
+        >
+          Username
+        </button>
         {/* TOGGLE SWITCH  */}
         <div className="profile__games-switch">
           <ToggleSwitch
@@ -63,7 +84,11 @@ const Profile = () => {
                 type="button"
                 onClick={toggleMobileMenu}
               />
-              <button type="button" className="sidebar__edit">
+              <button
+                type="button"
+                className="sidebar__edit"
+                onClick={handleMobileEditClick}
+              >
                 Change Username
               </button>
 
@@ -74,6 +99,12 @@ const Profile = () => {
           </div>
         )}
       </section>
+      <EditModal
+        isOpen={isOpen}
+        handleCloseClick={handleCloseClick}
+        handleEditUsername={handleEditUsername}
+        isLoading={isLoading}
+      />
     </div>
   );
 };

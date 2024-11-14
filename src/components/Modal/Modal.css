@@ -16,13 +16,13 @@
 }
 
 .modal__content {
-    box-sizing: border-box;
-    position: relative;
-    background: #fff;
-    padding: 40px;
-    width: 480px;
-    border-radius: 30px;
-    border: 1px solid #cfcfcf;
+  box-sizing: border-box;
+  position: relative;
+  background: #fff;
+  padding: 40px;
+  width: 480px;
+  border-radius: 30px;
+  border: 1px solid #cfcfcf;
 }
 
 .modal__close-btn {
@@ -45,42 +45,35 @@
   transition-delay: 0s;
 }
 
-
-
 .modal__close-btn_type_completed {
-    display: none;
+  display: none;
 }
 
 .modal__content_type_game {
-    border-radius: 16px;
-    padding: 0px;
-    width: 1180px;
-    max-height: 600px;
-    overflow: scroll;
+  border-radius: 16px;
+  padding: 0px;
+  width: 1180px;
+  max-height: 600px;
+  overflow: scroll;
 }
 
 .modal__content_type_image {
-    margin: 0;
-    padding: 16px;
-    width: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 16px;
+  margin: 0;
+  padding: 16px;
+  width: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 16px;
 }
 
 .modal__close-btn_type_image {
-    top: -20px;
-    right: -20px;
-    background: transparent url(../../assets/btns/close-btn-white.png);
+  top: -20px;
+  right: -20px;
+  background: transparent url(../../assets/btns/close-btn-white.png);
 }
 
-
-
-
 @media screen and (max-width: 515px) {
-  
-
   .modal__content_type_completed {
     padding-bottom: 30px;
     max-width: 343px;
@@ -105,5 +98,12 @@
     border: none;
   }
 
-  
+  .modal__content_type_edit {
+    padding-bottom: 72px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    border-radius: 30px 30px 0 0;
+    border: none;
+  }
 }
