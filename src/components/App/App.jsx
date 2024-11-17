@@ -1,7 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 
-import Preloader from "../Preloader/Preloader";
+import {
+  getGamesByReleaseDate,
+  getAllGames,
+  getGameById,
+} from "../../utils/gameApi";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 import "./App.css";
 
@@ -17,14 +22,22 @@ import RegisterModal from "../RegisterModal/RegisterModal";
 import LoginModal from "../LoginModal/LoginModal";
 import CompletedModal from "../CompletedModal/CompletedModal";
 import GameModal from "../GameModal/GameModal";
-import ImageModal from "../ImageModal/ImageModal";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 function App() {
   const [activeModal, setActiveModal] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [selectedGame, setSelectedGame] = useState({});
-  const [selectedImage, setSelectedImage] = useState({});
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  // const [selectedImage, setSelectedImage] = useState({});
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [games, setGames] = useState([]);
+  const [currentUser, setCurrentUser] = useState({
+    _id: "",
+    username: "",
+    email: "",
+  });
+
+  const navigate = useNavigate();
 
   const closeActiveModal = () => {
     setActiveModal("");
@@ -51,19 +64,21 @@ function App() {
     // Sign up logic
   };
 
-  const handleGameTitleClick = (game) => {
-    setActiveModal("game");
+  const handleGameClick = (game) => {
     setSelectedGame(game);
-  };
-
-  const handleImageClick = (image) => {
-    setActiveModal("image");
-    setSelectedImage(image);
-  };
-
-  const closeImageModal = () => {
     setActiveModal("game");
+    console.log(game);
   };
+
+  // const handleImageClick = (gameImg) => {
+  //   setActiveModal("image");
+  //   setSelectedImage(gameImg);
+  // };
+
+  // const closeImageModal = () => {
+  //   setActiveModal("game");
+  //   setSelectedGame(selectedGame);
+  // };
 
   const handleEditClick = () => {
     setActiveModal("edit");
@@ -73,69 +88,101 @@ function App() {
     // set up logic
   };
 
+  const getGameIds = () => {
+    const gameId = games.map((game) => {
+      return game.id;
+    });
+    return gameId;
+  };
+
+  useEffect(() => {
+    getGamesByReleaseDate()
+      .then((items) => {
+        setIsLoading(true);
+        setGames(items);
+      })
+      .catch(console.error)
+      .finally(setIsLoading(false));
+  }, []);
+
   return (
-    <div className="page">
-      <div className="page__content">
-        {/* <Preloader /> */}
-        <Header
-          isLoggedIn={isLoggedIn}
+    <CurrentUserContext.Provider
+      value={{ currentUser, isLoggedIn, setIsLoggedIn }}
+    >
+      <div className="page">
+        <div className="page__content">
+          {/* <Preloader /> */}
+          <Header
+            isLoggedIn={isLoggedIn}
+            handleSignUpClick={handleSignUpClick}
+            handleSignInClick={handleSignInClick}
+          />
+          <GameIconBanner />
+
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Main
+                  handleGameClick={handleGameClick}
+                  games={games}
+                  isLoading={isLoading}
+                  selectedGame={selectedGame}
+                />
+              }
+            />
+            <Route
+              path="profile"
+              element={
+                <ProtectedRoute>
+                  <Profile
+                    handleEditClick={handleEditClick}
+                    isOpen={activeModal === "edit"}
+                    handleCloseClick={closeActiveModal}
+                    handleEditUsername={handleEditUsername}
+                    isLoading={isLoading}
+                    games={games}
+                  />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="games" element={<GamesSection games={games} />} />
+            <Route path="search" element={<SearchPage games={games} />} />
+            <Route path="about" element={<About />} />
+          </Routes>
+          <Footer />
+        </div>
+
+        <RegisterModal
+          handleSignInClick={handleSignInClick}
+          isOpen={activeModal === "register"}
+          handleCloseClick={closeActiveModal}
+          handleRegistrationClick={handleRegistrationClick}
+          handleRegistration={handleRegistration}
+        />
+        <LoginModal
           handleSignUpClick={handleSignUpClick}
+          isOpen={activeModal === "signin"}
+          handleCloseClick={closeActiveModal}
+          handleLogin={handleLogin}
+        />
+
+        <CompletedModal
+          isOpen={activeModal === "completed"}
           handleSignInClick={handleSignInClick}
         />
-        <GameIconBanner />
-
-        <Routes>
-          <Route
-            path="/"
-            element={<Main handleGameTitleClick={handleGameTitleClick} />}
-          />
-          <Route
-            path="profile"
-            element={
-              <Profile
-                handleEditClick={handleEditClick}
-                isOpen={activeModal === "edit"}
-                handleCloseClick={closeActiveModal}
-                handleEditUsername={handleEditUsername}
-                isLoading={isLoading}
-              />
-            }
-          />
-          <Route path="games" element={<GamesSection />} />
-          <Route path="search" element={<SearchPage />} />
-          <Route path="about" element={<About />} />
-        </Routes>
-        <Footer />
-      </div>
-
-      <RegisterModal
-        handleSignInClick={handleSignInClick}
-        isOpen={activeModal === "register"}
-        handleCloseClick={closeActiveModal}
-        handleRegistrationClick={handleRegistrationClick}
-        handleRegistration={handleRegistration}
-      />
-      <LoginModal
-        handleSignUpClick={handleSignUpClick}
-        isOpen={activeModal === "signin"}
-        handleCloseClick={closeActiveModal}
-        handleLogin={handleLogin}
-      />
-
-      <CompletedModal
-        isOpen={activeModal === "completed"}
-        handleSignInClick={handleSignInClick}
-      />
-      <GameModal
-        handleImageClick={handleImageClick}
-        handleCloseClick={closeActiveModal}
-        isOpen={activeModal === "game"}
-      />
-      <ImageModal
+        <GameModal
+          handleCloseClick={closeActiveModal}
+          isOpen={activeModal === "game"}
+          game={selectedGame}
+        />
+        {/* <ImageModal
+        game={selectedGame}
         handleCloseClick={closeImageModal}
         isOpen={activeModal === "image"}
-      />
-    </div>
+      /> */}
+      </div>
+    </CurrentUserContext.Provider>
   );
 }
 

@@ -3,22 +3,25 @@ import FeaturedGame from "../FeaturedGame/FeaturedGame";
 
 import "./Main.css";
 
-const Main = ({ handleGameTitleClick }) => {
+const Main = ({ handleGameClick, games, isLoading }) => {
   return (
-    <div className="main">
+    <section className="main">
       {/* FEATURED GAME */}
       <div className="main__featured-card">
-        <FeaturedGame onGameTitleClick={handleGameTitleClick} />
+        <FeaturedGame onGameClick={handleGameClick} />
       </div>
+
+      <h2 className="main__card-list-title">Newest Releases:</h2>
+
       {/* GAME CARD GRID */}
       <ul className="main__card-list">
-        <GameCard onGameTitleClick={handleGameTitleClick} />
-        <GameCard onGameTitleClick={handleGameTitleClick} />
-        <GameCard onGameTitleClick={handleGameTitleClick} />
-        <GameCard onGameTitleClick={handleGameTitleClick} />
-        <GameCard onGameTitleClick={handleGameTitleClick} />
+        {games.map((game) => {
+          return (
+            <GameCard key={game.id} game={game} onGameClick={handleGameClick} />
+          );
+        })}
       </ul>
-    </div>
+    </section>
   );
 };
 

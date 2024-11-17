@@ -1,16 +1,26 @@
+.main__card-list-title {
+  margin: 8px auto 12px 28px;
+  padding: 0;
+  font-size: 32px;
+  line-height: 40px;
+}
+
+/* API THUMBNAIL SIZE IS 365 x 206 */
 .main__card-list {
-    display: grid;
-    gap: 20px;
-    grid-template-columns: repeat(auto-fit, 400px);
-    list-style-type: none;
-    margin: 40px 0;
-    padding: 0;
-    justify-content: center;
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, 400px);
+  list-style-type: none;
+  margin: 20px 0;
+  padding: 0;
+  justify-content: center;
+
+  max-height: 800px;
+  overflow: scroll;
 }
 
 @media screen and (max-width: 985px) {
-    .main__card-list {
+  .main__card-list {
     grid-template-columns: repeat(auto-fit, 350px);
-
-    }
+  }
 }
