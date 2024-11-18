@@ -1,4 +1,6 @@
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
+
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useForm } from "../../hooks/useForm";
@@ -9,11 +11,12 @@ const EditModal = ({
   handleEditUsername,
   isLoading,
 }) => {
+  const { currentUser } = useContext(CurrentUserContext);
+
   const { values, handleChange, setValues } = useForm({
     username: "",
+    email: currentUser?.user?.email,
   });
-
-  const currentuser = "Phil";
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -22,7 +25,10 @@ const EditModal = ({
 
   useEffect(() => {
     if (isOpen) {
-      setValues({ username: currentuser });
+      setValues({
+        username: currentUser?.user?.username,
+        email: currentUser?.user?.email,
+      });
     }
   }, [isOpen]);
   return (
@@ -41,8 +47,7 @@ const EditModal = ({
               type="text"
               name="username"
               className="modal__input"
-              placeholder="Username"
-              value={values.username || ""}
+              value={values?.username || ""}
               onChange={handleChange}
               required
             />

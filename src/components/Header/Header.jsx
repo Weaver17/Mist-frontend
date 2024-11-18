@@ -22,7 +22,12 @@ const Header = ({ handleSignUpClick, handleSignInClick, isLoggedIn }) => {
         <Link className="header__logo-link" to="/">
           <div className="header__logo">
             <div className="header__logo-bar-one"></div>
-            <h1 className="header__logo-text">MIST</h1>
+            <h1
+              className="header__logo-text"
+              onClick={() => console.log(currentUser)}
+            >
+              MIST
+            </h1>
             <div className="header__logo-bar-two"></div>
           </div>
         </Link>
@@ -46,7 +51,7 @@ const Header = ({ handleSignUpClick, handleSignInClick, isLoggedIn }) => {
           <div className="header__signed-container">
             <Link className="header__btn-link" to="/profile">
               <button className="header__btn header__btn_profile" type="button">
-                {currentUser.username}
+                {currentUser?.user?.username}
               </button>
             </Link>
           </div>

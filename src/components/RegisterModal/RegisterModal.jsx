@@ -15,7 +15,7 @@ const RegisterModal = ({
     username: "",
     email: "",
     password: "",
-    confrimPassword: "",
+    confirmPassword: "",
   });
 
   const handleSubmit = (e) => {
@@ -26,7 +26,7 @@ const RegisterModal = ({
 
   useEffect(() => {
     if (isOpen) {
-      setValues({ username: "", email: "", password: "", confrimPassword: "" });
+      setValues({ username: "", email: "", password: "", confirmPassword: "" });
     }
   }, [isOpen]);
 
@@ -77,10 +77,10 @@ const RegisterModal = ({
         <label className="modal__label">
           <input
             type="password"
-            name="confrimPassword"
+            name="confirmPassword"
             className="modal__input"
             placeholder="Confirm Password"
-            value={values.confrimPassword || ""}
+            value={values.confirmPassword || ""}
             onChange={handleChange}
             required
           />

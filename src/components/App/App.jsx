@@ -32,15 +32,15 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedGame, setSelectedGame] = useState({});
   // const [selectedImage, setSelectedImage] = useState({});
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [games, setGames] = useState([]);
   const [favoritedGames, setFavoritedGames] = useState([]);
   const [savedGames, setSavedGames] = useState([]);
   const [currentUser, setCurrentUser] = useState({
-    _id: "fake-id",
-    username: "Daus",
-    email: "fake@example.com",
-    password: "12345",
+    _id: "",
+    username: "",
+    email: "",
+    password: "",
   });
 
   const navigate = useNavigate();
@@ -57,8 +57,18 @@ function App() {
     setActiveModal("signin");
   };
 
-  const handleRegistration = (values) => {
-    // Sign up logic
+  const handleRegistration = (username, email, password, confirmPassword) => {
+    if (password !== confirmPassword) {
+      return;
+    }
+
+    auth
+      .register(username, email, password)
+      .catch(console.error)
+      .finally(() => {
+        setIsLoading(false);
+        console.log(username, email, password);
+      });
     handleRegistrationClick();
   };
 
@@ -67,31 +77,31 @@ function App() {
   };
 
   const handleLogin = ({ email, password }) => {
-    setIsLoading(true);
-
     if (!email || !password) {
       return;
     }
 
     auth
-      .authorize(email, password)
+      .login(email, password)
       .then((data) => {
-        setIsLoggedIn(true);
-
         localStorage.setItem("JWT_TOKEN", data.token);
+        setIsLoggedIn(true);
+        setCurrentUser(data);
+        console.log("Token received:", data.token);
         closeActiveModal();
 
         return auth.checkToken(data.token);
-      })
-      .then((userData) => {
-        if (userData) {
-          setCurrentUser(userData);
-        }
       })
       .catch(console.error)
       .finally(() => {
         setIsLoading(false);
       });
+  };
+
+  const handleLogOut = () => {
+    localStorage.removeItem("JWT_TOKEN");
+    navigate("/");
+    setIsLoggedIn(false);
   };
 
   const handleGameClick = (game) => {
@@ -111,14 +121,24 @@ function App() {
 
   const handleEditClick = () => {
     setActiveModal("edit");
+    console.log(currentUser.username);
   };
 
-  const handleEditUsername = (values) => {
-    // set up logic
+  const handleEditUsername = (data) => {
+    const token = localStorage.getItem("JWT_TOKEN");
+
+    auth
+      .editUsername(data)
+      .then(() => {
+        setCurrentUser(data);
+
+        closeActiveModal();
+      })
+      .catch(console.error);
   };
 
   const handleFavoriteGame = (game) => {
-    const token = localStorage.getItem("a fake token");
+    const token = localStorage.getItem("JWT_TOKEN");
 
     const favorited = {
       favorited: favoritedGames.some((favGame) => favGame.id === game.id),
@@ -136,7 +156,7 @@ function App() {
   };
 
   const handleSaveGame = (game) => {
-    const token = localStorage.getItem("a fake token");
+    const token = localStorage.getItem("JWT_TOKEN");
 
     const saved = {
       saved: savedGames.some((savGame) => savGame.id === game.id),
@@ -161,12 +181,23 @@ function App() {
   }, [getGamesByReleaseDate]);
 
   useEffect(() => {
-    console.log(favoritedGames);
-  }, [favoritedGames]);
+    const token = localStorage.getItem("JWT_TOKEN");
 
-  useEffect(() => {
-    console.log(savedGames);
-  }, [savedGames]);
+    if (!token) {
+      console.log("token not found, user is not logged in.");
+      return;
+    }
+
+    auth
+      .checkToken(token, currentUser?.user?.email, currentUser?.user?.password)
+      .then((data) => {
+        console.log(data);
+
+        setCurrentUser(data);
+        setIsLoggedIn(true);
+      })
+      .catch(console.error);
+  }, []);
 
   return (
     <CurrentUserContext.Provider
@@ -208,6 +239,7 @@ function App() {
                         handleEditClick={handleEditClick}
                         isOpen={activeModal === "edit"}
                         handleEditUsername={handleEditUsername}
+                        handleLogOut={handleLogOut}
                         games={games}
                         handleCloseClick={closeActiveModal}
                         isLoading={isLoading}

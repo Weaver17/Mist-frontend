@@ -22,6 +22,7 @@ const Profile = ({
   selectedGame,
   handleFavoriteGame,
   handleSaveGame,
+  handleLogOut,
 }) => {
   const [isFavoriteChecked, setIsFavoriteChecked] = useState(true);
   const [isMobileMenuOpened, setMobileMenuOpened] = useState(false);
@@ -63,6 +64,7 @@ const Profile = ({
           handleEditUsername={handleEditUsername}
           isLoading={isLoading}
           handleEditClick={handleEditClick}
+          handleLogOut={handleLogOut}
         />
       </section>
       {/* GAMES  */}
@@ -72,7 +74,7 @@ const Profile = ({
           type="button"
           onClick={toggleMobileMenu}
         >
-          {currentUser.username}
+          {currentUser?.user?.username}
         </button>
         {/* TOGGLE SWITCH  */}
         <div className="profile__games-switch">
@@ -167,7 +169,11 @@ const Profile = ({
                 Change Username
               </button>
 
-              <button type="button" className="sidebar__logout">
+              <button
+                type="button"
+                className="sidebar__logout"
+                onClick={handleLogOut}
+              >
                 Log out
               </button>
             </div>

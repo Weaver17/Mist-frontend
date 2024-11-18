@@ -45,6 +45,11 @@ const FeaturedGame = ({ onGameClick, games, onFavoriteGame, onSaveGame }) => {
         const today = new Date().toISOString().slice(0, 10);
         const randomIndex = Math.floor(Math.random() * games.length);
 
+        const storedGame = localStorage.getItem(`gameOfTheDay-${today}`);
+        if (storedGame) {
+          selectedGame = JSON.parse(storedGame);
+        }
+
         const selectedGame = games[randomIndex];
         localStorage.setItem(
           `featuredGame-${today}`,
