@@ -1,3 +1,7 @@
+import { useContext } from "react";
+
+import CurrentUserContext from "../../contexts/CurrentUserContext";
+
 import EditModal from "../EditModal/EditModal";
 
 import "./Sidebar.css";
@@ -9,10 +13,12 @@ const Sidebar = ({
   handleEditUsername,
   isLoading,
 }) => {
+  const { currentUser } = useContext(CurrentUserContext);
+
   return (
     <section className="sidebar">
       <div className="sidebar__username-container">
-        <h3 className="sidebar__username">Username</h3>
+        <h3 className="sidebar__username">{currentUser.username}</h3>
       </div>
       <button type="button" className="sidebar__edit" onClick={handleEditClick}>
         Change Username

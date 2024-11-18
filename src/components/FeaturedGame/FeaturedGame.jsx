@@ -1,6 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 
-import thumbnail from "../../assets/thumbnail-standin.png";
+import FavoriteGameContext from "../../contexts/FavoriteGameContext";
+import SavedGamesContext from "../../contexts/SavedGamesContext";
+import Preloader from "../Preloader/Preloader";
+import { getGameById } from "../../utils/gameApi";
+
 import saveGame from "../../assets/btns/save-btn2.png";
 import gameSaved from "../../assets/icons/saved-icon-blue.png";
 import favoriteBtn from "../../assets/btns/favorite-btn.png";
@@ -8,73 +12,112 @@ import favoriteBtnFilled from "../../assets/btns/favorite-btn-filled.png";
 
 import "./FeaturedGame.css";
 
-const FeaturedGame = ({ onGameTitleClick }) => {
-  const [isSaved, setIsSaved] = useState(false);
-  const [isFavorited, setIsFavorited] = useState(false);
+const FeaturedGame = ({ onGameClick, games, onFavoriteGame, onSaveGame }) => {
+  const [featuredGame, setFeaturedGame] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const toggleIsSaved = () => {
-    setIsSaved(!isSaved);
+  const { favoritedGames } = useContext(FavoriteGameContext);
+  const { savedGames } = useContext(SavedGamesContext);
+
+  const isSaved = savedGames.some((savGame) => savGame.id === featuredGame?.id);
+
+  const isFavorited = favoritedGames.some(
+    (favGame) => favGame.id === featuredGame?.id
+  );
+
+  const handleFavoriteGame = () => {
+    onFavoriteGame(featuredGame);
   };
 
-  const toggleIsFavorited = () => {
-    setIsFavorited(!isFavorited);
+  const handleSaveGame = () => {
+    onSaveGame(featuredGame);
   };
 
   const handleGameClick = () => {
-    onGameTitleClick(game);
+    getGameById(featuredGame.id).then((item) => {
+      onGameClick(item);
+    });
   };
+
+  useEffect(() => {
+    const loadFeaturedGame = () => {
+      try {
+        const today = new Date().toISOString().slice(0, 10);
+        const randomIndex = Math.floor(Math.random() * games.length);
+
+        const selectedGame = games[randomIndex];
+        localStorage.setItem(
+          `featuredGame-${today}`,
+          JSON.stringify(selectedGame)
+        );
+
+        setFeaturedGame(selectedGame);
+      } catch {
+        console.error;
+      }
+    };
+
+    loadFeaturedGame();
+  }, [games]);
+
+  useEffect(() => {
+    if (featuredGame) {
+      setIsLoading(false);
+    }
+  }, [featuredGame]);
+
+  useEffect(() => {
+    if (featuredGame?.id) {
+      getGameById(featuredGame.id)
+        .then((item) => {
+          setFeaturedGame(item);
+        })
+        .catch(console.error)
+        .finally(setIsLoading(false));
+    }
+  }, [featuredGame?.id]);
 
   return (
     <div className="featured">
       <div className="featured__heading-border">
         <h2 className="featured__heading">Today's Featured Game:</h2>
-      </div>
-      <div className="featured__card">
-        <div className="featured__thumbnail-container">
-          <img
-            className="featured__thumbnail"
-            src={thumbnail}
-            alt="Game Cover"
-          />
-          <div className="featured__save-bg">
+      </div>{" "}
+      {isLoading ? (
+        <Preloader />
+      ) : (
+        <div className="featured__card">
+          <div className="featured__thumbnail-container">
             <img
-              className="featured__save-btn"
-              src={isSaved ? saveGame : gameSaved}
-              alt={isSaved ? "Save Icon" : "Blue Checkmark"}
-              onClick={toggleIsSaved}
+              className="featured__thumbnail"
+              src={featuredGame.thumbnail}
+              alt="Game Cover"
+              onClick={handleGameClick}
             />
+            <div className="featured__save-bg">
+              <img
+                className="featured__save-btn"
+                src={!isSaved ? saveGame : gameSaved}
+                alt={!isSaved ? "Save Icon" : "Blue Checkmark"}
+                onClick={handleSaveGame}
+              />
+            </div>
+          </div>
+          <div className="featured__info">
+            <img
+              className="featured__fav-btn"
+              src={isFavorited ? favoriteBtnFilled : favoriteBtn}
+              alt={isFavorited ? "Star" : "Blue Star"}
+              onClick={handleFavoriteGame}
+            />
+            <p className="featured__category">{featuredGame.genre}</p>
+            <h2 className="featured__title" onClick={handleGameClick}>
+              {featuredGame.title}
+            </h2>
+            <p className="featured__description">{featuredGame.description}</p>
+            <p className="featured__platform">{featuredGame.platform}</p>
           </div>
         </div>
-        <div className="featured__info">
-          <img
-            className="featured__fav-btn"
-            src={isFavorited ? favoriteBtnFilled : favoriteBtn}
-            alt={isFavorited ? "Star" : "Blue Star"}
-            onClick={toggleIsFavorited}
-          />
-          <p className="featured__category">Category</p>
-          <h2 className="featured__title" onClick={handleGameClick}>
-            Game Title
-          </h2>
-          <p className="featured__description">
-            Lorem ipsum odor amet, consectetuer adipiscing elit. Eu quam natoque
-            at neque tortor; risus habitasse integer. Cras neque augue elit eros
-            aliquet enim etiam leo tortor. Interdum class vivamus erat luctus;
-            sagittis auctor ut taciti? Tortor volutpat hendrerit lorem tellus
-            facilisi tristique justo scelerisque gravida. Dictumst interdum
-            dapibus; nunc montes nostra gravida.
-            <br />
-            <br />
-            Lorem ipsum odor amet, consectetuer adipiscing elit. Eu quam natoque
-            at neque tortor; risus habitasse integer. Cras neque augue elit eros
-            aliquet enim etiam leo tortor. Interdum class vivamus erat luctus;
-            sagittis auctor ut taciti? Tortor volutpat hendrerit lorem tellus
-            facilisi tristique justo scelerisque gravida. Dictumst interdum
-            dapibus; nunc montes nostra gravida.
-          </p>
-          <p className="featured__platform">Platform</p>
-        </div>
-      </div>
+      )}
     </div>
   );
 };

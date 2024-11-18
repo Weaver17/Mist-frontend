@@ -52,8 +52,28 @@
   justify-content: center;
 }
 
+.profile__show-more-btn {
+  background-color: #2f71e5;
+  border: solid 2px #f5f5f5;
+  color: #f5f5f5;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 18px;
+  border-radius: 100px;
+  margin: 12px;
+  padding: 18px 32px;
+  height: 60px;
+  align-self: center;
+  cursor: pointer;
+}
+
 .profile__mobile {
   display: none;
+}
+
+.profile__show-more-btn:hover {
+  background-color: #0255e5;
+  transition: 0.2s linear;
 }
 
 @media screen and (max-width: 630px) {

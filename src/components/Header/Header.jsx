@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
+
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 import mobileMenuBtn from "../../assets/btns/mobile-menu-btn.png";
 import mobileCloseBtnBlue from "../../assets/btns/close-btn-blue.png";
@@ -7,6 +9,8 @@ import "./Header.css";
 
 const Header = ({ handleSignUpClick, handleSignInClick, isLoggedIn }) => {
   const [isMobileMenuOpened, setMobileMenuOpened] = useState(false);
+
+  const { currentUser } = useContext(CurrentUserContext);
 
   const toggleMobileMenu = () => {
     setMobileMenuOpened(!isMobileMenuOpened);
@@ -42,7 +46,7 @@ const Header = ({ handleSignUpClick, handleSignInClick, isLoggedIn }) => {
           <div className="header__signed-container">
             <Link className="header__btn-link" to="/profile">
               <button className="header__btn header__btn_profile" type="button">
-                Username
+                {currentUser.username}
               </button>
             </Link>
           </div>

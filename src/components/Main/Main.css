@@ -1,3 +1,8 @@
+.main {
+  display: flex;
+  flex-direction: column;
+}
+
 .main__card-list-title {
   margin: 8px auto 12px 28px;
   padding: 0;
@@ -5,18 +10,36 @@
   line-height: 40px;
 }
 
-/* API THUMBNAIL SIZE IS 365 x 206 */
 .main__card-list {
   display: grid;
+  position: relative;
   gap: 20px;
   grid-template-columns: repeat(auto-fit, 400px);
   list-style-type: none;
   margin: 20px 0;
   padding: 0;
   justify-content: center;
+  min-height: 100px;
+}
 
-  max-height: 800px;
-  overflow: scroll;
+.main__show-more-btn {
+  background-color: #2f71e5;
+  border: solid 2px #f5f5f5;
+  color: #f5f5f5;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 18px;
+  border-radius: 100px;
+  margin: 12px;
+  padding: 18px 32px;
+  height: 60px;
+  align-self: center;
+  cursor: pointer;
+}
+
+.main__show-more-btn:hover {
+  background-color: #0255e5;
+  transition: 0.2s linear;
 }
 
 @media screen and (max-width: 985px) {

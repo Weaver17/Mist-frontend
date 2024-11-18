@@ -1,4 +1,8 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+
+import FavoriteGameContext from "../../contexts/FavoriteGameContext";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
+import SavedGamesContext from "../../contexts/SavedGamesContext";
 
 import Sidebar from "../Sidebar/Sidebar";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
@@ -14,14 +18,23 @@ const Profile = ({
   handleCloseClick,
   handleEditUsername,
   isLoading,
+  handleGameClick,
+  selectedGame,
+  handleFavoriteGame,
+  handleSaveGame,
 }) => {
-  const [isFavoritesChecked, setIsFavoritesChecked] = useState(true);
+  const [isFavoriteChecked, setIsFavoriteChecked] = useState(true);
+  const [isMobileMenuOpened, setMobileMenuOpened] = useState(false);
+  const [visibleFavCount, setVisibleFavCount] = useState(4);
+  const [visibleSavCount, setVisibleSavCount] = useState(4);
+
+  const { favoritedGames } = useContext(FavoriteGameContext);
+  const { currentUser } = useContext(CurrentUserContext);
+  const { savedGames } = useContext(SavedGamesContext);
 
   const toggleFavoritesAndSaved = () => {
-    setIsFavoritesChecked(!isFavoritesChecked);
+    setIsFavoriteChecked(!isFavoriteChecked);
   };
-
-  const [isMobileMenuOpened, setMobileMenuOpened] = useState(false);
 
   const toggleMobileMenu = () => {
     setMobileMenuOpened(!isMobileMenuOpened);
@@ -31,6 +44,15 @@ const Profile = ({
     handleEditClick();
     setMobileMenuOpened(!isMobileMenuOpened);
   };
+
+  const onShowMoreFavClick = () => {
+    setVisibleFavCount((prevCount) => prevCount + 2);
+  };
+
+  const onShowMoreSavClick = () => {
+    setVisibleSavCount((prevCount) => prevCount + 2);
+  };
+
   return (
     <div className="profile">
       {/* SIDEBAR  */}
@@ -50,27 +72,80 @@ const Profile = ({
           type="button"
           onClick={toggleMobileMenu}
         >
-          Username
+          {currentUser.username}
         </button>
         {/* TOGGLE SWITCH  */}
         <div className="profile__games-switch">
           <ToggleSwitch
             toggleFavoritesAndSaved={toggleFavoritesAndSaved}
-            isFavoritesChecked={isFavoritesChecked}
+            isFavoriteChecked={isFavoriteChecked}
           />
         </div>
         <div className="profile__games-list-container">
           {/* FAVE/SAVE LISTS  */}
-          {isFavoritesChecked ? (
+          {isFavoriteChecked ? (
             <ul className="profile__games-list profile__games-list_favorites">
-              <GameCard />
-              <GameCard />
+              {favoritedGames.slice(0, visibleFavCount).map((game) => {
+                const isSaved = savedGames.some(
+                  (savGame) => savGame.id === game.id
+                );
+
+                const isFavorited = favoritedGames.some(
+                  (favGame) => favGame.id === game.id
+                );
+                return (
+                  <GameCard
+                    key={game.id}
+                    game={game}
+                    onFavoriteGame={handleFavoriteGame}
+                    onSaveGame={handleSaveGame}
+                    onGameClick={handleGameClick}
+                    isFavorited={isFavorited}
+                    isSaved={isSaved}
+                  />
+                );
+              })}
+              {!isLoading && visibleFavCount < favoritedGames.length && (
+                <button
+                  type="button"
+                  onClick={onShowMoreFavClick}
+                  className="profile__show-more-btn"
+                >
+                  Show More
+                </button>
+              )}
             </ul>
           ) : (
             <ul className="profile__games-list profile__games-list_saved">
-              <GameCard />
-              <GameCard />
-              <GameCard />
+              {savedGames.slice(0, visibleSavCount).map((game) => {
+                const isSaved = savedGames.some(
+                  (savGame) => savGame.id === game.id
+                );
+
+                const isFavorited = favoritedGames.some(
+                  (favGame) => favGame.id === game.id
+                );
+                return (
+                  <GameCard
+                    key={game.id}
+                    game={game}
+                    onFavoriteGame={handleFavoriteGame}
+                    onSaveGame={handleSaveGame}
+                    onGameClick={handleGameClick}
+                    isSaved={isSaved}
+                    isFavorited={isFavorited}
+                  />
+                );
+              })}
+              {!isLoading && visibleSavCount < savedGames.length && (
+                <button
+                  type="button"
+                  onClick={onShowMoreSavClick}
+                  className="profile__show-more-btn"
+                >
+                  Show More
+                </button>
+              )}
             </ul>
           )}
         </div>

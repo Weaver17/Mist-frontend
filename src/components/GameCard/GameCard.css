@@ -1,4 +1,3 @@
-/* API THUMBNAIL SIZE IS 365 x 206 */
 .card {
   border-radius: 16px;
   background: #fff;
@@ -127,6 +126,11 @@
   .card__thumbnail {
     height: 240px;
     width: 350px;
+  }
+
+  .card__save-bg {
+    top: 8px;
+    right: 58px;
   }
 
   .card__info {

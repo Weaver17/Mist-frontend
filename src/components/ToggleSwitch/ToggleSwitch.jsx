@@ -1,6 +1,6 @@
 import "./ToggleSwitch.css";
 
-const ToggleSwitch = ({ toggleFavoritesAndSaved, isFavoritesChecked }) => {
+const ToggleSwitch = ({ toggleFavoritesAndSaved, isFavoriteChecked }) => {
   return (
     <div className="toggle-switch">
       <label htmlFor="temp-switch-checkbox" className="toggle-switch__label">
@@ -14,21 +14,21 @@ const ToggleSwitch = ({ toggleFavoritesAndSaved, isFavoritesChecked }) => {
         />
         <span
           className={
-            isFavoritesChecked
+            isFavoriteChecked
               ? "toggle-switch__slider toggle-switch__favorites"
               : "toggle-switch__slider toggle-switch__saved"
           }
         ></span>
         <p
           className={`toggle-switch__favorites ${
-            isFavoritesChecked && "toggle-switch__active"
+            isFavoriteChecked && "toggle-switch__active"
           }`}
         >
           Favorites
         </p>
         <p
           className={`toggle-switch__saved ${
-            !isFavoritesChecked && "toggle-switch__active"
+            !isFavoriteChecked && "toggle-switch__active"
           }`}
         >
           Saved Games

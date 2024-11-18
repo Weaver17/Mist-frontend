@@ -1,4 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useContext } from "react";
+
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 import { getGameById } from "../../utils/gameApi";
 
@@ -9,16 +11,22 @@ import favoriteBtnFilled from "../../assets/btns/favorite-btn-filled.png";
 
 import "./GameCard.css";
 
-const GameCard = ({ onGameClick, game }) => {
-  const [isSaved, setIsSaved] = useState(false);
-  const [isFavorited, setIsFavorited] = useState(false);
+const GameCard = ({
+  onGameClick,
+  game,
+  onFavoriteGame,
+  onSaveGame,
+  isFavorited,
+  isSaved,
+}) => {
+  const { isLoggedIn, currentUser } = useContext(CurrentUserContext);
 
-  const toggleIsSaved = () => {
-    setIsSaved(!isSaved);
+  const handleFavoriteGame = () => {
+    onFavoriteGame(game);
   };
 
-  const toggleIsFavorited = () => {
-    setIsFavorited(!isFavorited);
+  const handleSaveGame = () => {
+    onSaveGame(game);
   };
 
   const handleGameClick = () => {
@@ -26,15 +34,6 @@ const GameCard = ({ onGameClick, game }) => {
       onGameClick(item);
     });
   };
-
-  // useEffect(() => {
-  //   // handleGameClick().then();
-  //   // if (handleGameClick()) {
-  //   //   getGameById(clickedGame.id).then((item) => {
-  //   //     console.log(item.id);
-  //   //   });
-  //   // }
-  // }, [handleGameClick, onGameTitleClick]);
 
   return (
     <li className="card">
@@ -48,9 +47,9 @@ const GameCard = ({ onGameClick, game }) => {
         <div className="card__save-bg">
           <img
             className="card__save-btn"
-            src={isSaved ? saveGame : gameSaved}
-            alt={isSaved ? "Save Icon" : "Blue Checkmark"}
-            onClick={toggleIsSaved}
+            src={!isSaved ? saveGame : gameSaved}
+            alt={!isSaved ? "Save Icon" : "Blue Checkmark"}
+            onClick={handleSaveGame}
           />
         </div>
       </div>
@@ -59,7 +58,7 @@ const GameCard = ({ onGameClick, game }) => {
           className="card__fav-btn"
           src={isFavorited ? favoriteBtnFilled : favoriteBtn}
           alt={isFavorited ? "Star" : "Blue Star"}
-          onClick={toggleIsFavorited}
+          onClick={handleFavoriteGame}
         />
         <p className="card__category">{game.genre}</p>
         <h3 className="card__title" onClick={handleGameClick}>
