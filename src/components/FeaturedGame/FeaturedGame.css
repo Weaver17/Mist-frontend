@@ -165,6 +165,20 @@
   }
 }
 
+@media screen and (max-width: 515px) {
+  .featured__card {
+    height: 580px;
+  }
+
+  .featured__thumbnail-container {
+    height: 200px;
+  }
+
+  .featured__thumbnail {
+    height: 200px;
+  }
+}
+
 @media screen and (max-width: 445px) {
   .featured__heading {
     font-size: 24px;

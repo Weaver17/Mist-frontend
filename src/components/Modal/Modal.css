@@ -20,7 +20,7 @@
   position: relative;
   background: #fff;
   padding: 40px;
-  width: 200px;
+  width: 480px;
   border-radius: 30px;
   border: 1px solid #cfcfcf;
 }
@@ -109,12 +109,5 @@
 
   .modal__close-btn_type_game {
     top: 12px;
-  }
-}
-
-@media screen and (max-width: 485px) {
-  .modal__content_type_game {
-    height: 90%;
-    width: 100%;
   }
 }

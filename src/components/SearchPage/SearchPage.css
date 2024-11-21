@@ -125,13 +125,20 @@ input[type="search"]::-webkit-search-cancel-button {
     width: 280px;
   }
 
-  .search__btn {
-    top: 8px;
-    right: -32px;
+  .search__input {
+    height: 40px;
+    width: 280px;
   }
 }
 
 @media screen and (max-width: 385px) {
+  .search__bar {
+    width: 220px;
+  }
+
+  .search__input {
+    width: 220px;
+  }
   .search__results {
     grid-template-columns: repeat(auto-fit, 300px);
   }
