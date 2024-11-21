@@ -5,12 +5,36 @@ export const getGamesByReleaseDate = () => {
   return request(`${gameUrl}/games?sort-by=release-date`, { headers });
 };
 
+export const getGamesByRelevance = () => {
+  // change to /games
+  return request(`${gameUrl}/games?sort-by=relevance`, { headers });
+};
+
 export const getGameById = (id) => {
   return request(`${gameUrl}/game?id=${id}`, { headers });
 };
 
 export const getAllGames = () => {
   return request(`${gameUrl}/games`, { headers });
+};
+
+export const getGamesByPlatform = (platform) => {
+  return request(`${gameUrl}/games?platform=${platform}`, { headers });
+};
+
+export const getGamesBySort = (sortType) => {
+  return request(`${gameUrl}/games?sort-by=${sortType}`, { headers });
+};
+
+export const getGamesByCategory = (category) => {
+  return request(`${gameUrl}/games?category=${category}`, { headers });
+};
+
+export const getGamesByPlatCatSort = (platform, category, sortType) => {
+  return request(
+    `${gameUrl}/games?platform=${platform}&category=${category}&sort-by=${sortType}`,
+    { headers }
+  );
 };
 
 // Authentication: Currently, no authentication is required to access the API.

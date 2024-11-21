@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 
 import FavoriteGameContext from "../../contexts/FavoriteGameContext";
 import SavedGamesContext from "../../contexts/SavedGamesContext";
@@ -7,12 +7,16 @@ import GameCard from "../GameCard/GameCard";
 import FeaturedGame from "../FeaturedGame/FeaturedGame";
 import Preloader from "../Preloader/Preloader";
 
+import * as gameApi from "../../utils/gameApi";
+
 import "./Main.css";
 
 const Main = ({
   handleGameClick,
   games,
+  setGames,
   isLoading,
+  setIsLoading,
   handleFavoriteGame,
   handleSaveGame,
 }) => {
@@ -24,6 +28,16 @@ const Main = ({
   const onShowMoreClick = () => {
     setVisibleCount((prevCount) => prevCount + 3);
   };
+
+  useEffect(() => {
+    gameApi
+      .getGamesByReleaseDate()
+      .then((items) => {
+        setGames(items);
+      })
+      .catch(console.error)
+      .finally(setIsLoading(false));
+  }, []);
 
   return (
     <section className="main">

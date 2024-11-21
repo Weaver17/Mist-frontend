@@ -6,7 +6,6 @@
 }
 
 .toggle-switch__label {
-  width: 300px;
   height: 44px;
 }
 
@@ -87,10 +86,6 @@
 
 @media screen and (max-width: 630px) {
   .toggle-switch {
-    width: 216px;
-  }
-
-  .toggle-switch__label {
     width: 216px;
   }
 

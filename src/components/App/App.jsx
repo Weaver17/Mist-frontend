@@ -1,15 +1,11 @@
 import { useState, useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 
-import {
-  getGamesByReleaseDate,
-  getAllGames,
-  getGameById,
-} from "../../utils/gameApi";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import FavoriteGameContext from "../../contexts/FavoriteGameContext";
 import SavedGamesContext from "../../contexts/SavedGamesContext";
 import * as auth from "../../utils/auth";
+const API_URL = "http://localhost:3004/users";
 
 import "./App.css";
 
@@ -18,6 +14,7 @@ import GameIconBanner from "../GameIconBanner/GameIconBanner";
 import Main from "../Main/Main";
 import Profile from "../Profile/Profile";
 import GamesSection from "../GamesSection/GamesSection";
+import CategoriesPage from "../CategoriesPage/CategoriesPage";
 import SearchPage from "../SearchPage/SearchPage";
 import About from "../About/About";
 import Footer from "../Footer/Footer";
@@ -29,10 +26,9 @@ import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 function App() {
   const [activeModal, setActiveModal] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [selectedGame, setSelectedGame] = useState({});
-  // const [selectedImage, setSelectedImage] = useState({});
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [games, setGames] = useState([]);
   const [favoritedGames, setFavoritedGames] = useState([]);
   const [savedGames, setSavedGames] = useState([]);
@@ -58,6 +54,7 @@ function App() {
   };
 
   const handleRegistration = (username, email, password, confirmPassword) => {
+    setIsLoading(true);
     if (password !== confirmPassword) {
       return;
     }
@@ -77,6 +74,8 @@ function App() {
   };
 
   const handleLogin = ({ email, password }) => {
+    setIsLoading(true);
+
     if (!email || !password) {
       return;
     }
@@ -84,7 +83,7 @@ function App() {
     auth
       .login(email, password)
       .then((data) => {
-        localStorage.setItem("JWT_TOKEN", data.token);
+        localStorage.setItem("a fake token", data.token);
         setIsLoggedIn(true);
         setCurrentUser(data);
         console.log("Token received:", data.token);
@@ -99,7 +98,7 @@ function App() {
   };
 
   const handleLogOut = () => {
-    localStorage.removeItem("JWT_TOKEN");
+    localStorage.removeItem("a fake token");
     navigate("/");
     setIsLoggedIn(false);
   };
@@ -109,23 +108,15 @@ function App() {
     setActiveModal("game");
   };
 
-  // const handleImageClick = (gameImg) => {
-  //   setActiveModal("image");
-  //   setSelectedImage(gameImg);
-  // };
-
-  // const closeImageModal = () => {
-  //   setActiveModal("game");
-  //   setSelectedGame(selectedGame);
-  // };
-
   const handleEditClick = () => {
     setActiveModal("edit");
     console.log(currentUser.username);
   };
 
   const handleEditUsername = (data) => {
-    const token = localStorage.getItem("JWT_TOKEN");
+    setIsLoading(true);
+
+    const token = localStorage.getItem("a fake token");
 
     auth
       .editUsername(data)
@@ -134,11 +125,14 @@ function App() {
 
         closeActiveModal();
       })
-      .catch(console.error);
+      .catch(console.error)
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   const handleFavoriteGame = (game) => {
-    const token = localStorage.getItem("JWT_TOKEN");
+    const token = localStorage.getItem("a fake token");
 
     const favorited = {
       favorited: favoritedGames.some((favGame) => favGame.id === game.id),
@@ -156,7 +150,7 @@ function App() {
   };
 
   const handleSaveGame = (game) => {
-    const token = localStorage.getItem("JWT_TOKEN");
+    const token = localStorage.getItem("a fake token");
 
     const saved = {
       saved: savedGames.some((savGame) => savGame.id === game.id),
@@ -172,31 +166,36 @@ function App() {
   };
 
   useEffect(() => {
-    getGamesByReleaseDate()
-      .then((items) => {
-        setGames(items);
-      })
-      .catch(console.error)
-      .finally(setIsLoading(false));
-  }, [getGamesByReleaseDate]);
-
-  useEffect(() => {
-    const token = localStorage.getItem("JWT_TOKEN");
+    const token = localStorage.getItem("a fake token");
 
     if (!token) {
-      console.log("token not found, user is not logged in.");
+      console.log("Token not found, user is not logged in.");
       return;
     }
 
+    // Attempting to work with mockDb
     auth
-      .checkToken(token, currentUser?.user?.email, currentUser?.user?.password)
+      .checkToken(token)
       .then((data) => {
-        console.log(data);
-
-        setCurrentUser(data);
-        setIsLoggedIn(true);
+        // Fetch user from mockDb using email from token data
+        return fetch(`${API_URL}?email=${data.email}`);
       })
-      .catch(console.error);
+      .then((response) => response.json())
+      .then((users) => {
+        if (users.length > 0) {
+          const user = users[0];
+          console.log("User found in mock database:", user);
+
+          // Update current user and login state
+          setCurrentUser(user);
+          setIsLoggedIn(true);
+        } else {
+          console.log("User not found in mock database.");
+        }
+      })
+      .catch((error) => {
+        console.error("Error during authentication:", error);
+      });
   }, []);
 
   return (
@@ -225,7 +224,9 @@ function App() {
                       handleFavoriteGame={handleFavoriteGame}
                       handleGameClick={handleGameClick}
                       games={games}
+                      setGames={setGames}
                       isLoading={isLoading}
+                      setIsLoading={setIsLoading}
                       selectedGame={selectedGame}
                       handleSaveGame={handleSaveGame}
                     />
@@ -255,12 +256,29 @@ function App() {
                   path="games"
                   element={
                     <GamesSection
+                      setGames={setGames}
                       games={games}
                       handleCloseClick={closeActiveModal}
                       isLoading={isLoading}
+                      setIsLoading={setIsLoading}
                       handleGameClick={handleGameClick}
-                      selectedGame={selectedGame}
                       handleFavoriteGame={handleFavoriteGame}
+                      handleSaveGame={handleSaveGame}
+                    />
+                  }
+                />
+                <Route
+                  path="categories"
+                  element={
+                    <CategoriesPage
+                      setGames={setGames}
+                      games={games}
+                      handleCloseClick={closeActiveModal}
+                      isLoading={isLoading}
+                      setIsLoading={setIsLoading}
+                      handleGameClick={handleGameClick}
+                      handleFavoriteGame={handleFavoriteGame}
+                      handleSaveGame={handleSaveGame}
                     />
                   }
                 />
@@ -268,12 +286,14 @@ function App() {
                   path="search"
                   element={
                     <SearchPage
-                      games={games}
-                      handleCloseClick={closeActiveModal}
-                      isLoading={isLoading}
-                      handleGameClick={handleGameClick}
-                      selectedGame={selectedGame}
                       handleFavoriteGame={handleFavoriteGame}
+                      handleGameClick={handleGameClick}
+                      games={games}
+                      setGames={setGames}
+                      isLoading={isLoading}
+                      setIsLoading={setIsLoading}
+                      selectedGame={selectedGame}
+                      handleSaveGame={handleSaveGame}
                     />
                   }
                 />

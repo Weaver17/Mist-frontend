@@ -1,7 +1,7 @@
 .form {
-    margin: 0;
-    padding: 0;
-    min-width: 400px;
+  margin: 0;
+  padding: 0;
+  /* min-width: 400px; */
   display: flex;
   flex-direction: column;
 }
@@ -82,9 +82,9 @@
 }
 
 @media screen and (max-width: 515px) {
-    .form {
-        min-width: 0;
-    }
+  .form {
+    min-width: 0;
+  }
 
   .form__submit-btn {
     width: 100%;

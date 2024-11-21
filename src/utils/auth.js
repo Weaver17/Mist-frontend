@@ -1,4 +1,4 @@
-import { handleServerResponse } from "./constants";
+// import { handleServerRes } from "./constants";
 
 // export const authorize = (username, email, password) => {
 //   // Pretend we did a fetch request that gave us back a token
@@ -22,62 +22,70 @@ import { handleServerResponse } from "./constants";
 // };
 
 // Mock "database" for users
-const mockDatabase = JSON.parse(localStorage.getItem("mockUsers")) || [];
+const API_URL = "http://localhost:3004/users";
+
+import users from "../../mockDb.json";
 
 export const register = ({ username, email, password }) => {
   return new Promise((resolve, reject) => {
-    console.log("Database before update:", mockDatabase);
     // Check if email already exists
-    const userExists = mockDatabase.some((user) => user.email === email);
-    if (userExists) {
-      reject(new Error("User already exists."));
-    } else {
-      // Add new user to mock database
-      const newUser = {
-        id: Math.random() * (10 - 1) + 1,
-        username, // Save username as a string
-        email,
-        password,
-      };
-      mockDatabase.push(newUser);
-      console.log("Adding new user:", newUser);
-      localStorage.setItem("mockUsers", JSON.stringify(mockDatabase));
-      resolve({ message: "User registered successfully!" });
-    }
+    fetch(`${API_URL}?email=${email}`)
+      .then((res) => res.json())
+      .then((users) => {
+        if (users.length > 0) {
+          reject(new Error("User already exists."));
+        } else {
+          // Create a new user
+          const newUser = {
+            id: Date.now().toString(),
+            username,
+            email,
+            password,
+          };
+
+          return fetch(API_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(newUser),
+          });
+        }
+      })
+      .then(() => {
+        resolve({ message: "User registered successfully!" });
+      })
+      .catch((error) => {
+        reject(new Error(`Registration failed: ${error.message}`));
+      });
   });
 };
 
 export const login = (email, password) => {
   return new Promise((resolve, reject) => {
-    // Check if user exists
-    const user = mockDatabase.find(
-      (user) => user.email === email && user.password === password
-    );
-    if (user) {
-      // Return a fake token
-      resolve({ token: "a fake token", user });
-    } else {
-      reject(new Error("Invalid email or password."));
-    }
+    fetch(`${API_URL}?email=${email}&password=${password}`)
+      .then((res) => res.json())
+      .then((users) => {
+        if (users.length === 0) {
+          reject(new Error("Invalid email or password."));
+        } else {
+          resolve({ token: "a fake token", user: users[0] });
+        }
+      })
+      .catch((error) => {
+        reject(new Error(`Login failed: ${error.message}`));
+      });
   });
 };
 
 export const authorize = (email, password) => {
-  // Generate a fake token (as provided)
   return new Promise((resolve) => {
     resolve({ token: "JWT_TOKEN" });
   });
 };
 
-export const checkToken = (token, email, password) => {
+export const checkToken = (token) => {
   return new Promise((resolve, reject) => {
-    // Simulate a token validation
     if (token === "a fake token") {
-      resolve({
-        user: mockDatabase.find(
-          (user) => user.email === email && user.password === password
-        ),
-      });
+      resolve({ email: users }); // Mocked user data from token
     } else {
       reject(new Error("Invalid token."));
     }

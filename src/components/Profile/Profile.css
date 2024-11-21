@@ -33,10 +33,6 @@
   display: none;
 }
 
-.profile__games-switch {
-  max-width: 300px;
-}
-
 .profile__games-list-container {
   margin: 0;
   padding: 0;
@@ -74,6 +70,12 @@
 .profile__show-more-btn:hover {
   background-color: #0255e5;
   transition: 0.2s linear;
+}
+
+@media screen and (max-width: 985px) {
+  .profile__games-list {
+    grid-template-columns: repeat(auto-fit, 350px);
+  }
 }
 
 @media screen and (max-width: 630px) {
@@ -138,5 +140,17 @@
     width: 24px;
     border: none;
     cursor: pointer;
+  }
+}
+
+@media screen and (max-width: 385px) {
+  .profile__games-list {
+    grid-template-columns: repeat(auto-fit, 350px);
+  }
+}
+
+@media screen and (max-width: 385px) {
+  .profile__games-list {
+    grid-template-columns: repeat(auto-fit, 300px);
   }
 }

@@ -16,3 +16,24 @@ export const handleServerResponse = (res) => {
 export function request(url, options) {
   return fetch(url, options).then(handleServerResponse);
 }
+
+export const categories = [
+  "All",
+  "MMORPG",
+  "Shooter",
+  "MOBA",
+  "Anime",
+  "Battle Royale",
+  "Strategy",
+  "Fantasy",
+  "Sci-Fi",
+  "Card Games",
+  "Racing",
+  "Fighting",
+  "Social",
+  "Sports",
+];
+
+export const sortOptionsArr = ["Relevance", "Release Date", "Alphabetical"];
+
+export const platforms = ["All", "PC", "Browser"];

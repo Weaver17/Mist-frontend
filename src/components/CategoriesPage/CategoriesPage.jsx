@@ -7,11 +7,9 @@ import GameCard from "../GameCard/GameCard";
 import Preloader from "../Preloader/Preloader";
 
 import * as gameApi from "../../utils/gameApi";
-import { categories, platforms } from "../../utils/constants";
+import { categories, platforms, sortOptionsArr } from "../../utils/constants";
 
-import "./GamesSection.css";
-
-const GamesSection = ({
+const CategoriesPage = ({
   handleGameClick,
   games,
   handleFavoriteGame,
@@ -21,61 +19,30 @@ const GamesSection = ({
   setIsLoading,
 }) => {
   const [selectedCategory, setSelectedCategory] = useState("All");
-  const [sortOption, setSortOption] = useState("Relevance");
-  const [selectedPlatform, setSelectedPlatform] = useState("All");
 
   const [visibleCount, setVisibleCount] = useState(9);
 
   const { favoritedGames } = useContext(FavoriteGameContext);
   const { savedGames } = useContext(SavedGamesContext);
 
-  // category change
-  const handleCatChange = () => {
-    setIsLoading(true);
-    if (selectedCategory === "Card Games") {
-      gameApi
-        .getGamesByCategory("card")
-        .then((items) => {
-          setGames(items);
-          console.log(selectedCategory);
-        })
-        .catch(console.error)
-        .finally(setIsLoading(false));
-    } else
-      gameApi
-        .getGamesByCategory(selectedCategory)
-        .then((items) => {
-          setGames(items);
-          console.log(selectedCategory);
-        })
-        .catch(console.error)
-        .finally(setIsLoading(false));
+  const onShowMoreClick = () => {
+    setVisibleCount((prevCount) => prevCount + 6);
   };
 
-  // platform change
-  const handlePlatChange = () => {
+  const onCatChange = () => {
     setIsLoading(true);
-
     gameApi
-      .getGamesByPlatform(selectedPlatform.toLocaleLowerCase())
+      .getGamesByCategory(selectedCategory)
       .then((items) => {
         setGames(items);
-        console.log(selectedPlatform);
+        console.log(selectedCategory);
       })
       .catch(console.error)
       .finally(setIsLoading(false));
   };
 
-  const onCatChange = (e) => {
+  const handleCatChange = (e) => {
     setSelectedCategory(e.target.value);
-  };
-
-  const onPlatChange = (e) => {
-    setSelectedPlatform(e.target.value);
-  };
-
-  const onShowMoreClick = () => {
-    setVisibleCount((prevCount) => prevCount + 6);
   };
 
   useEffect(() => {
@@ -88,25 +55,28 @@ const GamesSection = ({
         })
         .catch(console.error)
         .finally(setIsLoading(false));
-    } else handleCatChange();
-
-    if (selectedCategory === "All") {
-      handlePlatChange();
-    }
-  }, [selectedCategory, selectedPlatform, isLoading]);
+    } else
+      gameApi
+        .getGamesByCategory(selectedCategory)
+        .then((items) => {
+          setGames(items);
+        })
+        .catch(console.error)
+        .finally(setIsLoading(false));
+  }, [selectedCategory]);
 
   return (
     <div className="games">
       <div className="games__top-section">
         <div className="games__heading-border">
-          <h2 className="games__heading">Games</h2>
+          <h2 className="games__heading">Categories</h2>
         </div>
         <div className="games__dropdowns-container">
           <label className="games__dropdowns-label">
             <p className="games__dropdowns-label-title">Category:</p>
             <div className="games-select-container">
               <select
-                onChange={onCatChange}
+                onChange={handleCatChange}
                 className="games__select games__select_cat"
                 name="category"
                 id="category"
@@ -118,28 +88,6 @@ const GamesSection = ({
                     value={category}
                   >
                     {category}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </label>
-
-          <label className="games__dropdowns-label">
-            <p className="games__dropdowns-label-title">Platform:</p>
-            <div className="games-select-container">
-              <select
-                onChange={onPlatChange}
-                className="games__select games__select_plat"
-                name="platform"
-                id="platform"
-              >
-                {platforms.map((platform, index) => (
-                  <option
-                    className="games__select-option"
-                    key={index}
-                    value={platform}
-                  >
-                    {platform}
                   </option>
                 ))}
               </select>
@@ -185,4 +133,4 @@ const GamesSection = ({
   );
 };
 
-export default GamesSection;
+export default CategoriesPage;
