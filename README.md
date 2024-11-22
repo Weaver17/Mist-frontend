@@ -8,15 +8,15 @@ https://github.com/Weaver17/Mist-backend
 
 ## Free to Game API
 
--https://www.freetogame.com/api-doc
+https://www.freetogame.com/api-doc
 
 ### Recent Updates
 
--Initial setup!
--Main page with featured game
--Save and/or favorite games
--Register, sign in and visit profile page
--Click on a game to get more info
+- Initial setup!
+- Main page with featured game
+- Save and/or favorite games
+- Register, sign in and visit profile page
+- Click on a game to get more info
 
 **About**
 
@@ -28,5 +28,5 @@ Coming Soon!
 
 **Future Updates**
 
--Back end
--Deployment
+- Back end
+- Deployment
