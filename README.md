@@ -20,7 +20,7 @@ https://www.freetogame.com/api-doc
 
 **About**
 
-This application for any gamer into PC gaming, and anyone who likes free stuff(Microtransactions pending)! An API call is made to freetogame.com/api and free-to-play games are displayed in varios ways, where users can then register to favorite and save games to their profile.
+This application for any gamer into PC gaming, and anyone who likes free stuff(Microtransactions pending)! An API call is made to freetogame.com/api and free-to-play games are displayed in various ways, where users can then register to favorite and save games to their profile.
 
 **Preview Images**
 
