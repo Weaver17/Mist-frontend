@@ -1,5 +1,4 @@
 import "./CompletedModal.css";
-import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import Modal from "../Modal/Modal";
 
 const CompletedModal = ({

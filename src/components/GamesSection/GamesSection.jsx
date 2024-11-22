@@ -21,7 +21,6 @@ const GamesSection = ({
   setIsLoading,
 }) => {
   const [selectedCategory, setSelectedCategory] = useState("All");
-  const [sortOption, setSortOption] = useState("Relevance");
   const [selectedPlatform, setSelectedPlatform] = useState("All");
 
   const [visibleCount, setVisibleCount] = useState(9);
@@ -35,6 +34,15 @@ const GamesSection = ({
     if (selectedCategory === "Card Games") {
       gameApi
         .getGamesByCategory("card")
+        .then((items) => {
+          setGames(items);
+          console.log(selectedCategory);
+        })
+        .catch(console.error)
+        .finally(setIsLoading(false));
+    } else if (selectedCategory === "Battle Royale") {
+      gameApi
+        .getGamesByCategory("battle-royale")
         .then((items) => {
           setGames(items);
           console.log(selectedCategory);
@@ -91,6 +99,8 @@ const GamesSection = ({
     } else handleCatChange();
 
     if (selectedCategory === "All") {
+      handlePlatChange();
+    } else {
       handlePlatChange();
     }
   }, [selectedCategory, selectedPlatform, isLoading]);

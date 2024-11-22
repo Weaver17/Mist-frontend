@@ -14,7 +14,6 @@ import GameIconBanner from "../GameIconBanner/GameIconBanner";
 import Main from "../Main/Main";
 import Profile from "../Profile/Profile";
 import GamesSection from "../GamesSection/GamesSection";
-import CategoriesPage from "../CategoriesPage/CategoriesPage";
 import SearchPage from "../SearchPage/SearchPage";
 import About from "../About/About";
 import Footer from "../Footer/Footer";
@@ -116,8 +115,6 @@ function App() {
   const handleEditUsername = (data) => {
     setIsLoading(true);
 
-    const token = localStorage.getItem("a fake token");
-
     auth
       .editUsername(data)
       .then(() => {
@@ -132,8 +129,6 @@ function App() {
   };
 
   const handleFavoriteGame = (game) => {
-    const token = localStorage.getItem("a fake token");
-
     const favorited = {
       favorited: favoritedGames.some((favGame) => favGame.id === game.id),
       owner: currentUser?._id,
@@ -150,8 +145,6 @@ function App() {
   };
 
   const handleSaveGame = (game) => {
-    const token = localStorage.getItem("a fake token");
-
     const saved = {
       saved: savedGames.some((savGame) => savGame.id === game.id),
       owner: currentUser?._id,
@@ -245,7 +238,6 @@ function App() {
                         handleCloseClick={closeActiveModal}
                         isLoading={isLoading}
                         handleGameClick={handleGameClick}
-                        selectedGame={selectedGame}
                         handleFavoriteGame={handleFavoriteGame}
                         handleSaveGame={handleSaveGame}
                       />
@@ -267,21 +259,7 @@ function App() {
                     />
                   }
                 />
-                <Route
-                  path="categories"
-                  element={
-                    <CategoriesPage
-                      setGames={setGames}
-                      games={games}
-                      handleCloseClick={closeActiveModal}
-                      isLoading={isLoading}
-                      setIsLoading={setIsLoading}
-                      handleGameClick={handleGameClick}
-                      handleFavoriteGame={handleFavoriteGame}
-                      handleSaveGame={handleSaveGame}
-                    />
-                  }
-                />
+
                 <Route
                   path="search"
                   element={
@@ -325,11 +303,6 @@ function App() {
               isOpen={activeModal === "game"}
               game={selectedGame}
             />
-            {/* <ImageModal
-        game={selectedGame}
-        handleCloseClick={closeImageModal}
-        isOpen={activeModal === "image"}
-      /> */}
           </div>
         </SavedGamesContext.Provider>
       </FavoriteGameContext.Provider>

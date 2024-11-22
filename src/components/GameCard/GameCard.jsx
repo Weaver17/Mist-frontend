@@ -1,7 +1,3 @@
-import { useState, useContext } from "react";
-
-import CurrentUserContext from "../../contexts/CurrentUserContext";
-
 import { getGameById } from "../../utils/gameApi";
 
 import saveGame from "../../assets/btns/save-btn2.png";
@@ -19,8 +15,6 @@ const GameCard = ({
   isFavorited,
   isSaved,
 }) => {
-  const { isLoggedIn, currentUser } = useContext(CurrentUserContext);
-
   const handleFavoriteGame = () => {
     onFavoriteGame(game);
   };

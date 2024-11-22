@@ -19,7 +19,6 @@ const Profile = ({
   handleEditUsername,
   isLoading,
   handleGameClick,
-  selectedGame,
   handleFavoriteGame,
   handleSaveGame,
   handleLogOut,
