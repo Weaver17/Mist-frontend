@@ -1,6 +1,8 @@
 .games {
   margin: 0 auto 12px;
   padding: 8px;
+  display: flex;
+  flex-direction: column;
 }
 
 .games__top-section {

@@ -1,107 +1,105 @@
 .footer {
-    height: 200px;
-    background-color: #2f71e5;
-    margin: 0;
-    padding: 20px 40px 0;
-    color: #f5f5f5;
+  height: 200px;
+  background-color: #2f71e5;
+  margin: 0;
+  padding: 20px 40px 0;
+  color: #f5f5f5;
 }
 
 .footer__links-container {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .footer__nav {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
 .footer__nav-link {
-    margin: 0;
-    padding: 0;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 24px;
-    text-decoration: none;
-    color: #f5f5f5;
-    cursor: pointer;
+  margin: 0;
+  padding: 0;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 24px;
+  text-decoration: none;
+  color: #f5f5f5;
+  cursor: pointer;
 }
 
 .footer__nav-link-text {
-    margin: 0;
-    padding: 0;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 24px;
-    color: #f5f5f5;
+  margin: 0;
+  padding: 0;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 24px;
+  color: #f5f5f5;
 }
 
 .footer__social-icons {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
 .footer__social-icon {
-    height: 24px;
-    width: 24px;
-    cursor: pointer;
+  height: 24px;
+  width: 24px;
+  cursor: pointer;
 }
 
 .footer__signature {
-    margin: 24px auto 0;
-    padding: 0;
-    text-align: center;
+  margin: 24px auto 0;
+  padding: 0;
+  text-align: center;
 }
 
 .footer__nav-link_thin {
-    font-size: 16px;
-    line-height: 20px;
-    font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 400;
 }
 
 .footer__nav-link:hover {
-    opacity: .6;
-    transition: 0.2s linear;
-
+  opacity: 0.6;
+  transition: 0.2s linear;
 }
 
 .footer__social-icon:hover {
-    opacity: .6;
-    transition: 0.2s linear;
-
+  opacity: 0.6;
+  transition: 0.2s linear;
 }
 
 @media screen and (max-width: 820px) {
-    .footer__nav {
-        gap: 20px;
-    }
-    .footer__nav-link {
-        font-size: 16px;
-        line-height: 20px;
-    }
+  .footer__nav {
+    gap: 20px;
+  }
+  .footer__nav-link {
+    font-size: 16px;
+    line-height: 20px;
+  }
 
-    .footer__social-icons {
-        gap: 20px;
-    }
+  .footer__social-icons {
+    gap: 20px;
+  }
 
-    .footer__social-icon {
-        width: 20px;
-        height: 20px;
-    }
+  .footer__social-icon {
+    width: 20px;
+    height: 20px;
+  }
 
-    .footer__signature {
-        font-size: 14px;
-    }
+  .footer__signature {
+    font-size: 14px;
+  }
 }
 
 @media screen and (max-width: 610px) {
-    .footer__nav {
-        gap: 12px;
-    }
+  .footer__nav {
+    gap: 12px;
+  }
 
-    .footer__social-icons {
-        gap: 12px;
-    }
+  .footer__social-icons {
+    gap: 12px;
+  }
 }

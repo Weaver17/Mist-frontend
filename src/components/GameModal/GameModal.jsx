@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 import Modal from "../Modal/Modal";
 import GameScreenshot from "../GameScreenshot/GameScreenshot";
@@ -61,7 +62,18 @@ const GameModal = ({ isOpen, handleCloseClick, handleImageClick, game }) => {
                   <p className="game-modal__platform">{game.platform}</p>
                 </div>
                 <p className="game-modal__status">{game.status}</p>
-                <button className="game-modal__download-btn">Download</button>
+                <Link
+                  className="game-modal__download-btn-link"
+                  to={game.game_url}
+                  target="_blank"
+                >
+                  <button
+                    className="game-modal__download-btn"
+                    onClick={console.log(game.game_url)}
+                  >
+                    Download
+                  </button>
+                </Link>
               </div>
             </div>
             {/* RIGHT SIDE  */}
