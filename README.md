@@ -1,5 +1,9 @@
 # MIST
 
+https://weaver17.github.io/Mist-frontend/
+
+## Frontend
+
 https://github.com/Weaver17/Mist-frontend
 
 An app for all free-to-play games! Daily Featured Game highlights a game you might want to try! Sort by categories and platforms or search for a specific title. Register to favorite games and save ones you've played!
