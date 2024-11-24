@@ -16,7 +16,7 @@ const Header = ({ handleSignUpClick, handleSignInClick, isLoggedIn }) => {
     setMobileMenuOpened(!isMobileMenuOpened);
   };
   return (
-    <div className="header">
+    <header className="header">
       {/* LEFT/LOGO SECTION */}
       <div className="header__logo-container">
         <Link className="header__logo-link" to="/">
@@ -29,7 +29,7 @@ const Header = ({ handleSignUpClick, handleSignInClick, isLoggedIn }) => {
       </div>
 
       {/* RIGHT SECTION */}
-      <div className="header__right-container">
+      <nav className="header__right-container">
         {/* TABS */}
         <NavLink className="header__tab-link" to="/">
           <p className="header__tab ">Home</p>
@@ -68,7 +68,7 @@ const Header = ({ handleSignUpClick, handleSignInClick, isLoggedIn }) => {
             </button>
           </div>
         )}
-      </div>
+      </nav>
 
       <div className="header__mobile-btn-container">
         {/* MOBILE REGISTER BTN */}
@@ -116,7 +116,7 @@ const Header = ({ handleSignUpClick, handleSignInClick, isLoggedIn }) => {
       {/* MOBILE MENU */}
       {isMobileMenuOpened && (
         <div className="header__mobile">
-          <div className="header__mobile-container">
+          <nav className="header__mobile-container">
             <div className="header__mobile-login-btn-container">
               {isLoggedIn ? (
                 <div className="header__mobile-login-btn-hidden"></div>
@@ -137,10 +137,10 @@ const Header = ({ handleSignUpClick, handleSignInClick, isLoggedIn }) => {
             <NavLink className="header__mobile-tab-link" to="/games">
               <p className="header__mobile-tab">All Games</p>
             </NavLink>
-          </div>
+          </nav>
         </div>
       )}
-    </div>
+    </header>
   );
 };
 
