@@ -6,7 +6,7 @@ import "./Footer.css";
 
 const Footer = () => {
   return (
-    <div className="footer">
+    <footer className="footer">
       <div className="footer__links-container">
         <div className="footer__nav">
           <NavLink className="footer__nav-link" to="/games">
@@ -62,7 +62,7 @@ const Footer = () => {
           www.freetogame.com
         </Link>
       </p>
-    </div>
+    </footer>
   );
 };
 
