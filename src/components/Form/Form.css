@@ -1,0 +1,109 @@
+.form {
+  margin: 0;
+  padding: 0;
+  /* min-width: 400px; */
+  display: flex;
+  flex-direction: column;
+}
+
+.form__or {
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  bottom: 60px;
+  left: 191px;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 500;
+  z-index: 2;
+}
+
+.form__submit-btn {
+  margin: 0 auto 0 0;
+  padding: 18px 32px;
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 500;
+  border: none;
+  background-color: #2f71e5;
+  color: #f5f5f5;
+  border-radius: 30px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+
+.form__submit-btn_disabled {
+  background-color: #8cace5;
+
+  cursor: default;
+}
+
+.form__submit-btn_type_go_to_register {
+  position: absolute;
+  bottom: 60px;
+  left: 211px;
+  padding: 0;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 500;
+  border: none;
+  background-color: #fff;
+  box-shadow: none;
+  color: #2f71e5;
+  cursor: pointer;
+  text-align: right;
+}
+
+.form__submit-btn_type_go_to_signin {
+  position: absolute;
+  bottom: 60px;
+  left: 211px;
+  padding: 0;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 500;
+  border: none;
+  background-color: #fff;
+  box-shadow: none;
+  color: #2f71e5;
+  cursor: pointer;
+  text-align: right;
+}
+
+.form__submit-btn:hover {
+  background-color: #0255e5;
+  transition: 0.2s linear;
+}
+
+.form__submit-btn_type_go_to:hover {
+  background-color: #fff;
+  color: #0255e5;
+  transition: 0.2s linear;
+}
+
+@media screen and (max-width: 515px) {
+  .form {
+    min-width: 0;
+  }
+
+  .form__submit-btn {
+    width: 100%;
+  }
+
+  .form__or {
+    bottom: 40px;
+    left: calc(50% - 36px);
+  }
+
+  .form__submit-btn_type_go_to_signin {
+    width: 80px;
+    bottom: 40px;
+    left: calc(50% - 44px);
+  }
+
+  .form__submit-btn_type_go_to_register {
+    width: 87px;
+    bottom: 40px;
+    left: calc(50% - 44px);
+  }
+}

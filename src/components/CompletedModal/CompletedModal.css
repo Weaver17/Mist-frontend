@@ -1,0 +1,46 @@
+.modal__complete-container {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal__complete-signup {
+    padding: 0;
+    margin: 40px 0;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 40px;
+  text-align: center;
+}
+
+.modal__complete-go-to-signin {
+    color: #2f71e5;
+    margin: 0 auto 40px;
+  padding: 0;
+  width: 55px;
+  background: none;
+  border: none;
+  font-weight: 500;
+  text-align: center;
+  cursor: pointer;
+}
+
+.modal__complete-go-to-signin:hover {
+    color: #0255e5;
+  transition: 0.2s linear;
+}
+
+
+
+@media screen and (max-width: 515px) {
+  .modal__complete-signup {
+    margin-top: 0;
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+  .modal__complete-go-to-signin {
+    margin-bottom: 0;
+  }
+}

@@ -1,0 +1,43 @@
+.about {
+  margin: 40px auto;
+  padding: 0;
+  max-width: 800px;
+}
+
+.about__section {
+  margin: 36px 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+}
+
+.about__title {
+  margin: 0;
+  padding: 0;
+  font-size: 32px;
+  line-height: 40px;
+  font-weight: 700;
+}
+
+.about__text {
+  margin: 0;
+  padding: 0;
+}
+
+@media screen and (max-width: 630px) {
+  .about__section {
+    margin: 20px 0;
+    gap: 12px;
+  }
+  .about__title {
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+  .about__text {
+    font-size: 14px;
+  }
+}

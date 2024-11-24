@@ -15,6 +15,7 @@
   margin: auto;
 
   animation: spin 0.75s infinite linear;
+  z-index: 99;
 }
 
 @keyframes spin {
