@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   base: "/Mist-frontend/",
   server: {
-    port: 3003,
+    port: 3002,
   },
   build: {
     outDir: "dist",
