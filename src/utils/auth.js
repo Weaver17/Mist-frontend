@@ -1,11 +1,12 @@
 // Mock "database" for users
-const API_URL = "http://localhost:3004/users";
 
-import users from "../../mockDb.json";
+// import users from "../../mockDb.json";
+
+import { baseUrl } from "./constants";
 
 export const register = ({ username, email, password }) => {
   return new Promise((resolve, reject) => {
-    fetch(`${API_URL}?email=${email}`)
+    fetch(`${baseUrl}?email=${email}`)
       .then((res) => res.json())
       .then((users) => {
         if (users.length > 0) {
@@ -18,7 +19,7 @@ export const register = ({ username, email, password }) => {
             password,
           };
 
-          return fetch(API_URL, {
+          return fetch(baseUrl, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(newUser),
@@ -36,7 +37,7 @@ export const register = ({ username, email, password }) => {
 
 export const login = (email, password) => {
   return new Promise((resolve, reject) => {
-    fetch(`${API_URL}?email=${email}&password=${password}`)
+    fetch(`${baseUrl}?email=${email}&password=${password}`)
       .then((res) => res.json())
       .then((users) => {
         if (users.length === 0) {
