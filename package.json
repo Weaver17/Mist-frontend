@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.1",
   "type": "module",
-  "homepage": "https://weaver17.github.io/Mist-frontend/",
+  "homepage": "https://mist.port0.org",
   "scripts": {
     "dev": "vite --open",
     "build": "vite build",

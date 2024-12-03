@@ -1,4 +1,7 @@
-export const baseUrl = "http://localhost:3004";
+export const baseUrl =
+  process.env.NODE_ENV === "production"
+    ? "https://api.mist.port0.org"
+    : "http://localhost:3003";
 
 // stand in
 export const gameUrl = "https://free-to-play-games-database.p.rapidapi.com/api";
