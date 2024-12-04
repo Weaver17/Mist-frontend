@@ -5,7 +5,7 @@ import CurrentUserContext from "../../contexts/CurrentUserContext";
 import FavoriteGameContext from "../../contexts/FavoriteGameContext";
 import SavedGamesContext from "../../contexts/SavedGamesContext";
 import * as auth from "../../utils/auth";
-const API_URL = "http://localhost:3004/users";
+import { baseUrl } from "../../utils/constants";
 
 import "./App.css";
 
@@ -171,7 +171,7 @@ function App() {
       .checkToken(token)
       .then((data) => {
         // Fetch user from mockDb using email from token data
-        return fetch(`${API_URL}?email=${data.email}`);
+        return fetch(`${baseUrl}?email=${data.email}`);
       })
       .then((response) => response.json())
       .then((users) => {
