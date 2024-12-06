@@ -82,7 +82,7 @@ function App() {
     auth
       .login(email, password)
       .then((data) => {
-        localStorage.setItem("a fake token", data.token);
+        localStorage.setItem("JWT_TOKEN", data.token);
         setIsLoggedIn(true);
         setCurrentUser(data);
         console.log("Token received:", data.token);
@@ -97,7 +97,7 @@ function App() {
   };
 
   const handleLogOut = () => {
-    localStorage.removeItem("a fake token");
+    localStorage.removeItem("JWT_TOKEN");
     navigate("/");
     setIsLoggedIn(false);
   };
@@ -159,7 +159,7 @@ function App() {
   };
 
   useEffect(() => {
-    const token = localStorage.getItem("a fake token");
+    const token = localStorage.getItem("JWT_TOKEN");
 
     if (!token) {
       console.log("Token not found, user is not logged in.");
@@ -167,28 +167,38 @@ function App() {
     }
 
     // Attempting to work with mockDb
+    // auth
+    //   .checkToken(token)
+    //   .then((data) => {
+    //     // Fetch user from mockDb using email from token data
+    //     return fetch(`${baseUrl}?email=${data.email}`);
+    //   })
+    //   .then((response) => response.json())
+    //   .then((users) => {
+    //     if (users.length > 0) {
+    //       const user = users[0];
+    //       console.log("User found in mock database:", user);
+
+    //       // Update current user and login state
+    //       setCurrentUser(user);
+    //       setIsLoggedIn(true);
+    //     } else {
+    //       console.log("User not found in mock database.");
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error during authentication:", error);
+    //   });
+
     auth
       .checkToken(token)
-      .then((data) => {
-        // Fetch user from mockDb using email from token data
-        return fetch(`${baseUrl}?email=${data.email}`);
-      })
-      .then((response) => response.json())
-      .then((users) => {
-        if (users.length > 0) {
-          const user = users[0];
-          console.log("User found in mock database:", user);
+      .then((user) => {
+        console.log(token);
 
-          // Update current user and login state
-          setCurrentUser(user);
-          setIsLoggedIn(true);
-        } else {
-          console.log("User not found in mock database.");
-        }
+        setCurrentUser(user);
+        setIsLoggedIn(true);
       })
-      .catch((error) => {
-        console.error("Error during authentication:", error);
-      });
+      .catch(console.error);
   }, []);
 
   return (

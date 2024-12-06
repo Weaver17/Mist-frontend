@@ -1,27 +1,34 @@
 # MIST
 
-https://weaver17.github.io/Mist-frontend/
+[M I S T.com](https://mist.port0.org/)
 
-## Frontend
+## Overview
 
-https://github.com/Weaver17/Mist-frontend
+- Frontend Link
+- Backend Link
+- Game API
+- Recent Updates
+- Preview Images
+- Video Overview
+- Future Updates
 
-An app for all free-to-play games! Daily Featured Game highlights a game you might want to try! Sort by categories and platforms or search for a specific title. Register to favorite games and save ones you've played!
+### Frontend
 
-## Backend
+[Frontend Repo](https://github.com/Weaver17/Mist-frontend)
 
-https://github.com/Weaver17/Mist-backend
+### Backend
 
-## Free to Game API
+[Backend Repo](https://github.com/Weaver17/Mist-backend)
 
-https://www.freetogame.com/api-doc
+### Free to Game API
 
-### Recent Updates
+[FreetoPlay's free API](https://www.freetogame.com/api-doc)
 
-- Initial setup!
-- Main page with featured game
+**Recent Updates**
+
+- Backend server!
+- Download page redirect to game site
 - Save and/or favorite games
-- Register, sign in and visit profile page
 - Click on a game to get more info
 
 **About**
@@ -32,7 +39,11 @@ This application for any gamer into PC gaming, and anyone who likes free stuff(M
 
 Coming Soon!
 
+**Video Overview**
+
+Coming Soon!
+
 **Future Updates**
 
-- Back end
-- Deployment
+- Clean up API calls to smooth out switching from page to page
+- Small style changes to improve mobile device experience
