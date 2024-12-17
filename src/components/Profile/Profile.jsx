@@ -73,7 +73,7 @@ const Profile = ({
           type="button"
           onClick={toggleMobileMenu}
         >
-          {currentUser?.user?.username}
+          {currentUser?.username}
         </button>
         {/* TOGGLE SWITCH  */}
         <div className="profile__games-switch">

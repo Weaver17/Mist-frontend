@@ -19,7 +19,7 @@ const Sidebar = ({
   return (
     <section className="sidebar">
       <div className="sidebar__username-container">
-        <h3 className="sidebar__username">{currentUser?.user?.username}</h3>
+        <h3 className="sidebar__username">{currentUser?.username}</h3>
       </div>
       <button type="button" className="sidebar__edit" onClick={handleEditClick}>
         Change Username
