@@ -39,26 +39,35 @@ const FeaturedGame = ({ onGameClick, games, onFavoriteGame, onSaveGame }) => {
     });
   };
 
-  useEffect(() => {
-    const loadFeaturedGame = () => {
-      try {
-        const today = new Date().toISOString().slice(0, 10);
-        const randomIndex = Math.floor(Math.random() * games.length);
+  const loadFeaturedGame = () => {
+    try {
+      const today = new Date().toISOString().slice(0, 10);
 
+      const storedGame = localStorage.getItem(`featuredGame-${today}`);
+
+      if (storedGame) {
+        const parsedGame = JSON.parse(storedGame);
+        setFeaturedGame(parsedGame);
+        console.log("Loaded game from localStorage:", parsedGame);
+      } else {
+        const randomIndex = Math.floor(Math.random() * games.length);
         const selectedGame = games[randomIndex];
+
         localStorage.setItem(
           `featuredGame-${today}`,
           JSON.stringify(selectedGame)
         );
-
         setFeaturedGame(selectedGame);
-      } catch {
-        console.error;
+        console.log("New featured game selected:", selectedGame);
       }
-    };
+    } catch (error) {
+      console.error("Error loading featured game:", error);
+    }
+  };
 
+  useEffect(() => {
     loadFeaturedGame();
-  }, [games]);
+  }, []);
 
   useEffect(() => {
     if (featuredGame) {
@@ -68,12 +77,13 @@ const FeaturedGame = ({ onGameClick, games, onFavoriteGame, onSaveGame }) => {
 
   useEffect(() => {
     if (featuredGame?.id) {
+      setIsLoading(true);
       getGameById(featuredGame.id)
         .then((item) => {
           setFeaturedGame(item);
         })
         .catch(console.error)
-        .finally(setIsLoading(false));
+        .finally(() => setIsLoading(false));
     }
   }, [featuredGame?.id]);
 
