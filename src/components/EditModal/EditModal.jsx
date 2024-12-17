@@ -15,7 +15,7 @@ const EditModal = ({
 
   const { values, handleChange, setValues } = useForm({
     username: "",
-    email: currentUser?.user?.email,
+    email: currentUser?.email,
   });
 
   const handleSubmit = (e) => {
@@ -26,8 +26,9 @@ const EditModal = ({
   useEffect(() => {
     if (isOpen) {
       setValues({
-        username: currentUser?.user?.username,
-        email: currentUser?.user?.email,
+        username: currentUser?.username,
+        email: currentUser?.email,
+        _id: currentUser?._id,
       });
     }
   }, [isOpen]);

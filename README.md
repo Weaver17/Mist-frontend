@@ -28,7 +28,6 @@
 
 - Backend server!
 - Download page redirect to game site
-- Save and/or favorite games
 - Click on a game to get more info
 
 **About**
@@ -45,5 +44,4 @@ Coming Soon!
 
 **Future Updates**
 
-- Clean up API calls to smooth out switching from page to page
-- Small style changes to improve mobile device experience
+- Save and Favorite logic by setting api calls to link games to user
