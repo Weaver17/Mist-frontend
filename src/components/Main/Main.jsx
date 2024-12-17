@@ -4,7 +4,7 @@ import FavoriteGameContext from "../../contexts/FavoriteGameContext";
 import SavedGamesContext from "../../contexts/SavedGamesContext";
 
 import GameCard from "../GameCard/GameCard";
-import FeaturedGame from "../FeaturedGame/FeaturedGame";
+// import FeaturedGame from "../FeaturedGame/FeaturedGame";
 import Preloader from "../Preloader/Preloader";
 
 import * as gameApi from "../../utils/gameApi";
@@ -20,7 +20,7 @@ const Main = ({
   handleFavoriteGame,
   handleSaveGame,
 }) => {
-  const [visibleCount, setVisibleCount] = useState(3);
+  const [visibleCount, setVisibleCount] = useState(6);
 
   const { favoritedGames } = useContext(FavoriteGameContext);
   const { savedGames } = useContext(SavedGamesContext);
@@ -43,12 +43,12 @@ const Main = ({
     <section className="main">
       {/* FEATURED GAME */}
       <div className="main__featured-card">
-        <FeaturedGame
+        {/*<FeaturedGame
           onFavoriteGame={handleFavoriteGame}
           onGameClick={handleGameClick}
           games={games}
           onSaveGame={handleSaveGame}
-        />
+        /> */}
       </div>
 
       <h2 className="main__card-list-title">Newest Releases:</h2>

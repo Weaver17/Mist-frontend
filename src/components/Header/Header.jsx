@@ -46,7 +46,7 @@ const Header = ({ handleSignUpClick, handleSignInClick, isLoggedIn }) => {
           <div className="header__signed-container">
             <Link className="header__btn-link" to="/profile">
               <button className="header__btn header__btn_profile" type="button">
-                {currentUser?.user?.username}
+                {currentUser?.username}
               </button>
             </Link>
           </div>
@@ -76,7 +76,7 @@ const Header = ({ handleSignUpClick, handleSignInClick, isLoggedIn }) => {
           <div className="header__signed-container">
             <Link className="header__btn-link" to="/profile">
               <button className="header__mobile-profile-btn" type="button">
-                Username
+                {currentUser?.username}
               </button>
             </Link>
           </div>

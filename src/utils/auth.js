@@ -35,13 +35,13 @@ export const login = (email, password) => {
 };
 
 export const checkToken = (token) => {
-  return new Promise((resolve, reject) => {
-    if (token === "JWT_TOKEN") {
-      resolve({ message: "wowzers" });
-    } else {
-      reject(new Error("Invalid token."));
-    }
-  });
+  return request(`${baseUrl}/users/me`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+  }).then((res) => res.message);
 };
 
 export const editProfile = ({ name }, token) => {
