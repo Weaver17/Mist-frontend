@@ -67,12 +67,7 @@ const GameModal = ({ isOpen, handleCloseClick, handleImageClick, game }) => {
                   to={game.game_url}
                   target="_blank"
                 >
-                  <button
-                    className="game-modal__download-btn"
-                    onClick={console.log(game.game_url)}
-                  >
-                    Download
-                  </button>
+                  <button className="game-modal__download-btn">Download</button>
                 </Link>
               </div>
             </div>

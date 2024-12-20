@@ -44,14 +44,14 @@ export const checkToken = (token) => {
   }).then((res) => res.message);
 };
 
-export const editProfile = ({ name }, token) => {
+export const editProfile = ({ username }, token) => {
   return request(`${baseUrl}/users/me`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
       authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify({ name }),
+    body: JSON.stringify({ username }),
   }).then((res) => {
     res.data;
   });

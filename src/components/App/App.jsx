@@ -113,11 +113,12 @@ function App() {
 
   const handleEditClick = () => {
     setActiveModal("edit");
-    console.log(currentUser.username);
+    console.log(currentUser);
   };
 
   const handleEditUsername = (data) => {
     const token = localStorage.getItem("JWT_TOKEN");
+    console.log(data);
 
     auth
       .editProfile(data, token)
@@ -169,7 +170,9 @@ function App() {
 
     auth
       .checkToken(token)
+
       .then((user) => {
+        console.log(token);
         setCurrentUser(user);
         setIsLoggedIn(true);
       })

@@ -15,7 +15,6 @@ const EditModal = ({
 
   const { values, handleChange, setValues } = useForm({
     username: "",
-    email: currentUser?.email,
   });
 
   const handleSubmit = (e) => {
@@ -27,8 +26,6 @@ const EditModal = ({
     if (isOpen) {
       setValues({
         username: currentUser?.username,
-        email: currentUser?.email,
-        _id: currentUser?._id,
       });
     }
   }, [isOpen]);
