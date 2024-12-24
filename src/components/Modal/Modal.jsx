@@ -4,16 +4,16 @@ import "./Modal.css";
 import "../ModalWithForm/ModalWithForm.css";
 
 function Modal({ name, onClose, children, isOpen }) {
-  useEffect(() => {
-    const handleEscape = (e) => {
-      if (e.key === "Escape") {
-        onClose();
-      }
-    };
+  // useEffect(() => {
+  //   const handleEscape = (e) => {
+  //     if (e.key === "Escape") {
+  //       onClose();
+  //     }
+  //   };
 
-    document.addEventListener("keydown", handleEscape);
-    return () => document.removeEventListener("keydown", handleEscape);
-  }, [onClose]);
+  //   document.addEventListener("keydown", handleEscape);
+  //   return () => document.removeEventListener("keydown", handleEscape);
+  // }, [onClose]);
 
   const handleOverlay = (e) => {
     if (e.target === e.currentTarget) {

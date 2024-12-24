@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import Modal from "../Modal/Modal";
@@ -22,6 +22,17 @@ const GameModal = ({ isOpen, handleCloseClick, handleImageClick, game }) => {
   const toggleIsFavorited = () => {
     setIsFavorited(!isFavorited);
   };
+
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === "Escape") {
+        handleCloseClick();
+      }
+    };
+
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, [handleCloseClick]);
 
   return (
     <Modal
