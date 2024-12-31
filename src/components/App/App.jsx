@@ -21,6 +21,7 @@ import LoginModal from "../LoginModal/LoginModal";
 import CompletedModal from "../CompletedModal/CompletedModal";
 import GameModal from "../GameModal/GameModal";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import { addFavoriteGame, removeFavoriteGame } from "../../utils/favorites";
 
 function App() {
   const [activeModal, setActiveModal] = useState("");
@@ -130,20 +131,63 @@ function App() {
       .catch(console.error);
   };
 
-  const handleFavoriteGame = (game) => {
-    const favorited = {
-      favorited: favoritedGames.some((favGame) => favGame.id === game.id),
-      owner: currentUser?._id,
-    };
+  // ORIGINAL
+  // const handleFavoriteGame = (game) => {
+  //   const favorited = {
+  //     favorited: favoritedGames.some((favGame) => favGame.id === game.id),
+  //     owner: currentUser?._id,
+  //   };
 
-    if (!favorited.favorited) {
-      setFavoritedGames((prev) => [...prev, game]);
-    } else {
-      setFavoritedGames((prev) =>
-        prev.filter((favGame) => favGame.id !== game.id)
-      );
+  //   if (!favorited.favorited) {
+  //     setFavoritedGames((prev) => [...prev, game]);
+  //   } else {
+  //     setFavoritedGames((prev) =>
+  //       prev.filter((favGame) => favGame.id !== game.id)
+  //     );
+  //   }
+  //   game.isFavorited = !game.isFavorited;
+  // };
+
+  const updateFavorites = (updatedFavorites) => {
+    setFavoritedGames(updatedFavorites);
+  };
+
+  // BUTCHERED
+  const handleFavoriteGame = (game, user) => {
+    const token = localStorage.getItem("JWT_TOKEN");
+
+    user = currentUser;
+
+    // Check if the game is already favorited
+    const isFavorited = favoritedGames.some(
+      (favGame) => favGame.id === game.id
+    );
+
+    console.log(favoritedGames);
+
+    try {
+      if (!isFavorited) {
+        // Add to favorites via API
+        addFavoriteGame(game, token, user).then(() => {
+          // Add game to Context state
+          updateFavorites([...favoritedGames, game]);
+        });
+      } else {
+        // Remove from favorites via API
+        removeFavoriteGame(game, { token, _id }).then(() => {
+          // Remove game from Context state
+          updateFavorites(
+            favoritedGames.filter((favGame) => favGame.id !== game.id)
+          );
+        });
+      }
+
+      // Update the game's `isFavorited` status
+      game.isFavorited = !isFavorited;
+    } catch (error) {
+      console.error("Error handling favorite game:", error.message);
+      alert("An error occurred while updating favorites.");
     }
-    game.isFavorited = !game.isFavorited;
   };
 
   const handleSaveGame = (game) => {
@@ -173,6 +217,8 @@ function App() {
 
       .then((user) => {
         console.log(user);
+        console.log(token);
+
         setCurrentUser(user);
         setIsLoggedIn(true);
       })

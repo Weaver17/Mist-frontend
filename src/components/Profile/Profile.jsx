@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 
 import FavoriteGameContext from "../../contexts/FavoriteGameContext";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
@@ -7,8 +7,9 @@ import SavedGamesContext from "../../contexts/SavedGamesContext";
 import Sidebar from "../Sidebar/Sidebar";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 import GameCard from "../GameCard/GameCard";
-
 import EditModal from "../EditModal/EditModal";
+
+import { getFavorites } from "../../utils/favorites";
 
 import "./Profile.css";
 
@@ -52,6 +53,12 @@ const Profile = ({
   const onShowMoreSavClick = () => {
     setVisibleSavCount((prevCount) => prevCount + 2);
   };
+
+  useEffect(() => {
+    const token = localStorage.getItem("JWT_TOKEN");
+
+    isFavoriteChecked ? getFavorites(token) : console.log(favoritedGames);
+  }, []);
 
   return (
     <div className="profile">
