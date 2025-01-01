@@ -55,6 +55,7 @@
   width: 90vw;
   height: 90vh;
   overflow: scroll;
+  max-width: 1300px;
 }
 
 .modal__content_type_image {

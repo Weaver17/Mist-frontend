@@ -47,12 +47,12 @@ const GameModal = ({ isOpen, handleCloseClick, handleImageClick, game }) => {
         <div className="game-modal">
           {/* TITLE AND FAV BUTTON  */}
           <div className="game-modal__title-container">
-            <img
+            {/* <img
               className="game-modal__fav-btn"
               src={isFavorited ? favoriteBtnFilled : favoriteBtn}
               alt={isFavorited ? "Star" : "Blue Star"}
               onClick={toggleIsFavorited}
-            />
+            /> */}
             <h3 className="game-modal__title">{game.title}</h3>
           </div>
           {/* COVER ART, DEV INFO AND DESCRIPTION  */}
@@ -87,12 +87,12 @@ const GameModal = ({ isOpen, handleCloseClick, handleImageClick, game }) => {
               {/* RIGHT SIDE TOP SECTION  */}
               <div className="game-modal__info-container-right-top">
                 {/* RIGHT SIDE TOP LEFT  */}
-                <img
+                {/* <img
                   className="game-modal__save-btn"
                   src={isSaved ? saveGame : gameSaved}
                   alt={isSaved ? "Save Icon" : "Blue Checkmark"}
                   onClick={toggleIsSaved}
-                />
+                /> */}
                 {/* RIGHT SIDE TOP RIGHT  */}
                 <div className="game-modal__dev-info-container">
                   <div className="game-modal__dev-info-wrapper">

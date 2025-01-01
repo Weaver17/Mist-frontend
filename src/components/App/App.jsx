@@ -24,7 +24,7 @@ import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import { addFavoriteGame, removeFavoriteGame } from "../../utils/favorites";
 
 function App() {
-  const [activeModal, setActiveModal] = useState("register");
+  const [activeModal, setActiveModal] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [selectedGame, setSelectedGame] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
