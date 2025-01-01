@@ -4,41 +4,43 @@
 }
 
 .main__card-list-title {
-  margin: 8px auto 12px 28px;
+  margin: 12px auto 4px 28px;
   padding: 0;
+
   font-size: 32px;
   line-height: 40px;
 }
 
 .main__card-list {
+  border-top: solid 2px #e8c902;
+
   display: grid;
   position: relative;
-  gap: 20px;
-  grid-template-columns: repeat(auto-fit, 400px);
+  gap: 12px;
+  grid-template-columns: repeat(auto-fit, 425px);
   list-style-type: none;
   margin: 20px 0;
-  padding: 0;
+  padding: 20px 0 0;
   justify-content: center;
   min-height: 100px;
 }
 
 .main__show-more-btn {
-  background-color: #2f71e5;
-  border: solid 2px #f5f5f5;
-  color: #f5f5f5;
+  background: none;
+  border: none;
+  color: #000;
+
   font-weight: 500;
   font-size: 18px;
   line-height: 18px;
-  border-radius: 100px;
-  margin: 12px;
-  padding: 18px 32px;
-  height: 60px;
+  margin: 24px;
+  padding: 0;
   align-self: center;
   cursor: pointer;
 }
 
 .main__show-more-btn:hover {
-  background-color: #0255e5;
+  color: #0284b8;
   transition: 0.2s linear;
 }
 

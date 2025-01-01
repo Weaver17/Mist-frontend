@@ -28,10 +28,17 @@ const Header = ({ handleSignUpClick, handleSignInClick, isLoggedIn }) => {
         </Link>
       </div>
 
+      {/* Center SECTION */}
+      <div className="header__subtitle-container">
+        <div className="header__subtitle-bg">
+          <h2 className="header__subtitle">Free-To-Play</h2>
+        </div>
+      </div>
+
       {/* RIGHT SECTION */}
       <nav className="header__right-container">
         {/* TABS */}
-        <NavLink className="header__tab-link" to="/">
+        {/*}  <NavLink className="header__tab-link" to="/">
           <p className="header__tab ">Home</p>
         </NavLink>
         <NavLink className="header__tab-link" to="/search">
@@ -39,7 +46,7 @@ const Header = ({ handleSignUpClick, handleSignInClick, isLoggedIn }) => {
         </NavLink>
         <NavLink className="header__tab-link" to="/games">
           <p className="header__tab">All Games</p>
-        </NavLink>
+        </NavLink></header> */}
 
         {/* PROFILE BUTTONS */}
         {isLoggedIn ? (
@@ -66,6 +73,12 @@ const Header = ({ handleSignUpClick, handleSignInClick, isLoggedIn }) => {
             >
               Sign Up
             </button>
+            <NavLink className="header__btn header__btn-link" to="/search">
+              <p className="header__tab">Search</p>
+            </NavLink>
+            <NavLink className="header__btn header__btn-link" to="/games">
+              <p className="header__tab">All Games</p>
+            </NavLink>
           </div>
         )}
       </nav>

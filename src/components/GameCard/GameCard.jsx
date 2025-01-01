@@ -31,6 +31,9 @@ const GameCard = ({
 
   return (
     <li className="card">
+      <h3 className="card__title" onClick={handleGameClick}>
+        {game.title}
+      </h3>
       <div className="card__thumbnail-container">
         <img
           className="card__thumbnail"
@@ -38,28 +41,26 @@ const GameCard = ({
           alt={game.name}
           onClick={handleGameClick}
         />
-        <div className="card__save-bg">
+        {/* <div className="card__save-bg">
           <img
             className="card__save-btn"
             src={!isSaved ? saveGame : gameSaved}
             alt={!isSaved ? "Save Icon" : "Blue Checkmark"}
             onClick={handleSaveGame}
           />
-        </div>
+        </div> */}
       </div>
       <div className="card__info">
-        <img
+        {/* <img
           className="card__fav-btn"
           src={isFavorited ? favoriteBtnFilled : favoriteBtn}
           alt={isFavorited ? "Star" : "Blue Star"}
           onClick={handleFavoriteGame}
-        />
-        <p className="card__category">{game.genre}</p>
-        <h3 className="card__title" onClick={handleGameClick}>
-          {game.title}
-        </h3>
+        /> */}
+
         <p className="card__description">{game.short_description}</p>
       </div>
+      <p className="card__category">{game.genre}</p>
       <p className="card__platform">{game.platform}</p>
     </li>
   );
