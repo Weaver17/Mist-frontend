@@ -3,7 +3,6 @@
   margin: 0;
   font-size: 32px;
   line-height: 40px;
-  font-weight: 700;
 }
 
 .modal__input-container {
@@ -12,8 +11,9 @@
   /* min-width: 400px; */
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 40px;
   box-sizing: border-box;
+  font-family: "Ubuntu", serif;
 }
 
 .modal__label {
@@ -21,13 +21,15 @@
 }
 
 .modal__input {
+  background-color: transparent;
   display: inline-block;
   margin: 0;
   padding: 20px 24px;
   /* width: calc(100% - 48px); */
   width: 87%;
-  border-radius: 30px;
-  border: solid 1px #000;
+  border: none;
+  border-bottom: solid 2px #000;
+  border-left: solid 2px #000;
 }
 
 .form__loading-hidden {

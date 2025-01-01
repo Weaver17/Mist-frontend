@@ -18,11 +18,11 @@
 .modal__content {
   box-sizing: border-box;
   position: relative;
-  background: #fff;
-  padding: 40px;
+  background: #dcdcdc;
+  padding: 40px 40px 80px 40px;
   width: 480px;
-  border-radius: 30px;
-  border: 1px solid #cfcfcf;
+  border-radius: 16px;
+  border: 2px solid #000;
 }
 
 .modal__close-btn {
@@ -34,7 +34,7 @@
   top: 20px;
   right: 20px;
   border: none;
-  background: #fff url(../../assets/btns/close-btn.png) center no-repeat;
+  background: transparent url(../../assets/btns/close-btn.png) center no-repeat;
   z-index: 2;
   cursor: pointer;
 }
