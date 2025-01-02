@@ -54,11 +54,11 @@ const Profile = ({
     setVisibleSavCount((prevCount) => prevCount + 2);
   };
 
-  useEffect(() => {
-    const token = localStorage.getItem("JWT_TOKEN");
+  // useEffect(() => {
+  //   const token = localStorage.getItem("JWT_TOKEN");
 
-    isFavoriteChecked ? getFavorites(token) : console.log(favoritedGames);
-  }, []);
+  //   isFavoriteChecked ? getFavorites(token) : console.log(favoritedGames);
+  // }, []);
 
   return (
     <div className="profile">
@@ -83,80 +83,80 @@ const Profile = ({
           {currentUser?.username}
         </button>
         {/* TOGGLE SWITCH  */}
-        <div className="profile__games-switch">
+        {/* <div className="profile__games-switch">
           <ToggleSwitch
             toggleFavoritesAndSaved={toggleFavoritesAndSaved}
             isFavoriteChecked={isFavoriteChecked}
           />
         </div>
-        <div className="profile__games-list-container">
-          {/* FAVE/SAVE LISTS  */}
-          {isFavoriteChecked ? (
-            <ul className="profile__games-list profile__games-list_favorites">
-              {favoritedGames.slice(0, visibleFavCount).map((game) => {
-                const isSaved = savedGames.some(
-                  (savGame) => savGame.id === game.id
-                );
+        <div className="profile__games-list-container"> */}
+        {/* FAVE/SAVE LISTS  */}
+        {/* {isFavoriteChecked ? (
+        //     <ul className="profile__games-list profile__games-list_favorites">
+        //       {favoritedGames.slice(0, visibleFavCount).map((game) => {
+        //         const isSaved = savedGames.some(
+        //           (savGame) => savGame.id === game.id
+        //         );
 
-                const isFavorited = favoritedGames.some(
-                  (favGame) => favGame.id === game.id
-                );
-                return (
-                  <GameCard
-                    key={game.id}
-                    game={game}
-                    onFavoriteGame={handleFavoriteGame}
-                    onSaveGame={handleSaveGame}
-                    onGameClick={handleGameClick}
-                    isFavorited={isFavorited}
-                    isSaved={isSaved}
-                  />
-                );
-              })}
-              {!isLoading && visibleFavCount < favoritedGames.length && (
-                <button
-                  type="button"
-                  onClick={onShowMoreFavClick}
-                  className="profile__show-more-btn"
-                >
-                  Show More
-                </button>
-              )}
-            </ul>
-          ) : (
-            <ul className="profile__games-list profile__games-list_saved">
-              {savedGames.slice(0, visibleSavCount).map((game) => {
-                const isSaved = savedGames.some(
-                  (savGame) => savGame.id === game.id
-                );
+        //         const isFavorited = favoritedGames.some(
+        //           (favGame) => favGame.id === game.id
+        //         );
+        //         return (
+        //           <GameCard
+        //             key={game.id}
+        //             game={game}
+        //             onFavoriteGame={handleFavoriteGame}
+        //             onSaveGame={handleSaveGame}
+        //             onGameClick={handleGameClick}
+        //             isFavorited={isFavorited}
+        //             isSaved={isSaved}
+        //           />
+        //         );
+        //       })}
+        //       {!isLoading && visibleFavCount < favoritedGames.length && (
+        //         <button
+        //           type="button"
+        //           onClick={onShowMoreFavClick}
+        //           className="profile__show-more-btn"
+        //         >
+        //           Show More
+        //         </button>
+        //       )}
+        //     </ul>
+        //   ) : (
+        //     <ul className="profile__games-list profile__games-list_saved">
+        //       {savedGames.slice(0, visibleSavCount).map((game) => {
+        //         const isSaved = savedGames.some(
+        //           (savGame) => savGame.id === game.id
+        //         );
 
-                const isFavorited = favoritedGames.some(
-                  (favGame) => favGame.id === game.id
-                );
-                return (
-                  <GameCard
-                    key={game.id}
-                    game={game}
-                    onFavoriteGame={handleFavoriteGame}
-                    onSaveGame={handleSaveGame}
-                    onGameClick={handleGameClick}
-                    isSaved={isSaved}
-                    isFavorited={isFavorited}
-                  />
-                );
-              })}
-              {!isLoading && visibleSavCount < savedGames.length && (
-                <button
-                  type="button"
-                  onClick={onShowMoreSavClick}
-                  className="profile__show-more-btn"
-                >
-                  Show More
-                </button>
-              )}
-            </ul>
-          )}
-        </div>
+        //         const isFavorited = favoritedGames.some(
+        //           (favGame) => favGame.id === game.id
+        //         );
+        //         return (
+        //           <GameCard
+        //             key={game.id}
+        //             game={game}
+        //             onFavoriteGame={handleFavoriteGame}
+        //             onSaveGame={handleSaveGame}
+        //             onGameClick={handleGameClick}
+        //             isSaved={isSaved}
+        //             isFavorited={isFavorited}
+        //           />
+        //         );
+        //       })}
+        //       {!isLoading && visibleSavCount < savedGames.length && (
+        //         <button
+        //           type="button"
+        //           onClick={onShowMoreSavClick}
+        //           className="profile__show-more-btn"
+        //         >
+        //           Show More
+        //         </button>
+        //       )}
+        //     </ul>
+        //   )}
+        // </div>
 
         {/* MOBILE MENU  */}
         {isMobileMenuOpened && (
