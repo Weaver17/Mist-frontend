@@ -3,7 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
-import mobileMenuBtn from "../../assets/btns/mobile-menu-btn.png";
+import mobileMenuBtn from "../../assets/icons/dropdown-icon.png";
 import mobileCloseBtnBlue from "../../assets/btns/close-btn-blue.png";
 import "./Header.css";
 
