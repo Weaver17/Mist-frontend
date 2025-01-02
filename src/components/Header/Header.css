@@ -115,6 +115,13 @@
 
 .header__btn-link {
   text-decoration: none;
+  margin: 0;
+  padding: 0;
+}
+
+.header__tab {
+  margin: 0;
+  padding: 0;
 }
 
 .header__btn {
@@ -189,12 +196,7 @@
 }
 
 .header__btn_profile {
-  padding-right: 56px;
-  display: flex;
-  gap: 10px;
-  background: transparent url(../../assets/icons/profile-icon-blue.png)
-    no-repeat;
-  background-position: right 24px center;
+  color: #e8c902;
 }
 
 /* .header__tab:hover {

@@ -31,7 +31,7 @@ const Header = ({ handleSignUpClick, handleSignInClick, isLoggedIn }) => {
       {/* Center SECTION */}
       <div className="header__subtitle-container">
         <div className="header__subtitle-bg">
-          <h2 className="header__subtitle">Free-To-Play</h2>
+          <h2 className="header__subtitle">Free-To-Play Games</h2>
         </div>
       </div>
 
@@ -56,6 +56,12 @@ const Header = ({ handleSignUpClick, handleSignInClick, isLoggedIn }) => {
                 {currentUser?.username}
               </button>
             </Link>
+            <NavLink className="header__btn header__btn-link" to="/search">
+              <p className="header__tab">Search</p>
+            </NavLink>
+            <NavLink className="header__btn header__btn-link" to="/games">
+              <p className="header__tab">All Games</p>
+            </NavLink>
           </div>
         ) : (
           <div className="header__signed-container">
