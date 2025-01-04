@@ -46,11 +46,11 @@
 
 @media screen and (max-width: 985px) {
   .main__card-list {
-    grid-template-columns: repeat(auto-fit, 350px);
+    grid-template-columns: repeat(auto-fit, 375px);
   }
 }
 
-@media screen and (max-width: 385px) {
+@media screen and (max-width: 610px) {
   .main__card-list {
     grid-template-columns: repeat(auto-fit, 300px);
   }

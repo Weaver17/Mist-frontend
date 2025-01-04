@@ -3,8 +3,8 @@ import { Link, NavLink } from "react-router-dom";
 
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
-import mobileMenuBtn from "../../assets/icons/dropdown-icon.png";
-import mobileCloseBtnBlue from "../../assets/btns/close-btn-blue.png";
+import mobileDropdown from "../../assets/icons/dropdown-icon.png";
+import mobileCloseBtn from "../../assets/btns/close-btn.png";
 import "./Header.css";
 
 const Header = ({ handleSignUpClick, handleSignInClick, isLoggedIn }) => {
@@ -120,13 +120,13 @@ const Header = ({ handleSignUpClick, handleSignInClick, isLoggedIn }) => {
           {!isMobileMenuOpened ? (
             <img
               className="header__mobile-btn"
-              src={mobileMenuBtn}
+              src={mobileDropdown}
               alt="Mobile Menu Button"
             />
           ) : (
             <img
               className="header__mobile-close-btn"
-              src={mobileCloseBtnBlue}
+              src={mobileCloseBtn}
               alt="Mobile Close Button"
             />
           )}

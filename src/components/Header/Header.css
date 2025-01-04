@@ -1,7 +1,7 @@
 .header {
   position: relative;
   margin-top: 0;
-  padding: 0;
+  padding: 8px 0;
   /* height: 120px; */
   width: 100%;
   display: flex;
@@ -178,12 +178,13 @@
 }
 
 .header__mobile-close-btn {
-  margin: 0 18px 0 0;
-  height: 24px;
-  width: 24px;
+  margin: auto 18px 0 0;
+  padding: 0;
+  height: 34px;
+  width: 34px;
   border: none;
   cursor: pointer;
-  background: transparent;
+  background: transparent center;
 }
 
 .header__mobile {
@@ -242,12 +243,17 @@
 }
 
 @media screen and (max-width: 985px) {
+  .header__subtitle-container {
+    display: none;
+  }
+
   .header__right-container {
     display: none;
   }
 
   .header__mobile-btn-container {
     display: flex;
+    margin-left: auto;
   }
 
   .header__signed-container {
@@ -348,11 +354,12 @@
 @media screen and (max-width: 610px) {
   .header__logo-container {
     margin-left: 10px;
-    width: 120px;
+    width: 140px;
+    height: 57px;
   }
 
   .header__logo-bar-one {
-    width: 120px;
+    width: 140px;
   }
 
   .header__logo-text {
@@ -361,12 +368,13 @@
   }
 
   .header__logo-bar-two {
-    width: 120px;
+    width: 140px;
   }
 
   .header__mobile-btn-container {
     display: flex;
     margin-left: auto;
+    width: 160px;
   }
 }
 
@@ -381,5 +389,20 @@
     width: 100%;
     margin: 0 auto;
     right: 0;
+  }
+
+  .header__mobile-register-btn {
+    display: none;
+  }
+
+  .header__mobile-profile-btn {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 385px) {
+  .header__signed-container {
+    width: 50%;
+    margin: 0;
   }
 }

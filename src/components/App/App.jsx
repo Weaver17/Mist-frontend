@@ -24,7 +24,7 @@ import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import { addFavoriteGame, removeFavoriteGame } from "../../utils/favorites";
 
 function App() {
-  const [activeModal, setActiveModal] = useState("");
+  const [activeModal, setActiveModal] = useState("completed");
   const [isLoading, setIsLoading] = useState(false);
   const [selectedGame, setSelectedGame] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -331,6 +331,7 @@ function App() {
             <CompletedModal
               isOpen={activeModal === "completed"}
               handleSignInClick={handleSignInClick}
+              handleCloseClick={closeActiveModal}
             />
             <GameModal
               handleCloseClick={closeActiveModal}

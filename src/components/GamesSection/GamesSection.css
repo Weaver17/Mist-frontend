@@ -80,8 +80,8 @@
 }
 
 .games__select-option {
-  color: #2f71e5;
-  background-color: #f5f5f5;
+  color: #0284b8;
+  background-color: #dcdcdc;
 }
 
 .games__list {
@@ -95,27 +95,26 @@
 }
 
 .games__show-more-btn {
-  background-color: #2f71e5;
-  border: solid 2px #f5f5f5;
-  color: #f5f5f5;
+  background: none;
+  border: none;
+  color: #000;
+
   font-weight: 500;
   font-size: 18px;
   line-height: 18px;
-  border-radius: 100px;
-  margin: 12px;
-  padding: 18px 32px;
-  height: 60px;
+  margin: 24px;
+  padding: 0;
   align-self: center;
   cursor: pointer;
 }
 
 .games__select-option:hover {
-  color: #2f71e5;
+  color: #0284b8;
   background-color: #f5f5f5;
 }
 
 .games__show-more-btn:hover {
-  background-color: #0255e5;
+  background-color: #0284b8;
   transition: 0.2s linear;
 }
 
@@ -135,7 +134,7 @@
 
 @media screen and (max-width: 985px) {
   .games__list {
-    grid-template-columns: repeat(auto-fit, 350px);
+    grid-template-columns: repeat(auto-fit, 375px);
   }
 }
 
@@ -164,6 +163,12 @@
   }
 }
 
+@media screen and (max-width: 610px) {
+  .games__list {
+    grid-template-columns: repeat(auto-fit, 300px);
+  }
+}
+
 @media screen and (max-width: 485px) {
   .games__select {
     font-size: 14px;
@@ -172,11 +177,5 @@
     background-position: right 8px center;
     background-repeat: no-repeat;
     background-size: 8px 4px;
-  }
-}
-
-@media screen and (max-width: 385px) {
-  .games__list {
-    grid-template-columns: repeat(auto-fit, 300px);
   }
 }

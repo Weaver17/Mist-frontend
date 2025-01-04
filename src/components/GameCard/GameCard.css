@@ -129,8 +129,8 @@
 
 @media screen and (max-width: 985px) {
   .card {
-    height: 400px;
-    width: 350px;
+    height: 370px;
+    width: 375px;
   }
 
   .card__thumbnail-container {
@@ -162,7 +162,7 @@
   }
 }
 
-@media screen and (max-width: 385px) {
+@media screen and (max-width: 610px) {
   .card {
     height: 350px;
     width: 300px;
@@ -170,12 +170,12 @@
 
   .card__thumbnail-container {
     height: 170px;
-    width: 300px;
+    width: 275px;
   }
 
   .card__thumbnail {
     height: 170px;
-    width: 300px;
+    width: 275px;
   }
 
   .card__save-bg {
