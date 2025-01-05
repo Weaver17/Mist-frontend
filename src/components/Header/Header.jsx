@@ -140,7 +140,11 @@ const Header = ({ handleSignUpClick, handleSignInClick, isLoggedIn }) => {
               {isLoggedIn ? (
                 <div className="header__mobile-login-btn-hidden"></div>
               ) : (
-                <button className="header__mobile-login-btn" type="button">
+                <button
+                  className="header__mobile-login-btn"
+                  type="button"
+                  onClick={handleSignInClick}
+                >
                   Sign in
                 </button>
               )}

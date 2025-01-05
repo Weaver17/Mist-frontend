@@ -3,7 +3,7 @@ import { useState, useEffect, useContext } from "react";
 import FavoriteGameContext from "../../contexts/FavoriteGameContext";
 import SavedGamesContext from "../../contexts/SavedGamesContext";
 import Preloader from "../Preloader/Preloader";
-import { getGameById } from "../../utils/gameApi";
+import * as gameApi from "../../utils/gameApi";
 
 import saveGame from "../../assets/btns/save-btn2.png";
 import gameSaved from "../../assets/icons/saved-icon-blue.png";
@@ -12,7 +12,13 @@ import favoriteBtnFilled from "../../assets/btns/favorite-btn-filled.png";
 
 import "./FeaturedGame.css";
 
-const FeaturedGame = ({ onGameClick, games, onFavoriteGame, onSaveGame }) => {
+const FeaturedGame = ({
+  onGameClick,
+  games,
+  setGames,
+  onFavoriteGame,
+  onSaveGame,
+}) => {
   const [featuredGame, setFeaturedGame] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -34,7 +40,7 @@ const FeaturedGame = ({ onGameClick, games, onFavoriteGame, onSaveGame }) => {
   };
 
   const handleGameClick = () => {
-    getGameById(featuredGame.id).then((item) => {
+    gameApi.getGameById(featuredGame.id).then((item) => {
       onGameClick(item);
     });
   };
@@ -42,32 +48,49 @@ const FeaturedGame = ({ onGameClick, games, onFavoriteGame, onSaveGame }) => {
   const loadFeaturedGame = () => {
     try {
       const today = new Date().toISOString().slice(0, 10);
+      console.log(`Today's date: ${today}`);
 
       const storedGame = localStorage.getItem(`featuredGame-${today}`);
-
-      if (storedGame) {
+      console.log(`Stored game: ${storedGame}`);
+      if (storedGame && storedGame !== "undefined") {
         const parsedGame = JSON.parse(storedGame);
         setFeaturedGame(parsedGame);
         console.log("Loaded game from localStorage:", parsedGame);
       } else {
-        const randomIndex = Math.floor(Math.random() * games.length);
-        const selectedGame = games[randomIndex];
+        if (games && games.length > 0) {
+          const randomIndex = Math.floor(Math.random() * games.length);
+          const selectedGame = games[randomIndex];
 
-        localStorage.setItem(
-          `featuredGame-${today}`,
-          JSON.stringify(selectedGame)
-        );
-        setFeaturedGame(selectedGame);
-        console.log("New featured game selected:", selectedGame);
+          localStorage.setItem(
+            `featuredGame-${today}`,
+            JSON.stringify(selectedGame)
+          );
+          setFeaturedGame(selectedGame);
+          console.log("New featured game selected:", selectedGame);
+        } else {
+          console.error("No games available to select as featured game.");
+        }
       }
     } catch (error) {
       console.error("Error loading featured game:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   useEffect(() => {
-    loadFeaturedGame();
+    gameApi
+      .getGamesByReleaseDate()
+      .then((items) => {
+        setGames(items);
+      })
+      .catch(console.error)
+      .finally(setIsLoading(false));
   }, []);
+
+  useEffect(() => {
+    loadFeaturedGame();
+  }, [games]);
 
   useEffect(() => {
     if (featuredGame) {
@@ -78,7 +101,8 @@ const FeaturedGame = ({ onGameClick, games, onFavoriteGame, onSaveGame }) => {
   useEffect(() => {
     if (featuredGame?.id) {
       setIsLoading(true);
-      getGameById(featuredGame.id)
+      gameApi
+        .getGameById(featuredGame.id)
         .then((item) => {
           setFeaturedGame(item);
         })
@@ -103,22 +127,22 @@ const FeaturedGame = ({ onGameClick, games, onFavoriteGame, onSaveGame }) => {
               alt="Game Cover"
               onClick={handleGameClick}
             />
-            <div className="featured__save-bg">
+            {/* <div className="featured__save-bg">
               <img
                 className="featured__save-btn"
                 src={!isSaved ? saveGame : gameSaved}
                 alt={!isSaved ? "Save Icon" : "Blue Checkmark"}
                 onClick={handleSaveGame}
               />
-            </div>
+            </div> */}
           </div>
           <div className="featured__info">
-            <img
+            {/* <img
               className="featured__fav-btn"
               src={isFavorited ? favoriteBtnFilled : favoriteBtn}
               alt={isFavorited ? "Star" : "Blue Star"}
               onClick={handleFavoriteGame}
-            />
+            /> */}
             <p className="featured__category">{featuredGame.genre}</p>
             <h2 className="featured__title" onClick={handleGameClick}>
               {featuredGame.title}
