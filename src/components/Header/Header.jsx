@@ -16,7 +16,7 @@ const Header = ({ handleSignUpClick, handleSignInClick, isLoggedIn }) => {
     setMobileMenuOpened(!isMobileMenuOpened);
   };
   return (
-    <header className="header">
+    <header className="header__main">
       {/* LEFT/LOGO SECTION */}
       <div className="header__logo-container">
         <Link className="header__logo-link" to="/">
