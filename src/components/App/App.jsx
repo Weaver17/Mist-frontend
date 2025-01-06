@@ -2,8 +2,6 @@ import { useState, useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 
 import CurrentUserContext from "../../contexts/CurrentUserContext";
-import FavoriteGameContext from "../../contexts/FavoriteGameContext";
-import SavedGamesContext from "../../contexts/SavedGamesContext";
 import * as auth from "../../utils/auth";
 
 import "./App.css";
@@ -21,7 +19,6 @@ import LoginModal from "../LoginModal/LoginModal";
 import CompletedModal from "../CompletedModal/CompletedModal";
 import GameModal from "../GameModal/GameModal";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
-import { addFavoriteGame, removeFavoriteGame } from "../../utils/favorites";
 
 function App() {
   const [activeModal, setActiveModal] = useState("");
@@ -29,8 +26,6 @@ function App() {
   const [selectedGame, setSelectedGame] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [games, setGames] = useState([]);
-  const [favoritedGames, setFavoritedGames] = useState([]);
-  const [savedGames, setSavedGames] = useState([]);
   const [currentUser, setCurrentUser] = useState({
     _id: "",
     username: "",
@@ -131,79 +126,6 @@ function App() {
       .catch(console.error);
   };
 
-  // ORIGINAL
-  // const handleFavoriteGame = (game) => {
-  //   const favorited = {
-  //     favorited: favoritedGames.some((favGame) => favGame.id === game.id),
-  //     owner: currentUser?._id,
-  //   };
-
-  //   if (!favorited.favorited) {
-  //     setFavoritedGames((prev) => [...prev, game]);
-  //   } else {
-  //     setFavoritedGames((prev) =>
-  //       prev.filter((favGame) => favGame.id !== game.id)
-  //     );
-  //   }
-  //   game.isFavorited = !game.isFavorited;
-  // };
-
-  const updateFavorites = (updatedFavorites) => {
-    setFavoritedGames(updatedFavorites);
-  };
-
-  // BUTCHERED
-  const handleFavoriteGame = (game, user) => {
-    const token = localStorage.getItem("JWT_TOKEN");
-
-    user = currentUser;
-
-    // Check if the game is already favorited
-    const isFavorited = favoritedGames.some(
-      (favGame) => favGame.id === game.id
-    );
-
-    console.log(favoritedGames);
-
-    try {
-      if (!isFavorited) {
-        // Add to favorites via API
-        addFavoriteGame(game, token, user).then(() => {
-          // Add game to Context state
-          updateFavorites([...favoritedGames, game]);
-        });
-      } else {
-        // Remove from favorites via API
-        removeFavoriteGame(game, { token, _id }).then(() => {
-          // Remove game from Context state
-          updateFavorites(
-            favoritedGames.filter((favGame) => favGame.id !== game.id)
-          );
-        });
-      }
-
-      // Update the game's `isFavorited` status
-      game.isFavorited = !isFavorited;
-    } catch (error) {
-      console.error("Error handling favorite game:", error.message);
-      alert("An error occurred while updating favorites.");
-    }
-  };
-
-  const handleSaveGame = (game) => {
-    const saved = {
-      saved: savedGames.some((savGame) => savGame.id === game.id),
-      owner: currentUser?._id,
-    };
-
-    if (!saved.saved) {
-      setSavedGames((prev) => [...prev, game]);
-    } else {
-      setSavedGames((prev) => prev.filter((favGame) => favGame.id !== game.id));
-    }
-    game.isSaved = !game.isSaved;
-  };
-
   useEffect(() => {
     const token = localStorage.getItem("JWT_TOKEN");
 
@@ -229,117 +151,104 @@ function App() {
     <CurrentUserContext.Provider
       value={{ currentUser, isLoggedIn, setIsLoggedIn }}
     >
-      <FavoriteGameContext.Provider
-        value={{ favoritedGames, setFavoritedGames }}
-      >
-        <SavedGamesContext.Provider value={{ savedGames, setSavedGames }}>
-          <div className="page">
-            <div className="page__content">
-              {/* <Preloader /> */}
-              <Header
-                isLoggedIn={isLoggedIn}
-                handleSignUpClick={handleSignUpClick}
-                handleSignInClick={handleSignInClick}
-              />
-              <GameIconBanner />
+      <div className="page">
+        <div className="page__content">
+          {/* <Preloader /> */}
+          <Header
+            isLoggedIn={isLoggedIn}
+            handleSignUpClick={handleSignUpClick}
+            handleSignInClick={handleSignInClick}
+          />
+          <GameIconBanner />
 
-              <Routes>
-                <Route
-                  path="/"
-                  element={
-                    <Main
-                      handleFavoriteGame={handleFavoriteGame}
-                      handleGameClick={handleGameClick}
-                      games={games}
-                      setGames={setGames}
-                      isLoading={isLoading}
-                      setIsLoading={setIsLoading}
-                      selectedGame={selectedGame}
-                      handleSaveGame={handleSaveGame}
-                    />
-                  }
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Main
+                  handleGameClick={handleGameClick}
+                  games={games}
+                  setGames={setGames}
+                  isLoading={isLoading}
+                  setIsLoading={setIsLoading}
+                  selectedGame={selectedGame}
                 />
-                <Route
-                  path="profile"
-                  element={
-                    <ProtectedRoute>
-                      <Profile
-                        handleEditClick={handleEditClick}
-                        isOpen={activeModal === "edit"}
-                        handleEditUsername={handleEditUsername}
-                        handleLogOut={handleLogOut}
-                        games={games}
-                        handleCloseClick={closeActiveModal}
-                        isLoading={isLoading}
-                        handleGameClick={handleGameClick}
-                        handleFavoriteGame={handleFavoriteGame}
-                        handleSaveGame={handleSaveGame}
-                      />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="games"
-                  element={
-                    <GamesSection
-                      setGames={setGames}
-                      games={games}
-                      handleCloseClick={closeActiveModal}
-                      isLoading={isLoading}
-                      setIsLoading={setIsLoading}
-                      handleGameClick={handleGameClick}
-                      handleFavoriteGame={handleFavoriteGame}
-                      handleSaveGame={handleSaveGame}
-                    />
-                  }
-                />
-
-                <Route
-                  path="search"
-                  element={
-                    <SearchPage
-                      handleFavoriteGame={handleFavoriteGame}
-                      handleGameClick={handleGameClick}
-                      games={games}
-                      setGames={setGames}
-                      isLoading={isLoading}
-                      setIsLoading={setIsLoading}
-                      selectedGame={selectedGame}
-                      handleSaveGame={handleSaveGame}
-                    />
-                  }
-                />
-                <Route path="about" element={<About />} />
-              </Routes>
-              <Footer />
-            </div>
-
-            <RegisterModal
-              handleSignInClick={handleSignInClick}
-              isOpen={activeModal === "register"}
-              handleCloseClick={closeActiveModal}
-              handleRegistrationClick={handleRegistrationClick}
-              handleRegistration={handleRegistration}
+              }
             />
-            <LoginModal
-              handleSignUpClick={handleSignUpClick}
-              isOpen={activeModal === "signin"}
-              handleCloseClick={closeActiveModal}
-              handleLogin={handleLogin}
+            <Route
+              path="profile"
+              element={
+                <ProtectedRoute>
+                  <Profile
+                    handleEditClick={handleEditClick}
+                    isOpen={activeModal === "edit"}
+                    handleEditUsername={handleEditUsername}
+                    handleLogOut={handleLogOut}
+                    games={games}
+                    handleCloseClick={closeActiveModal}
+                    isLoading={isLoading}
+                    handleGameClick={handleGameClick}
+                  />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="games"
+              element={
+                <GamesSection
+                  setGames={setGames}
+                  games={games}
+                  handleCloseClick={closeActiveModal}
+                  isLoading={isLoading}
+                  setIsLoading={setIsLoading}
+                  handleGameClick={handleGameClick}
+                />
+              }
             />
 
-            <CompletedModal
-              isOpen={activeModal === "completed"}
-              handleSignInClick={handleSignInClick}
+            <Route
+              path="search"
+              element={
+                <SearchPage
+                  handleGameClick={handleGameClick}
+                  games={games}
+                  setGames={setGames}
+                  isLoading={isLoading}
+                  setIsLoading={setIsLoading}
+                  selectedGame={selectedGame}
+                />
+              }
             />
-            <GameModal
-              handleCloseClick={closeActiveModal}
-              isOpen={activeModal === "game"}
-              game={selectedGame}
-            />
-          </div>
-        </SavedGamesContext.Provider>
-      </FavoriteGameContext.Provider>
+            <Route path="about" element={<About />} />
+          </Routes>
+          <Footer />
+        </div>
+
+        <RegisterModal
+          handleSignInClick={handleSignInClick}
+          isOpen={activeModal === "register"}
+          handleCloseClick={closeActiveModal}
+          handleRegistrationClick={handleRegistrationClick}
+          handleRegistration={handleRegistration}
+        />
+        <LoginModal
+          handleSignUpClick={handleSignUpClick}
+          isOpen={activeModal === "signin"}
+          handleCloseClick={closeActiveModal}
+          handleLogin={handleLogin}
+        />
+
+        <CompletedModal
+          isOpen={activeModal === "completed"}
+          handleSignInClick={handleSignInClick}
+          handleCloseClick={closeActiveModal}
+        />
+        <GameModal
+          handleCloseClick={closeActiveModal}
+          isOpen={activeModal === "game"}
+          game={selectedGame}
+        />
+      </div>
     </CurrentUserContext.Provider>
   );
 }

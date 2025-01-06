@@ -55,12 +55,13 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
+  font-family: "Ubuntu", serif;
 }
 
 .game-modal__category {
   margin: 0;
   padding: 0;
-  color: #8b8b8b;
+  color: #000;
   font-weight: 700;
   font-size: 14px;
   line-height: 20px;
@@ -69,8 +70,7 @@
 .game-modal__platform {
   margin: 0;
   padding: 0;
-
-  color: #cfcfcf;
+  color: #8b8b8b;
   font-weight: 700;
   font-size: 14px;
   line-height: 20px;
@@ -78,25 +78,27 @@
 }
 
 .game-modal__status {
-  color: #2f71e5;
+  color: #0284b8;
+  text-transform: uppercase;
+  font-family: "Ubuntu", serif;
 }
 
 .game-modal__download-btn {
-  background-color: #2f71e5;
-  border: solid 2px #f5f5f5;
-  color: #f5f5f5;
+  background-color: #000;
+  border: solid 2px #0284b8;
+  color: #e8c902;
   font-weight: 500;
-  font-size: 18px;
-  line-height: 18px;
-  border-radius: 100px;
+  font-size: 24px;
+  line-height: 30px;
+  border-radius: 16px;
   margin: 0 0 0 20px;
-  padding: 18px 32px;
+  padding: 4px 20px;
   height: 60px;
   cursor: pointer;
 }
 
 .game-modal__info-container-right {
-  margin: 0;
+  margin: 0 0 0 12px;
   padding: 0;
   display: flex;
   flex-direction: column;
@@ -105,7 +107,7 @@
 
 .game-modal__info-container-right-top {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   position: relative;
 }
 
@@ -122,11 +124,10 @@
 }
 
 .game-modal__dev-info-container {
-  margin: 0 0 0 12px;
+  margin: 0 12px 0 auto;
   padding: 0;
   display: flex;
   gap: 24px;
-  justify-content: end;
 }
 
 .game-modal__dev-info-wrapper {
@@ -148,16 +149,16 @@
 }
 
 .game-modal__dev-info {
-  font-size: 14px;
-  line-height: 20px;
-  font-weight: 400;
+  font-family: "Ubuntu", serif;
+  font-weight: 700;
   margin: 0;
   padding: 0;
 }
 
 .game-modal__description {
-  margin: 0 20px;
-  font-weight: 400;
+  font-family: "Ubuntu", serif;
+  margin: 0;
+  font-weight: 700;
 }
 
 .game-modal__bottom-container {
@@ -205,15 +206,15 @@
 }
 
 .game-modal__specs-spec {
+  font-family: "Ubuntu", serif;
   margin: 0;
   padding: 0;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 20px;
+  font-weight: 700;
 }
 
 .game-modal__download-btn:hover {
-  background-color: #0255e5;
+  border-color: #e8c902;
+  color: #0284b8;
   transition: 0.2s linear;
 }
 
@@ -229,13 +230,13 @@
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #2f71e5;
+  background: #0284b8;
   border-radius: 10px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #2f71e5;
+  background: #0284b8;
 }
 
 ::-webkit-scrollbar-button {
@@ -258,7 +259,7 @@
   }
 }
 
-@media screen and (max-width: 985px) {
+@media screen and (max-width: 1055px) {
   .game-modal__info-container {
     flex-direction: column;
   }
@@ -311,5 +312,13 @@
 
   .game-modal__dev-info-container {
     gap: 8px;
+  }
+
+  .game-modal__dev-info-type {
+    font-size: 10px;
+  }
+
+  .game-modal__dev-info {
+    font-size: 10px;
   }
 }

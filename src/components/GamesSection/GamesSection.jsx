@@ -1,7 +1,4 @@
-import { useState, useContext, useEffect } from "react";
-
-import FavoriteGameContext from "../../contexts/FavoriteGameContext";
-import SavedGamesContext from "../../contexts/SavedGamesContext";
+import { useState, useEffect } from "react";
 
 import GameCard from "../GameCard/GameCard";
 import Preloader from "../Preloader/Preloader";
@@ -14,8 +11,6 @@ import "./GamesSection.css";
 const GamesSection = ({
   handleGameClick,
   games,
-  handleFavoriteGame,
-  handleSaveGame,
   setGames,
   isLoading,
   setIsLoading,
@@ -24,9 +19,6 @@ const GamesSection = ({
   const [selectedPlatform, setSelectedPlatform] = useState("All");
 
   const [visibleCount, setVisibleCount] = useState(9);
-
-  const { favoritedGames } = useContext(FavoriteGameContext);
-  const { savedGames } = useContext(SavedGamesContext);
 
   // category change
   const handleCatChange = () => {
@@ -162,21 +154,11 @@ const GamesSection = ({
           <Preloader />
         ) : (
           games.slice(0, visibleCount).map((game) => {
-            const isFavorited = favoritedGames.some(
-              (favGame) => favGame.id === game.id
-            );
-            const isSaved = savedGames.some(
-              (savGame) => savGame.id === game.id
-            );
             return (
               <GameCard
                 key={game.id}
                 game={game}
                 onGameClick={handleGameClick}
-                onFavoriteGame={handleFavoriteGame}
-                onSaveGame={handleSaveGame}
-                isFavorited={isFavorited}
-                isSaved={isSaved}
               />
             );
           })

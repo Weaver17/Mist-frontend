@@ -1,7 +1,4 @@
-import { useState, useContext, useEffect } from "react";
-
-import FavoriteGameContext from "../../contexts/FavoriteGameContext";
-import SavedGamesContext from "../../contexts/SavedGamesContext";
+import { useState, useEffect } from "react";
 
 import GameCard from "../GameCard/GameCard";
 import Preloader from "../Preloader/Preloader";
@@ -18,15 +15,10 @@ const SearchPage = ({
   setGames,
   isLoading,
   setIsLoading,
-  handleFavoriteGame,
-  handleSaveGame,
 }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredGames, setFilteredGames] = useState([]);
   const [visibleCount, setVisibleCount] = useState(3);
-
-  const { favoritedGames } = useContext(FavoriteGameContext);
-  const { savedGames } = useContext(SavedGamesContext);
 
   const handleSearch = (e) => {
     setSearchQuery(e.target.value);
@@ -82,41 +74,21 @@ const SearchPage = ({
           <Preloader />
         ) : filteredGames.length > 0 ? (
           filteredGames.slice(0, visibleCount).map((game) => {
-            const isFavorited = favoritedGames.some(
-              (favGame) => favGame.id === game.id
-            );
-            const isSaved = savedGames.some(
-              (savGame) => savGame.id === game.id
-            );
             return (
               <GameCard
                 key={game.id}
                 game={game}
                 onGameClick={handleGameClick}
-                onFavoriteGame={handleFavoriteGame}
-                onSaveGame={handleSaveGame}
-                isFavorited={isFavorited}
-                isSaved={isSaved}
               />
             );
           })
         ) : (
           games.slice(0, visibleCount).map((game) => {
-            const isFavorited = favoritedGames.some(
-              (favGame) => favGame.id === game.id
-            );
-            const isSaved = savedGames.some(
-              (savGame) => savGame.id === game.id
-            );
             return (
               <GameCard
                 key={game.id}
                 game={game}
                 onGameClick={handleGameClick}
-                onFavoriteGame={handleFavoriteGame}
-                onSaveGame={handleSaveGame}
-                isFavorited={isFavorited}
-                isSaved={isSaved}
               />
             );
           })

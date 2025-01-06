@@ -1,13 +1,13 @@
 .modal__complete-container {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .modal__complete-signup {
-    padding: 0;
-    margin: 40px 0;
+  padding: 0;
+  margin: 40px 0;
   font-size: 32px;
   font-weight: 700;
   line-height: 40px;
@@ -15,10 +15,10 @@
 }
 
 .modal__complete-go-to-signin {
-    color: #2f71e5;
-    margin: 0 auto 40px;
+  color: #0284b8;
+  margin: 0 auto 40px;
   padding: 0;
-  width: 55px;
+  width: 65px;
   background: none;
   border: none;
   font-weight: 500;
@@ -27,11 +27,9 @@
 }
 
 .modal__complete-go-to-signin:hover {
-    color: #0255e5;
+  color: #000;
   transition: 0.2s linear;
 }
-
-
 
 @media screen and (max-width: 515px) {
   .modal__complete-signup {

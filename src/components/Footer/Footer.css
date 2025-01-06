@@ -1,6 +1,6 @@
 .footer {
   height: 200px;
-  background-color: #2f71e5;
+  background-color: #000;
   margin: 0;
   padding: 20px 40px 0;
   color: #f5f5f5;
@@ -24,7 +24,7 @@
   font-size: 18px;
   line-height: 24px;
   text-decoration: none;
-  color: #f5f5f5;
+  color: #e8c902;
   cursor: pointer;
 }
 
@@ -34,7 +34,7 @@
   font-weight: 500;
   font-size: 18px;
   line-height: 24px;
-  color: #f5f5f5;
+  color: #0284b8;
 }
 
 .footer__social-icons {
@@ -50,6 +50,8 @@
 }
 
 .footer__signature {
+  font-family: "Ubuntu", serif;
+
   margin: 24px auto 0;
   padding: 0;
   text-align: center;
@@ -61,13 +63,27 @@
   font-weight: 400;
 }
 
+.footer__nav-link_icon {
+  color: #0284b8;
+}
+
 .footer__nav-link:hover {
-  opacity: 0.6;
+  color: #e8c902;
   transition: 0.2s linear;
 }
 
-.footer__social-icon:hover {
-  opacity: 0.6;
+.footer__nav-link-text:hover {
+  color: #e8c902;
+  transition: 0.2s linear;
+}
+
+.footer__nav-link_icon:hover {
+  color: #e8c902;
+  transition: 0.2s linear;
+}
+
+.footer__nav-link_thin:hover {
+  color: #f5f5f5;
   transition: 0.2s linear;
 }
 

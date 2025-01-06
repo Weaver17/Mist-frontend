@@ -3,8 +3,8 @@ import { Link, NavLink } from "react-router-dom";
 
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
-import mobileMenuBtn from "../../assets/btns/mobile-menu-btn.png";
-import mobileCloseBtnBlue from "../../assets/btns/close-btn-blue.png";
+import mobileDropdown from "../../assets/icons/dropdown-icon.png";
+import mobileCloseBtn from "../../assets/btns/close-btn.png";
 import "./Header.css";
 
 const Header = ({ handleSignUpClick, handleSignInClick, isLoggedIn }) => {
@@ -28,10 +28,17 @@ const Header = ({ handleSignUpClick, handleSignInClick, isLoggedIn }) => {
         </Link>
       </div>
 
+      {/* Center SECTION */}
+      <div className="header__subtitle-container">
+        <div className="header__subtitle-bg">
+          <h2 className="header__subtitle">Free-To-Play Games</h2>
+        </div>
+      </div>
+
       {/* RIGHT SECTION */}
       <nav className="header__right-container">
         {/* TABS */}
-        <NavLink className="header__tab-link" to="/">
+        {/*}  <NavLink className="header__tab-link" to="/">
           <p className="header__tab ">Home</p>
         </NavLink>
         <NavLink className="header__tab-link" to="/search">
@@ -39,7 +46,7 @@ const Header = ({ handleSignUpClick, handleSignInClick, isLoggedIn }) => {
         </NavLink>
         <NavLink className="header__tab-link" to="/games">
           <p className="header__tab">All Games</p>
-        </NavLink>
+        </NavLink></header> */}
 
         {/* PROFILE BUTTONS */}
         {isLoggedIn ? (
@@ -49,6 +56,12 @@ const Header = ({ handleSignUpClick, handleSignInClick, isLoggedIn }) => {
                 {currentUser?.username}
               </button>
             </Link>
+            <NavLink className="header__btn header__btn-link" to="/search">
+              <p className="header__tab">Search</p>
+            </NavLink>
+            <NavLink className="header__btn header__btn-link" to="/games">
+              <p className="header__tab">All Games</p>
+            </NavLink>
           </div>
         ) : (
           <div className="header__signed-container">
@@ -66,6 +79,12 @@ const Header = ({ handleSignUpClick, handleSignInClick, isLoggedIn }) => {
             >
               Sign Up
             </button>
+            <NavLink className="header__btn header__btn-link" to="/search">
+              <p className="header__tab">Search</p>
+            </NavLink>
+            <NavLink className="header__btn header__btn-link" to="/games">
+              <p className="header__tab">All Games</p>
+            </NavLink>
           </div>
         )}
       </nav>
@@ -101,13 +120,13 @@ const Header = ({ handleSignUpClick, handleSignInClick, isLoggedIn }) => {
           {!isMobileMenuOpened ? (
             <img
               className="header__mobile-btn"
-              src={mobileMenuBtn}
+              src={mobileDropdown}
               alt="Mobile Menu Button"
             />
           ) : (
             <img
               className="header__mobile-close-btn"
-              src={mobileCloseBtnBlue}
+              src={mobileCloseBtn}
               alt="Mobile Close Button"
             />
           )}
@@ -121,7 +140,11 @@ const Header = ({ handleSignUpClick, handleSignInClick, isLoggedIn }) => {
               {isLoggedIn ? (
                 <div className="header__mobile-login-btn-hidden"></div>
               ) : (
-                <button className="header__mobile-login-btn" type="button">
+                <button
+                  className="header__mobile-login-btn"
+                  type="button"
+                  onClick={handleSignInClick}
+                >
                   Sign in
                 </button>
               )}
