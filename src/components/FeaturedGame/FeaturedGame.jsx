@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 
-import FavoriteGameContext from "../../contexts/FavoriteGameContext";
-import SavedGamesContext from "../../contexts/SavedGamesContext";
+// import FavoriteGameContext from "../../contexts/FavoriteGameContext";
+// import SavedGamesContext from "../../contexts/SavedGamesContext";
 import Preloader from "../Preloader/Preloader";
 import * as gameApi from "../../utils/gameApi";
 
@@ -22,8 +22,8 @@ const FeaturedGame = ({
   const [featuredGame, setFeaturedGame] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const { favoritedGames } = useContext(FavoriteGameContext);
-  const { savedGames } = useContext(SavedGamesContext);
+  // const { favoritedGames } = useContext(FavoriteGameContext);
+  // const { savedGames } = useContext(SavedGamesContext);
 
   const isSaved = savedGames.some((savGame) => savGame.id === featuredGame?.id);
 

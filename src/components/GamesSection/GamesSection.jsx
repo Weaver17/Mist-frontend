@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from "react";
 
-import FavoriteGameContext from "../../contexts/FavoriteGameContext";
-import SavedGamesContext from "../../contexts/SavedGamesContext";
+// import FavoriteGameContext from "../../contexts/FavoriteGameContext";
+// import SavedGamesContext from "../../contexts/SavedGamesContext";
 
 import GameCard from "../GameCard/GameCard";
 import Preloader from "../Preloader/Preloader";
@@ -25,8 +25,8 @@ const GamesSection = ({
 
   const [visibleCount, setVisibleCount] = useState(9);
 
-  const { favoritedGames } = useContext(FavoriteGameContext);
-  const { savedGames } = useContext(SavedGamesContext);
+  // const { favoritedGames } = useContext(FavoriteGameContext);
+  // const { savedGames } = useContext(SavedGamesContext);
 
   // category change
   const handleCatChange = () => {

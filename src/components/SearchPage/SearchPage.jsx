@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from "react";
 
-import FavoriteGameContext from "../../contexts/FavoriteGameContext";
-import SavedGamesContext from "../../contexts/SavedGamesContext";
+// import FavoriteGameContext from "../../contexts/FavoriteGameContext";
+// import SavedGamesContext from "../../contexts/SavedGamesContext";
 
 import GameCard from "../GameCard/GameCard";
 import Preloader from "../Preloader/Preloader";
@@ -25,8 +25,8 @@ const SearchPage = ({
   const [filteredGames, setFilteredGames] = useState([]);
   const [visibleCount, setVisibleCount] = useState(3);
 
-  const { favoritedGames } = useContext(FavoriteGameContext);
-  const { savedGames } = useContext(SavedGamesContext);
+  // const { favoritedGames } = useContext(FavoriteGameContext);
+  // const { savedGames } = useContext(SavedGamesContext);
 
   const handleSearch = (e) => {
     setSearchQuery(e.target.value);

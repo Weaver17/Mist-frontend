@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 
-import FavoriteGameContext from "../../contexts/FavoriteGameContext";
-import SavedGamesContext from "../../contexts/SavedGamesContext";
+// import FavoriteGameContext from "../../contexts/FavoriteGameContext";
+// import SavedGamesContext from "../../contexts/SavedGamesContext";
 
 import GameCard from "../GameCard/GameCard";
 
@@ -16,8 +16,8 @@ const Favorited = ({
 }) => {
   const [visibleCount, setVisibleCount] = useState(3);
 
-  const { favoritedGames, setFavoritedGames } = useContext(FavoriteGameContext);
-  const { savedGames } = useContext(SavedGamesContext);
+  // const { favoritedGames, setFavoritedGames } = useContext(FavoriteGameContext);
+  // const { savedGames, setSavedGames } = useContext(SavedGamesContext);
 
   const onShowMoreClick = () => {
     setVisibleCount((prevCount) => prevCount + 3);
