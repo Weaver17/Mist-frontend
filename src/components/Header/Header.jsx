@@ -38,15 +38,6 @@ const Header = ({ handleSignUpClick, handleSignInClick, isLoggedIn }) => {
       {/* RIGHT SECTION */}
       <nav className="header__right-container">
         {/* TABS */}
-        {/*}  <NavLink className="header__tab-link" to="/">
-          <p className="header__tab ">Home</p>
-        </NavLink>
-        <NavLink className="header__tab-link" to="/search">
-          <p className="header__tab">Search</p>
-        </NavLink>
-        <NavLink className="header__tab-link" to="/games">
-          <p className="header__tab">All Games</p>
-        </NavLink></header> */}
 
         {/* PROFILE BUTTONS */}
         {isLoggedIn ? (
