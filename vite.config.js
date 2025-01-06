@@ -8,6 +8,13 @@ export default defineConfig({
   server: {
     port: 3003,
   },
+  css: {
+    preprocessorOptions: {
+      css: {
+        charset: false,
+      },
+    },
+  },
   // build: {
   //   outDir: "dist",
   // },

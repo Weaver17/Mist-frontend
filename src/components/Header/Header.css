@@ -1,12 +1,12 @@
 .header__main {
-  position: relative;
-  margin-top: 0;
-  padding: 8px 0;
+  position: relative !important;
+  margin-top: 0 !important;
+  padding: 8px 0 !important;
   /* height: 120px; */
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  width: 100% !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
 }
 
 .header__logo-container {
