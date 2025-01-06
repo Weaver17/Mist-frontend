@@ -107,7 +107,7 @@ const FeaturedGame = ({
           setFeaturedGame(item);
         })
         .catch(console.error)
-        .finally(() => setIsLoading(false));
+        .finally(setIsLoading(false));
     }
   }, [featuredGame?.id]);
 

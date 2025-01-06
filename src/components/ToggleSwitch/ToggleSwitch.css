@@ -1,8 +1,9 @@
 .toggle-switch {
   margin: 8px 0 0;
-  width: 300px;
+  width: 280px;
   display: flex;
   position: relative;
+  font-family: "Ubuntu", serif;
 }
 
 .toggle-switch__label {
@@ -11,7 +12,7 @@
 
 .toggle-switch_checkbox {
   border-radius: 30px;
-  width: 300px;
+  width: 280px;
   height: 44px;
   border: solid 2px rgba(0, 0, 0, 0.5);
   appearance: none;
@@ -19,7 +20,7 @@
 }
 
 .toggle-switch__slider {
-  width: 144px;
+  width: 130px;
   height: 38px;
   border-radius: 30px;
   color: #fff;
@@ -86,11 +87,11 @@
 
 @media screen and (max-width: 630px) {
   .toggle-switch {
-    width: 216px;
+    width: 205px;
   }
 
   .toggle-switch_checkbox {
-    width: 216px;
+    width: 205px;
   }
 
   .toggle-switch__slider {
@@ -105,5 +106,30 @@
   .toggle-switch__saved {
     font-size: 14px;
     line-height: 30px;
+  }
+}
+
+@media screen and (max-width: 445px) {
+  .toggle-switch {
+    width: 195px;
+    height: 30px;
+  }
+
+  .toggle-switch_checkbox {
+    width: 195px;
+    height: 36px;
+  }
+
+  .toggle-switch__slider {
+    width: 90px;
+    height: 30px;
+  }
+
+  .toggle-switch__favorites {
+    line-height: 20px;
+  }
+
+  .toggle-switch__saved {
+    line-height: 20px;
   }
 }

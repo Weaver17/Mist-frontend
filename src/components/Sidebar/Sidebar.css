@@ -57,3 +57,16 @@
   color: #0284b8;
   transition: 0.2s linear;
 }
+
+@media screen and (max-width: 630px) {
+  .sidebar__edit {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .sidebar__logout {
+    font-size: 14px;
+    line-height: 20px;
+    padding: 14px 20px;
+  }
+}

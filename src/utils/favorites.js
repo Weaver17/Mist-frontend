@@ -7,7 +7,7 @@ export const getFavorites = (token) => {
       "Content-Type": "application/json",
       authorization: `Bearer ${token}`,
     },
-  });
+  }).then(handleServerResponse);
 };
 
 // export const addFavoriteGame = (gameInfo, token) => {
