@@ -50,7 +50,3 @@ Coming Soon!
 - **Express.js**: Backend framework for API interaction (integrated in development).
 - **Node.js**: Runtime for executing JavaScript on the server.
 - **Mongoose**: Object Data Modeling (ODM) library for MongoDB.
-
-**Known Issues**
-
-- The `.header__main` styles do not load on deployment.
