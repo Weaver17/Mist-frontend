@@ -1,10 +1,6 @@
-import { useState, useContext, useEffect } from "react";
-
-// import FavoriteGameContext from "../../contexts/FavoriteGameContext";
-// import SavedGamesContext from "../../contexts/SavedGamesContext";
+import { useState, useEffect } from "react";
 
 import GameCard from "../GameCard/GameCard";
-import FeaturedGame from "../FeaturedGame/FeaturedGame";
 import Preloader from "../Preloader/Preloader";
 
 import * as gameApi from "../../utils/gameApi";
@@ -17,13 +13,8 @@ const Main = ({
   setGames,
   isLoading,
   setIsLoading,
-  handleFavoriteGame,
-  handleSaveGame,
 }) => {
   const [visibleCount, setVisibleCount] = useState(6);
-
-  // const { favoritedGames, setFavoritedGames } = useContext(FavoriteGameContext);
-  // const { savedGames, setSavedGames } = useContext(SavedGamesContext);
 
   const onShowMoreClick = () => {
     setVisibleCount((prevCount) => prevCount + 3);
@@ -42,15 +33,6 @@ const Main = ({
   return (
     <section className="main">
       {/* FEATURED GAME */}
-      <div className="main__featured-card">
-        {/* <FeaturedGame
-          onFavoriteGame={handleFavoriteGame}
-          onGameClick={handleGameClick}
-          games={games}
-          setGames={setGames}
-          onSaveGame={handleSaveGame}
-        /> */}
-      </div>
 
       <h2 className="main__card-list-title">Newest Releases:</h2>
 
@@ -60,21 +42,11 @@ const Main = ({
           <Preloader />
         ) : (
           games.slice(0, visibleCount).map((game) => {
-            const isFavorited = favoritedGames.some(
-              (favGame) => favGame.id === game.id
-            );
-            const isSaved = savedGames.some(
-              (savGame) => savGame.id === game.id
-            );
             return (
               <GameCard
                 key={game.id}
                 game={game}
                 onGameClick={handleGameClick}
-                onFavoriteGame={handleFavoriteGame}
-                onSaveGame={handleSaveGame}
-                isFavorited={isFavorited}
-                isSaved={isSaved}
               />
             );
           })

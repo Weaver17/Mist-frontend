@@ -42,6 +42,11 @@ Coming Soon!
 
 Coming Soon!
 
-**Future Updates**
+**Features**
 
-- Save and Favorite logic by setting api calls to link games to user
+- **React**: Component-based architecture for building user interfaces.
+- **HTML, CSS, JavaScript**: Core web technologies for structure, styling, and interactivity.
+- **Vite**: A fast build tool for a streamlined development workflow.
+- **Express.js**: Backend framework for API interaction (integrated in development).
+- **Node.js**: Runtime for executing JavaScript on the server.
+- **Mongoose**: Object Data Modeling (ODM) library for MongoDB.

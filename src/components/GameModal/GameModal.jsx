@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import Modal from "../Modal/Modal";
@@ -6,23 +6,7 @@ import GameScreenshot from "../GameScreenshot/GameScreenshot";
 
 import "./GameModal.css";
 
-import saveGame from "../../assets/btns/save-btn2.png";
-import gameSaved from "../../assets/icons/saved-icon-blue.png";
-import favoriteBtn from "../../assets/btns/favorite-btn.png";
-import favoriteBtnFilled from "../../assets/btns/favorite-btn-filled.png";
-
 const GameModal = ({ isOpen, handleCloseClick, handleImageClick, game }) => {
-  const [isSaved, setIsSaved] = useState(false);
-  const [isFavorited, setIsFavorited] = useState(false);
-
-  const toggleIsSaved = () => {
-    setIsSaved(!isSaved);
-  };
-
-  const toggleIsFavorited = () => {
-    setIsFavorited(!isFavorited);
-  };
-
   useEffect(() => {
     const handleEscape = (e) => {
       if (e.key === "Escape") {
@@ -47,12 +31,6 @@ const GameModal = ({ isOpen, handleCloseClick, handleImageClick, game }) => {
         <div className="game-modal">
           {/* TITLE AND FAV BUTTON  */}
           <div className="game-modal__title-container">
-            {/* <img
-              className="game-modal__fav-btn"
-              src={isFavorited ? favoriteBtnFilled : favoriteBtn}
-              alt={isFavorited ? "Star" : "Blue Star"}
-              onClick={toggleIsFavorited}
-            /> */}
             <h3 className="game-modal__title">{game.title}</h3>
           </div>
           {/* COVER ART, DEV INFO AND DESCRIPTION  */}
@@ -87,12 +65,7 @@ const GameModal = ({ isOpen, handleCloseClick, handleImageClick, game }) => {
               {/* RIGHT SIDE TOP SECTION  */}
               <div className="game-modal__info-container-right-top">
                 {/* RIGHT SIDE TOP LEFT  */}
-                {/* <img
-                  className="game-modal__save-btn"
-                  src={isSaved ? saveGame : gameSaved}
-                  alt={isSaved ? "Save Icon" : "Blue Checkmark"}
-                  onClick={toggleIsSaved}
-                /> */}
+
                 {/* RIGHT SIDE TOP RIGHT  */}
                 <div className="game-modal__dev-info-container">
                   <div className="game-modal__dev-info-wrapper">
@@ -115,7 +88,7 @@ const GameModal = ({ isOpen, handleCloseClick, handleImageClick, game }) => {
           </div>
           <div className="game-modal__bottom-container">
             <div className="game-modal__screenshot-container">
-              <GameScreenshot onImageClick={handleImageClick} game={game} />
+              <GameScreenshot game={game} />
             </div>
 
             <div className="game-modal__specs-container">
