@@ -16,7 +16,7 @@ const Header = ({ handleSignUpClick, handleSignInClick, isLoggedIn }) => {
     setMobileMenuOpened(!isMobileMenuOpened);
   };
   return (
-    <div className="header__main">
+    <header className="header__main">
       {/* LEFT/LOGO SECTION */}
       <div className="header__logo-container">
         <Link className="header__logo-link" to="/">
@@ -154,7 +154,7 @@ const Header = ({ handleSignUpClick, handleSignInClick, isLoggedIn }) => {
           </nav>
         </div>
       )}
-    </div>
+    </header>
   );
 };
 
