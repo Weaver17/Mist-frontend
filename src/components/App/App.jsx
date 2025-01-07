@@ -130,8 +130,7 @@ function App() {
     const token = localStorage.getItem("JWT_TOKEN");
 
     if (!token) {
-      console.log("Token not found, user is not logged in.");
-      return;
+      return console.log("Token not found, user is not logged in.");
     }
 
     auth

@@ -1,7 +1,3 @@
-// Mock "database" for users
-
-// import users from "../../mockDb.json";
-
 import { baseUrl, request } from "./constants";
 
 export const register = ({ username, email, password }) => {
