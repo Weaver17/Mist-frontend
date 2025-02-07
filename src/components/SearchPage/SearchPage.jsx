@@ -18,7 +18,7 @@ const SearchPage = ({
 }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredGames, setFilteredGames] = useState([]);
-  const [visibleCount, setVisibleCount] = useState(3);
+  const [visibleCount, setVisibleCount] = useState(12);
 
   const handleSearch = (e) => {
     setSearchQuery(e.target.value);

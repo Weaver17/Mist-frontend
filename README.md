@@ -32,7 +32,7 @@
 
 **About**
 
-This application for any gamer into PC gaming, and anyone who likes free stuff(Microtransactions pending)! An API call is made to freetogame.com/api and free-to-play games are displayed in various ways, where users can then register to favorite and save games to their profile.
+This application for any gamer into PC gaming, and anyone who likes free stuff(Microtransactions pending)! An API call is made to freetogame.com/api and free-to-play games are displayed in various ways, from recent releases to sorting by genre.
 
 **Preview Images**
 
@@ -50,3 +50,8 @@ Coming Soon!
 - **Express.js**: Backend framework for API interaction (integrated in development).
 - **Node.js**: Runtime for executing JavaScript on the server.
 - **Mongoose**: Object Data Modeling (ODM) library for MongoDB.
+
+**Future Updates**
+
+- Save games to profile
+- Favorite games to profile
