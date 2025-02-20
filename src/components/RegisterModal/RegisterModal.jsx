@@ -15,7 +15,6 @@ const RegisterModal = ({
     username: "",
     email: "",
     password: "",
-    confirmPassword: "",
   });
 
   const handleSubmit = (e) => {
@@ -70,17 +69,6 @@ const RegisterModal = ({
             className="modal__input"
             placeholder="Password"
             value={values.password || ""}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <label className="modal__label">
-          <input
-            type="password"
-            name="confirmPassword"
-            className="modal__input"
-            placeholder="Confirm Password"
-            value={values.confirmPassword || ""}
             onChange={handleChange}
             required
           />
