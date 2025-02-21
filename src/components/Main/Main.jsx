@@ -13,6 +13,8 @@ const Main = ({
   setGames,
   isLoading,
   setIsLoading,
+  favoritedGames,
+  setFavoritedGames,
 }) => {
   const [visibleCount, setVisibleCount] = useState(6);
 
@@ -47,6 +49,8 @@ const Main = ({
                 key={game.id}
                 game={game}
                 onGameClick={handleGameClick}
+                favoritedGames={favoritedGames}
+                setFavoritedGames={setFavoritedGames}
               />
             );
           })

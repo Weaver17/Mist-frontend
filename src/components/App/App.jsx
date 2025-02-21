@@ -3,6 +3,7 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import * as auth from "../../utils/auth";
+import * as favedApi from "../../utils/favorited";
 
 import "./App.css";
 
@@ -32,6 +33,7 @@ function App() {
     email: "",
     password: "",
   });
+  const [favoritedGames, setFavoritedGames] = useState([]);
 
   const navigate = useNavigate();
 
@@ -137,14 +139,30 @@ function App() {
       .checkToken(token)
 
       .then((user) => {
-        console.log(user);
-        console.log(token);
-
         setCurrentUser(user);
         setIsLoggedIn(true);
       })
       .catch(console.error);
   }, []);
+
+  useEffect(() => {
+    const token = localStorage.getItem("JWT_TOKEN");
+    setIsLoading(true);
+    favedApi
+      .getFavoritedGames(token)
+      .then((games) => {
+        console.log(games.favoritedGames.map((game) => game._id));
+        setFavoritedGames(games.favoritedGames);
+      })
+      .catch(console.error)
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, []);
+
+  useEffect(() => {
+    console.log(games);
+  }, [games]);
 
   return (
     <CurrentUserContext.Provider
@@ -152,7 +170,6 @@ function App() {
     >
       <div className="page">
         <div className="page__content">
-          {/* <Preloader /> */}
           <Header
             isLoggedIn={isLoggedIn}
             handleSignUpClick={handleSignUpClick}
@@ -171,6 +188,8 @@ function App() {
                   isLoading={isLoading}
                   setIsLoading={setIsLoading}
                   selectedGame={selectedGame}
+                  favoritedGames={favoritedGames}
+                  setFavoritedGames={setFavoritedGames}
                 />
               }
             />
@@ -187,6 +206,8 @@ function App() {
                     handleCloseClick={closeActiveModal}
                     isLoading={isLoading}
                     handleGameClick={handleGameClick}
+                    favoritedGames={favoritedGames}
+                    setFavoritedGames={setFavoritedGames}
                   />
                 </ProtectedRoute>
               }
@@ -201,6 +222,8 @@ function App() {
                   isLoading={isLoading}
                   setIsLoading={setIsLoading}
                   handleGameClick={handleGameClick}
+                  favoritedGames={favoritedGames}
+                  setFavoritedGames={setFavoritedGames}
                 />
               }
             />
@@ -215,6 +238,8 @@ function App() {
                   isLoading={isLoading}
                   setIsLoading={setIsLoading}
                   selectedGame={selectedGame}
+                  favoritedGames={favoritedGames}
+                  setFavoritedGames={setFavoritedGames}
                 />
               }
             />
@@ -246,6 +271,8 @@ function App() {
           handleCloseClick={closeActiveModal}
           isOpen={activeModal === "game"}
           game={selectedGame}
+          favoritedGames={favoritedGames}
+          setFavoritedGames={setFavoritedGames}
         />
       </div>
     </CurrentUserContext.Provider>

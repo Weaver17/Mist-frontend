@@ -6,7 +6,7 @@ import GameScreenshot from "../GameScreenshot/GameScreenshot";
 
 import "./GameModal.css";
 
-const GameModal = ({ isOpen, handleCloseClick, handleImageClick, game }) => {
+const GameModal = ({ isOpen, handleCloseClick, game, favoritedGames }) => {
   useEffect(() => {
     const handleEscape = (e) => {
       if (e.key === "Escape") {

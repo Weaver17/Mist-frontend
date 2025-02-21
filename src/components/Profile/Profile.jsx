@@ -6,6 +6,7 @@ import Sidebar from "../Sidebar/Sidebar";
 import EditModal from "../EditModal/EditModal";
 
 import "./Profile.css";
+import FavoritedGames from "../FavoritedGames/FavoritedGames";
 
 const Profile = ({
   handleEditClick,
@@ -13,7 +14,11 @@ const Profile = ({
   handleCloseClick,
   handleEditUsername,
   isLoading,
+  setIsLoading,
   handleLogOut,
+  handleGameClick,
+  favoritedGames,
+  setFavoritedGames,
 }) => {
   const [isMobileMenuOpened, setMobileMenuOpened] = useState(false);
 
@@ -39,10 +44,18 @@ const Profile = ({
           isLoading={isLoading}
           handleEditClick={handleEditClick}
           handleLogOut={handleLogOut}
+          favoritedGames={favoritedGames}
         />
       </section>
 
       <section className="profile__games">
+        <FavoritedGames
+          isLoading={isLoading}
+          setIsLoading={setIsLoading}
+          handleGameClick={handleGameClick}
+          favoritedGames={favoritedGames}
+          setFavoritedGames={setFavoritedGames}
+        />
         <button
           className="profile__mobile-btn"
           type="button"

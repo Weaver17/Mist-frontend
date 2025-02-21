@@ -14,6 +14,8 @@ const GamesSection = ({
   setGames,
   isLoading,
   setIsLoading,
+  favoritedGames,
+  setFavoritedGames,
 }) => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedPlatform, setSelectedPlatform] = useState("All");
@@ -159,6 +161,8 @@ const GamesSection = ({
                 key={game.id}
                 game={game}
                 onGameClick={handleGameClick}
+                favoritedGames={favoritedGames}
+                setFavoritedGames={setFavoritedGames}
               />
             );
           })

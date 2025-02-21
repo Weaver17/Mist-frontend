@@ -19,7 +19,54 @@
   padding: 0 0 24px;
   text-align: center;
   font-size: 30px;
-  line-height: 20px;
+  line-height: 30px;
+  color: #0284b8;
+}
+
+.sidebar__fave-games {
+  margin: 16px 0 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.sidebar__fave-title {
+  margin: 0;
+  padding: 0;
+  font-size: 24px;
+  line-height: 32px;
+}
+
+.sidebar__faves {
+  margin: 0;
+  padding: 0;
+  font-size: 24px;
+  line-height: 32px;
+}
+
+.sidebar__save-games {
+  margin: 16px 0 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.sidebar__save-title {
+  margin: 0;
+  padding: 0;
+  font-size: 24px;
+  line-height: 32px;
+}
+
+.sidebar__saves {
+  margin: 0;
+  padding: 0;
+  font-size: 24px;
+  line-height: 32px;
 }
 
 .sidebar__edit {
@@ -29,7 +76,7 @@
 
   font-size: 18px;
   line-height: 24px;
-  margin: 0;
+  margin: 16px 0 0;
   padding: 0;
   cursor: pointer;
 }
