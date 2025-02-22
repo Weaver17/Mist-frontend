@@ -6,6 +6,9 @@ import Sidebar from "../Sidebar/Sidebar";
 import EditModal from "../EditModal/EditModal";
 
 import "./Profile.css";
+import FavoritedGames from "../FavoritedGames/FavoritedGames";
+import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
+import SavedGames from "../SavedGames/SavedGames";
 
 const Profile = ({
   handleEditClick,
@@ -13,11 +16,26 @@ const Profile = ({
   handleCloseClick,
   handleEditUsername,
   isLoading,
+  setIsLoading,
   handleLogOut,
+  handleGameClick,
+  favoritedGames,
+  setFavoritedGames,
+  savedGames,
+  setSavedGames,
+  handleRemoveFromFavorites,
 }) => {
   const [isMobileMenuOpened, setMobileMenuOpened] = useState(false);
+  const [showFavoritedOrSaved, setShowFavoritedOrSaved] =
+    useState("favoritedGames");
 
   const { currentUser } = useContext(CurrentUserContext);
+
+  const handleToggleSwitchChange = () => {
+    showFavoritedOrSaved === "favoritedGames"
+      ? setShowFavoritedOrSaved("savedGames")
+      : setShowFavoritedOrSaved("favoritedGames");
+  };
 
   const toggleMobileMenu = () => {
     setMobileMenuOpened(!isMobileMenuOpened);
@@ -39,10 +57,40 @@ const Profile = ({
           isLoading={isLoading}
           handleEditClick={handleEditClick}
           handleLogOut={handleLogOut}
+          favoritedGames={favoritedGames}
+          savedGames={savedGames}
         />
       </section>
 
       <section className="profile__games">
+        <ToggleSwitch
+          handleToggleSwitchChange={handleToggleSwitchChange}
+          showFavoritedOrSaved={showFavoritedOrSaved}
+          setShowFavoritedOrSaved={setShowFavoritedOrSaved}
+        />
+        {showFavoritedOrSaved === "favoritedGames" ? (
+          <FavoritedGames
+            isLoading={isLoading}
+            setIsLoading={setIsLoading}
+            handleGameClick={handleGameClick}
+            favoritedGames={favoritedGames}
+            setFavoritedGames={setFavoritedGames}
+            savedGames={savedGames}
+            setSavedGames={setSavedGames}
+            handleRemoveFromFavorites={handleRemoveFromFavorites}
+          />
+        ) : (
+          <SavedGames
+            isLoading={isLoading}
+            setIsLoading={setIsLoading}
+            handleGameClick={handleGameClick}
+            favoritedGames={favoritedGames}
+            setFavoritedGames={setFavoritedGames}
+            savedGames={savedGames}
+            setSavedGames={setSavedGames}
+            handleRemoveFromFavorites={handleRemoveFromFavorites}
+          />
+        )}
         <button
           className="profile__mobile-btn"
           type="button"

@@ -1,20 +1,13 @@
-import { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
+import "./FavoritedGames.css";
 import GameCard from "../GameCard/GameCard";
 import Preloader from "../Preloader/Preloader";
 
-import * as gameApi from "../../utils/gameApi";
-
-import "./Main.css";
-
-const Main = ({
-  handleGameClick,
+const FavoritedGames = ({
   isLoading,
-  setIsLoading,
-  games,
-  setGames,
-
   favoritedGames,
+  handleGameClick,
   setFavoritedGames,
   savedGames,
   setSavedGames,
@@ -26,29 +19,16 @@ const Main = ({
     setVisibleCount((prevCount) => prevCount + 3);
   };
 
-  useEffect(() => {
-    gameApi
-      .getGamesByReleaseDate()
-      .then((items) => {
-        setGames(items);
-      })
-      .catch(console.error)
-      .finally(setIsLoading(false));
-  }, []);
-
   return (
-    <section className="main">
-      {/* FEATURED GAME */}
-
-      <h2 className="main__card-list-title">Newest Releases:</h2>
-
-      {/* GAME CARD GRID */}
-      <ul className="main__card-list">
+    <div className="favorites">
+      <h3 className="favorites__title">Favorited Games</h3>
+      <ul className="favorites__list">
         {isLoading ? (
           <Preloader />
         ) : (
-          games.slice(0, visibleCount).map((game) => {
-            return (
+          favoritedGames
+            .slice(0, visibleCount)
+            .map((game) => (
               <GameCard
                 key={game.id}
                 game={game}
@@ -59,21 +39,20 @@ const Main = ({
                 setSavedGames={setSavedGames}
                 handleRemoveFromFavorites={handleRemoveFromFavorites}
               />
-            );
-          })
+            ))
         )}
       </ul>
-      {!isLoading && visibleCount < games.length && (
+      {!isLoading && visibleCount < favoritedGames.length && (
         <button
           type="button"
           onClick={onShowMoreClick}
-          className="main__show-more-btn"
+          className="favorites__show-more-btn"
         >
           Show More
         </button>
       )}
-    </section>
+    </div>
   );
 };
 
-export default Main;
+export default FavoritedGames;

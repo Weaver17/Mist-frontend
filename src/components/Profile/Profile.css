@@ -8,7 +8,12 @@
 }
 
 .profile__sidebar {
-  width: 300px;
+  margin: 0;
+  width: 30%;
+}
+
+.profile__games {
+  width: 70%;
 }
 
 .profile__mobile-btn {

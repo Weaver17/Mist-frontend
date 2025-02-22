@@ -3,11 +3,12 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import * as auth from "../../utils/auth";
+import * as favedApi from "../../utils/favorited";
+import * as savedApi from "../../utils/saved";
 
 import "./App.css";
 
 import Header from "../Header/Header";
-import GameIconBanner from "../GameIconBanner/GameIconBanner";
 import Main from "../Main/Main";
 import Profile from "../Profile/Profile";
 import GamesSection from "../GamesSection/GamesSection";
@@ -32,6 +33,8 @@ function App() {
     email: "",
     password: "",
   });
+  const [favoritedGames, setFavoritedGames] = useState([]);
+  const [savedGames, setSavedGames] = useState([]);
 
   const navigate = useNavigate();
 
@@ -126,6 +129,12 @@ function App() {
       .catch(console.error);
   };
 
+  const handleRemoveFromFavorites = (gameId, mongoId) => {
+    setFavoritedGames((prevGames) =>
+      prevGames.filter((game) => game.id !== gameId && game._id !== mongoId)
+    );
+  };
+
   useEffect(() => {
     const token = localStorage.getItem("JWT_TOKEN");
 
@@ -137,13 +146,40 @@ function App() {
       .checkToken(token)
 
       .then((user) => {
-        console.log(user);
-        console.log(token);
-
         setCurrentUser(user);
         setIsLoggedIn(true);
       })
       .catch(console.error);
+  }, []);
+
+  // Favorited Games
+  useEffect(() => {
+    const token = localStorage.getItem("JWT_TOKEN");
+    setIsLoading(true);
+    favedApi
+      .getFavoritedGames(token)
+      .then((games) => {
+        setFavoritedGames(games.favoritedGames);
+      })
+      .catch(console.error)
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, []);
+
+  // Saved Games
+  useEffect(() => {
+    const token = localStorage.getItem("JWT_TOKEN");
+    setIsLoading(true);
+    savedApi
+      .getSavedGames(token)
+      .then((games) => {
+        setSavedGames(games.savedGames);
+      })
+      .catch(console.error)
+      .finally(() => {
+        setIsLoading(false);
+      });
   }, []);
 
   return (
@@ -152,13 +188,11 @@ function App() {
     >
       <div className="page">
         <div className="page__content">
-          {/* <Preloader /> */}
           <Header
             isLoggedIn={isLoggedIn}
             handleSignUpClick={handleSignUpClick}
             handleSignInClick={handleSignInClick}
           />
-          <GameIconBanner />
 
           <Routes>
             <Route
@@ -171,6 +205,11 @@ function App() {
                   isLoading={isLoading}
                   setIsLoading={setIsLoading}
                   selectedGame={selectedGame}
+                  favoritedGames={favoritedGames}
+                  setFavoritedGames={setFavoritedGames}
+                  savedGames={savedGames}
+                  setSavedGames={setSavedGames}
+                  handleRemoveFromFavorites={handleRemoveFromFavorites}
                 />
               }
             />
@@ -187,6 +226,11 @@ function App() {
                     handleCloseClick={closeActiveModal}
                     isLoading={isLoading}
                     handleGameClick={handleGameClick}
+                    favoritedGames={favoritedGames}
+                    setFavoritedGames={setFavoritedGames}
+                    savedGames={savedGames}
+                    setSavedGames={setSavedGames}
+                    handleRemoveFromFavorites={handleRemoveFromFavorites}
                   />
                 </ProtectedRoute>
               }
@@ -201,6 +245,11 @@ function App() {
                   isLoading={isLoading}
                   setIsLoading={setIsLoading}
                   handleGameClick={handleGameClick}
+                  favoritedGames={favoritedGames}
+                  setFavoritedGames={setFavoritedGames}
+                  savedGames={savedGames}
+                  setSavedGames={setSavedGames}
+                  handleRemoveFromFavorites={handleRemoveFromFavorites}
                 />
               }
             />
@@ -215,6 +264,11 @@ function App() {
                   isLoading={isLoading}
                   setIsLoading={setIsLoading}
                   selectedGame={selectedGame}
+                  favoritedGames={favoritedGames}
+                  setFavoritedGames={setFavoritedGames}
+                  savedGames={savedGames}
+                  setSavedGames={setSavedGames}
+                  handleRemoveFromFavorites={handleRemoveFromFavorites}
                 />
               }
             />
@@ -246,6 +300,10 @@ function App() {
           handleCloseClick={closeActiveModal}
           isOpen={activeModal === "game"}
           game={selectedGame}
+          favoritedGames={favoritedGames}
+          setFavoritedGames={setFavoritedGames}
+          savedGames={savedGames}
+          setSavedGames={setSavedGames}
         />
       </div>
     </CurrentUserContext.Provider>

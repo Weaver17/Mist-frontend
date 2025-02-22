@@ -1,20 +1,13 @@
-import { useState, useEffect } from "react";
+import React, { useState } from "react";
 
+import "./SavedGames.css";
 import GameCard from "../GameCard/GameCard";
 import Preloader from "../Preloader/Preloader";
 
-import * as gameApi from "../../utils/gameApi";
-
-import "./Main.css";
-
-const Main = ({
-  handleGameClick,
+const SavedGames = ({
   isLoading,
-  setIsLoading,
-  games,
-  setGames,
-
   favoritedGames,
+  handleGameClick,
   setFavoritedGames,
   savedGames,
   setSavedGames,
@@ -26,29 +19,16 @@ const Main = ({
     setVisibleCount((prevCount) => prevCount + 3);
   };
 
-  useEffect(() => {
-    gameApi
-      .getGamesByReleaseDate()
-      .then((items) => {
-        setGames(items);
-      })
-      .catch(console.error)
-      .finally(setIsLoading(false));
-  }, []);
-
   return (
-    <section className="main">
-      {/* FEATURED GAME */}
-
-      <h2 className="main__card-list-title">Newest Releases:</h2>
-
-      {/* GAME CARD GRID */}
-      <ul className="main__card-list">
+    <div className="saved">
+      <h3 className="saved__title">Saved Games</h3>
+      <ul className="saved__list">
         {isLoading ? (
           <Preloader />
         ) : (
-          games.slice(0, visibleCount).map((game) => {
-            return (
+          savedGames
+            .slice(0, visibleCount)
+            .map((game) => (
               <GameCard
                 key={game.id}
                 game={game}
@@ -59,21 +39,20 @@ const Main = ({
                 setSavedGames={setSavedGames}
                 handleRemoveFromFavorites={handleRemoveFromFavorites}
               />
-            );
-          })
+            ))
         )}
       </ul>
-      {!isLoading && visibleCount < games.length && (
+      {!isLoading && visibleCount < savedGames.length && (
         <button
           type="button"
           onClick={onShowMoreClick}
-          className="main__show-more-btn"
+          className="saved__show-more-btn"
         >
           Show More
         </button>
       )}
-    </section>
+    </div>
   );
 };
 
-export default Main;
+export default SavedGames;

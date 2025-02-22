@@ -1,0 +1,82 @@
+.toggle-switch {
+  margin: 0 0 0 auto;
+  width: 180px;
+  display: flex;
+  position: relative;
+}
+
+.toggle-switch__label {
+  width: 56px;
+  height: 36px;
+}
+
+.toggle-switch_checkbox {
+  border-radius: 20px;
+  width: 180px;
+  height: 36px;
+  border: solid 2px rgba(0, 0, 0, 0.5);
+  appearance: none;
+  cursor: pointer;
+}
+
+.toggle-switch__slider {
+  height: 36px;
+  width: 100px;
+  border-radius: 20px;
+  color: #fff;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  position: absolute;
+  pointer-events: none;
+}
+
+.toggle-switch_checkbox:hover {
+  border: solid 2px rgba(0, 0, 0, 1);
+  transition: 0.3s linear;
+}
+
+.toggle-switch__slider_F {
+  top: 0;
+  left: 0;
+}
+
+.toggle-switch__slider_C {
+  top: 0;
+  right: 0;
+}
+
+.toggle-switch__temp_F {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 16px;
+  position: absolute;
+  top: -7px;
+  left: 10px;
+  color: rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+.toggle-switch__temp_C {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 16px;
+  position: absolute;
+  top: -7px;
+  right: 9px;
+  color: rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+.toggle-switch__temp_active {
+  color: #fff;
+}
+
+.toggle-switch_checkbox:hover ~ .toggle-switch__temp_F,
+.toggle-switch_checkbox:hover ~ .toggle-switch__temp_C {
+  color: #000;
+}
+
+.toggle-switch_checkbox:hover ~ .toggle-switch__temp_active {
+  color: #fff;
+}
