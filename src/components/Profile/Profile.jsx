@@ -7,6 +7,8 @@ import EditModal from "../EditModal/EditModal";
 
 import "./Profile.css";
 import FavoritedGames from "../FavoritedGames/FavoritedGames";
+import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
+import SavedGames from "../SavedGames/SavedGames";
 
 const Profile = ({
   handleEditClick,
@@ -21,8 +23,16 @@ const Profile = ({
   setFavoritedGames,
 }) => {
   const [isMobileMenuOpened, setMobileMenuOpened] = useState(false);
+  const [showFavoritedOrSaved, setShowFavoritedOrSaved] =
+    useState("favoritedGames");
 
   const { currentUser } = useContext(CurrentUserContext);
+
+  const handleToggleSwitchChange = () => {
+    showFavoritedOrSaved === "favoritedGames"
+      ? setShowFavoritedOrSaved("savedGames")
+      : setShowFavoritedOrSaved("favoritedGames");
+  };
 
   const toggleMobileMenu = () => {
     setMobileMenuOpened(!isMobileMenuOpened);
@@ -49,13 +59,22 @@ const Profile = ({
       </section>
 
       <section className="profile__games">
-        <FavoritedGames
-          isLoading={isLoading}
-          setIsLoading={setIsLoading}
-          handleGameClick={handleGameClick}
-          favoritedGames={favoritedGames}
-          setFavoritedGames={setFavoritedGames}
+        <ToggleSwitch
+          handleToggleSwitchChange={handleToggleSwitchChange}
+          showFavoritedOrSaved={showFavoritedOrSaved}
+          setShowFavoritedOrSaved={setShowFavoritedOrSaved}
         />
+        {showFavoritedOrSaved === "favoritedGames" ? (
+          <FavoritedGames
+            isLoading={isLoading}
+            setIsLoading={setIsLoading}
+            handleGameClick={handleGameClick}
+            favoritedGames={favoritedGames}
+            setFavoritedGames={setFavoritedGames}
+          />
+        ) : (
+          <SavedGames />
+        )}
         <button
           className="profile__mobile-btn"
           type="button"

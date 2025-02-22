@@ -1,12 +1,64 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import Modal from "../Modal/Modal";
 import GameScreenshot from "../GameScreenshot/GameScreenshot";
+import faveBtn from "../../assets/btns/favorite-btn.png";
+import faveBtnFilled from "../../assets/btns/favorite-btn-filled.png";
 
 import "./GameModal.css";
+import {
+  addFavoriteGame,
+  deleteFavoritedGame,
+  getFavorite,
+} from "../../utils/favorited";
 
-const GameModal = ({ isOpen, handleCloseClick, game, favoritedGames }) => {
+const GameModal = ({
+  isOpen,
+  handleCloseClick,
+  game,
+  favoritedGames,
+  setFavoritedGames,
+}) => {
+  const [isFavorited, setIsFavorited] = useState(false);
+  const favoritedGameIds = new Set(
+    favoritedGames?.map((favGame) => favGame.id)
+  );
+
+  const favoritedGameDbIds = new Set(
+    favoritedGames?.map((favGame) => favGame._id)
+  );
+
+  const handleFavoriteGame = () => {
+    const token = localStorage.getItem("JWT_TOKEN");
+
+    addFavoriteGame(game, token)
+      .then((newFave) => {
+        console.log(newFave);
+        setIsFavorited(true);
+        setFavoritedGames([...favoritedGames, newFave]);
+      })
+      .catch(console.error);
+  };
+
+  const handleRemoveFavorite = () => {
+    const token = localStorage.getItem("JWT_TOKEN");
+
+    getFavorite(game.id, token)
+      .then((gameId) => {
+        return deleteFavoritedGame(gameId.mongoId._id, token);
+      })
+      .then((deletedGame) => {
+        setIsFavorited(false);
+        const newFaves = favoritedGames?.filter(
+          (g) => g._id !== deletedGame._id
+        );
+
+        setFavoritedGames(newFaves);
+      })
+      .catch(console.error);
+  };
+
   useEffect(() => {
     const handleEscape = (e) => {
       if (e.key === "Escape") {
@@ -32,6 +84,27 @@ const GameModal = ({ isOpen, handleCloseClick, game, favoritedGames }) => {
           {/* TITLE AND FAV BUTTON  */}
           <div className="game-modal__title-container">
             <h3 className="game-modal__title">{game.title}</h3>
+            <button
+              type="button"
+              className="game-modal__fave-btn"
+              onClick={
+                favoritedGameIds.has(game.id) ||
+                favoritedGameDbIds.has(game._id)
+                  ? handleRemoveFavorite
+                  : handleFavoriteGame
+              }
+            >
+              <img
+                className="game-modal__fave-star"
+                src={
+                  favoritedGameIds.has(game.id) ||
+                  favoritedGameDbIds.has(game._id)
+                    ? faveBtnFilled
+                    : faveBtn
+                }
+                alt="star"
+              />
+            </button>
           </div>
           {/* COVER ART, DEV INFO AND DESCRIPTION  */}
           <div className="game-modal__info-container">

@@ -30,6 +30,7 @@
   background: none;
   border: none;
   object-fit: contain;
+  cursor: pointer;
 }
 
 .card__fave-star {
