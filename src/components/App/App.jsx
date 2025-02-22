@@ -4,6 +4,7 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import * as auth from "../../utils/auth";
 import * as favedApi from "../../utils/favorited";
+import * as savedApi from "../../utils/saved";
 
 import "./App.css";
 
@@ -34,6 +35,7 @@ function App() {
     password: "",
   });
   const [favoritedGames, setFavoritedGames] = useState([]);
+  const [savedGames, setSavedGames] = useState([]);
 
   const navigate = useNavigate();
 
@@ -145,6 +147,7 @@ function App() {
       .catch(console.error);
   }, []);
 
+  // Favorite Games
   useEffect(() => {
     const token = localStorage.getItem("JWT_TOKEN");
     setIsLoading(true);
@@ -160,9 +163,21 @@ function App() {
       });
   }, []);
 
+  // Saved Games
   useEffect(() => {
-    console.log(games);
-  }, [games]);
+    const token = localStorage.getItem("JWT_TOKEN");
+    setIsLoading(true);
+    savedApi
+      .getSavedGames(token)
+      .then((games) => {
+        console.log(games.savedGames.map((game) => game._id));
+        setSavedGames(games.savedGames);
+      })
+      .catch(console.error)
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, []);
 
   return (
     <CurrentUserContext.Provider
@@ -190,6 +205,8 @@ function App() {
                   selectedGame={selectedGame}
                   favoritedGames={favoritedGames}
                   setFavoritedGames={setFavoritedGames}
+                  savedGames={savedGames}
+                  setSavedGames={setSavedGames}
                 />
               }
             />
@@ -208,6 +225,8 @@ function App() {
                     handleGameClick={handleGameClick}
                     favoritedGames={favoritedGames}
                     setFavoritedGames={setFavoritedGames}
+                    savedGames={savedGames}
+                    setSavedGames={setSavedGames}
                   />
                 </ProtectedRoute>
               }
@@ -224,6 +243,8 @@ function App() {
                   handleGameClick={handleGameClick}
                   favoritedGames={favoritedGames}
                   setFavoritedGames={setFavoritedGames}
+                  savedGames={savedGames}
+                  setSavedGames={setSavedGames}
                 />
               }
             />
@@ -240,6 +261,8 @@ function App() {
                   selectedGame={selectedGame}
                   favoritedGames={favoritedGames}
                   setFavoritedGames={setFavoritedGames}
+                  savedGames={savedGames}
+                  setSavedGames={setSavedGames}
                 />
               }
             />
@@ -273,6 +296,8 @@ function App() {
           game={selectedGame}
           favoritedGames={favoritedGames}
           setFavoritedGames={setFavoritedGames}
+          savedGames={savedGames}
+          setSavedGames={setSavedGames}
         />
       </div>
     </CurrentUserContext.Provider>

@@ -45,6 +45,22 @@
   width: 400px;
 }
 
+.card__save-btn {
+  position: absolute;
+  bottom: 12px;
+  right: 8px;
+  background-color: #dcdcdc;
+  border: 1px solid #00000075;
+  border-radius: 8px;
+  object-fit: contain;
+}
+
+.card__save-img {
+  padding: 3px 1px 0;
+  height: 28px;
+  width: 28px;
+}
+
 .card__thumbnail {
   border-radius: 16px;
   border: none;

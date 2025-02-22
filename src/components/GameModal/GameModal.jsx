@@ -5,6 +5,8 @@ import Modal from "../Modal/Modal";
 import GameScreenshot from "../GameScreenshot/GameScreenshot";
 import faveBtn from "../../assets/btns/favorite-btn.png";
 import faveBtnFilled from "../../assets/btns/favorite-btn-filled.png";
+import saveBtn from "../../assets/btns/save-btn2.png";
+import saved from "../../assets/btns/saved.png";
 
 import "./GameModal.css";
 import {
@@ -19,8 +21,9 @@ const GameModal = ({
   game,
   favoritedGames,
   setFavoritedGames,
+  savedGames,
+  setSavedGames,
 }) => {
-  const [isFavorited, setIsFavorited] = useState(false);
   const favoritedGameIds = new Set(
     favoritedGames?.map((favGame) => favGame.id)
   );
@@ -34,8 +37,6 @@ const GameModal = ({
 
     addFavoriteGame(game, token)
       .then((newFave) => {
-        console.log(newFave);
-        setIsFavorited(true);
         setFavoritedGames([...favoritedGames, newFave]);
       })
       .catch(console.error);
@@ -49,7 +50,6 @@ const GameModal = ({
         return deleteFavoritedGame(gameId.mongoId._id, token);
       })
       .then((deletedGame) => {
-        setIsFavorited(false);
         const newFaves = favoritedGames?.filter(
           (g) => g._id !== deletedGame._id
         );
@@ -84,27 +84,32 @@ const GameModal = ({
           {/* TITLE AND FAV BUTTON  */}
           <div className="game-modal__title-container">
             <h3 className="game-modal__title">{game.title}</h3>
-            <button
-              type="button"
-              className="game-modal__fave-btn"
-              onClick={
-                favoritedGameIds.has(game.id) ||
-                favoritedGameDbIds.has(game._id)
-                  ? handleRemoveFavorite
-                  : handleFavoriteGame
-              }
-            >
-              <img
-                className="game-modal__fave-star"
-                src={
+            <div className="game-modal__btns">
+              <button type="button" className="game-modal__save-btn">
+                <img className="game-modal__save-img" src={saveBtn} alt="" />
+              </button>
+              <button
+                type="button"
+                className="game-modal__fave-btn"
+                onClick={
                   favoritedGameIds.has(game.id) ||
                   favoritedGameDbIds.has(game._id)
-                    ? faveBtnFilled
-                    : faveBtn
+                    ? handleRemoveFavorite
+                    : handleFavoriteGame
                 }
-                alt="star"
-              />
-            </button>
+              >
+                <img
+                  className="game-modal__fave-star"
+                  src={
+                    favoritedGameIds.has(game.id) ||
+                    favoritedGameDbIds.has(game._id)
+                      ? faveBtnFilled
+                      : faveBtn
+                  }
+                  alt="star"
+                />
+              </button>
+            </div>
           </div>
           {/* COVER ART, DEV INFO AND DESCRIPTION  */}
           <div className="game-modal__info-container">

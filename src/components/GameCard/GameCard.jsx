@@ -1,6 +1,9 @@
+import { useState } from "react";
 import { getGameById } from "../../utils/gameApi";
 import faveBtn from "../../assets/btns/favorite-btn.png";
 import faveBtnFilled from "../../assets/btns/favorite-btn-filled.png";
+import saveBtn from "../../assets/btns/save-btn2.png";
+import saved from "../../assets/btns/saved.png";
 
 import "./GameCard.css";
 import {
@@ -8,10 +11,17 @@ import {
   deleteFavoritedGame,
   getFavorite,
 } from "../../utils/favorited";
-import { useEffect, useState } from "react";
 
-const GameCard = ({ onGameClick, game, favoritedGames, setFavoritedGames }) => {
-  const [isFavorited, setIsFavorited] = useState(false);
+import { addSavedGame, deleteSavedGame, getSavedGame } from "../../utils/saved";
+
+const GameCard = ({
+  onGameClick,
+  game,
+  favoritedGames,
+  setFavoritedGames,
+  savedGames,
+  setSavedGames,
+}) => {
   const favoritedGameIds = new Set(
     favoritedGames?.map((favGame) => favGame.id)
   );
@@ -19,6 +29,12 @@ const GameCard = ({ onGameClick, game, favoritedGames, setFavoritedGames }) => {
   const favoritedGameDbIds = new Set(
     favoritedGames?.map((favGame) => favGame._id)
   );
+
+  const savedGameIds = new Set(savedGames?.map((savGame) => savGame.id));
+
+  const savedGameDbIds = new Set(savedGames?.map((savGame) => savGame._id));
+
+  const token = localStorage.getItem("JWT_TOKEN");
 
   const handleGameClick = () => {
     getGameById(game.id)
@@ -29,31 +45,45 @@ const GameCard = ({ onGameClick, game, favoritedGames, setFavoritedGames }) => {
   };
 
   const handleFavoriteGame = () => {
-    const token = localStorage.getItem("JWT_TOKEN");
-
     addFavoriteGame(game, token)
       .then((newFave) => {
-        console.log(newFave);
-        setIsFavorited(true);
         setFavoritedGames([...favoritedGames, newFave]);
       })
       .catch(console.error);
   };
 
   const handleRemoveFavorite = () => {
-    const token = localStorage.getItem("JWT_TOKEN");
-
     getFavorite(game.id, token)
       .then((gameId) => {
         return deleteFavoritedGame(gameId.mongoId._id, token);
       })
       .then((deletedGame) => {
-        setIsFavorited(false);
         const newFaves = favoritedGames?.filter(
           (g) => g._id !== deletedGame._id
         );
 
         setFavoritedGames(newFaves);
+      })
+      .catch(console.error);
+  };
+
+  const handleSaveGame = () => {
+    addSavedGame(game, token)
+      .then((newSave) => {
+        setSavedGames([...savedGames, newSave]);
+      })
+      .catch(console.error);
+  };
+
+  const handleRemoveSaved = () => {
+    getSavedGame(game.id, token)
+      .then((gameId) => {
+        return deleteSavedGame(gameId.mongoId._id, token);
+      })
+      .then((deletedGame) => {
+        const newSaves = savedGames?.filter((g) => g._id !== deletedGame._id);
+
+        setSavedGames(newSaves);
       })
       .catch(console.error);
   };
@@ -85,6 +115,29 @@ const GameCard = ({ onGameClick, game, favoritedGames, setFavoritedGames }) => {
         </button>
       </div>
       <div className="card__thumbnail-container">
+        <button
+          type="button"
+          className="card__save-btn"
+          onClick={
+            savedGameIds.has(game.id) || savedGameDbIds.has(game._id)
+              ? handleRemoveSaved
+              : handleSaveGame
+          }
+        >
+          <img
+            className="card__save-img"
+            src={
+              savedGameIds.has(game.id) || savedGameDbIds.has(game._id)
+                ? saved
+                : saveBtn
+            }
+            alt={
+              savedGameIds.has(game.id) || savedGameDbIds.has(game._id)
+                ? "Checkmark"
+                : "Save icon"
+            }
+          />
+        </button>
         <img
           className="card__thumbnail"
           src={game.thumbnail}

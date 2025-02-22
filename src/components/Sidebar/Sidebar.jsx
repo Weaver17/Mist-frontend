@@ -14,6 +14,7 @@ const Sidebar = ({
   isLoading,
   handleLogOut,
   favoritedGames,
+  savedGames,
 }) => {
   const { currentUser } = useContext(CurrentUserContext);
 
@@ -28,7 +29,7 @@ const Sidebar = ({
       </div>
       <div className="sidebar__save-games">
         <h4 className="sidebar__save-title">Saved</h4>
-        <p className="sidebar__saves">{favoritedGames.length}</p>
+        <p className="sidebar__saves">{savedGames.length}</p>
       </div>
       <button type="button" className="sidebar__edit" onClick={handleEditClick}>
         Change Username

@@ -21,6 +21,8 @@ const Profile = ({
   handleGameClick,
   favoritedGames,
   setFavoritedGames,
+  savedGames,
+  setSavedGames,
 }) => {
   const [isMobileMenuOpened, setMobileMenuOpened] = useState(false);
   const [showFavoritedOrSaved, setShowFavoritedOrSaved] =
@@ -55,6 +57,7 @@ const Profile = ({
           handleEditClick={handleEditClick}
           handleLogOut={handleLogOut}
           favoritedGames={favoritedGames}
+          savedGames={savedGames}
         />
       </section>
 
@@ -71,9 +74,19 @@ const Profile = ({
             handleGameClick={handleGameClick}
             favoritedGames={favoritedGames}
             setFavoritedGames={setFavoritedGames}
+            savedGames={savedGames}
+            setSavedGames={setSavedGames}
           />
         ) : (
-          <SavedGames />
+          <SavedGames
+            isLoading={isLoading}
+            setIsLoading={setIsLoading}
+            handleGameClick={handleGameClick}
+            favoritedGames={favoritedGames}
+            setFavoritedGames={setFavoritedGames}
+            savedGames={savedGames}
+            setSavedGames={setSavedGames}
+          />
         )}
         <button
           className="profile__mobile-btn"

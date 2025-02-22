@@ -23,6 +23,27 @@
   font-weight: 700;
 }
 
+.game-modal__btns {
+  display: flex;
+  gap: 8px;
+}
+
+.game-modal__save-btn {
+  /* margin: 0 36px 0 0; */
+  background-color: #dcdcdc;
+  border: none;
+  object-fit: contain;
+  cursor: pointer;
+}
+
+.game-modal__save-img {
+  background-color: #dcdcdc;
+  padding: 4px 4px 12px;
+
+  height: 40px;
+  width: 40px;
+}
+
 .game-modal__fave-btn {
   margin: 0 36px 0 0;
   background: none;

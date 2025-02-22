@@ -17,6 +17,8 @@ const SearchPage = ({
   setIsLoading,
   favoritedGames,
   setFavoritedGames,
+  savedGames,
+  setSavedGames,
 }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredGames, setFilteredGames] = useState([]);
@@ -83,6 +85,8 @@ const SearchPage = ({
                 onGameClick={handleGameClick}
                 favoritedGames={favoritedGames}
                 setFavoritedGames={setFavoritedGames}
+                savedGames={savedGames}
+                setSavedGames={setSavedGames}
               />
             );
           })
@@ -95,6 +99,8 @@ const SearchPage = ({
                 onGameClick={handleGameClick}
                 favoritedGames={favoritedGames}
                 setFavoritedGames={setFavoritedGames}
+                savedGames={savedGames}
+                setSavedGames={setSavedGames}
               />
             );
           })
