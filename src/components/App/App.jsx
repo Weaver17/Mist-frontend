@@ -9,7 +9,6 @@ import * as savedApi from "../../utils/saved";
 import "./App.css";
 
 import Header from "../Header/Header";
-import GameIconBanner from "../GameIconBanner/GameIconBanner";
 import Main from "../Main/Main";
 import Profile from "../Profile/Profile";
 import GamesSection from "../GamesSection/GamesSection";
@@ -130,6 +129,12 @@ function App() {
       .catch(console.error);
   };
 
+  const handleRemoveFromFavorites = (gameId, mongoId) => {
+    setFavoritedGames((prevGames) =>
+      prevGames.filter((game) => game.id !== gameId && game._id !== mongoId)
+    );
+  };
+
   useEffect(() => {
     const token = localStorage.getItem("JWT_TOKEN");
 
@@ -147,7 +152,7 @@ function App() {
       .catch(console.error);
   }, []);
 
-  // Favorite Games
+  // Favorited Games
   useEffect(() => {
     const token = localStorage.getItem("JWT_TOKEN");
     setIsLoading(true);
@@ -188,7 +193,6 @@ function App() {
             handleSignUpClick={handleSignUpClick}
             handleSignInClick={handleSignInClick}
           />
-          {/* <GameIconBanner /> */}
 
           <Routes>
             <Route
@@ -205,6 +209,7 @@ function App() {
                   setFavoritedGames={setFavoritedGames}
                   savedGames={savedGames}
                   setSavedGames={setSavedGames}
+                  handleRemoveFromFavorites={handleRemoveFromFavorites}
                 />
               }
             />
@@ -225,6 +230,7 @@ function App() {
                     setFavoritedGames={setFavoritedGames}
                     savedGames={savedGames}
                     setSavedGames={setSavedGames}
+                    handleRemoveFromFavorites={handleRemoveFromFavorites}
                   />
                 </ProtectedRoute>
               }
@@ -243,6 +249,7 @@ function App() {
                   setFavoritedGames={setFavoritedGames}
                   savedGames={savedGames}
                   setSavedGames={setSavedGames}
+                  handleRemoveFromFavorites={handleRemoveFromFavorites}
                 />
               }
             />
@@ -261,6 +268,7 @@ function App() {
                   setFavoritedGames={setFavoritedGames}
                   savedGames={savedGames}
                   setSavedGames={setSavedGames}
+                  handleRemoveFromFavorites={handleRemoveFromFavorites}
                 />
               }
             />

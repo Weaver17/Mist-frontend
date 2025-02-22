@@ -11,6 +11,7 @@ const SavedGames = ({
   setFavoritedGames,
   savedGames,
   setSavedGames,
+  handleRemoveFromFavorites,
 }) => {
   const [visibleCount, setVisibleCount] = useState(6);
 
@@ -36,6 +37,7 @@ const SavedGames = ({
                 setFavoritedGames={setFavoritedGames}
                 savedGames={savedGames}
                 setSavedGames={setSavedGames}
+                handleRemoveFromFavorites={handleRemoveFromFavorites}
               />
             ))
         )}

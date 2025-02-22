@@ -21,6 +21,7 @@ const GameCard = ({
   setFavoritedGames,
   savedGames,
   setSavedGames,
+  handleRemoveFromFavorites,
 }) => {
   const favoritedGameIds = new Set(
     favoritedGames?.map((favGame) => favGame.id)
@@ -58,11 +59,7 @@ const GameCard = ({
         return deleteFavoritedGame(gameId.mongoId._id, token);
       })
       .then((deletedGame) => {
-        const newFaves = favoritedGames?.filter(
-          (g) => g._id !== deletedGame._id
-        );
-
-        setFavoritedGames(newFaves);
+        handleRemoveFromFavorites(deletedGame.id, deletedGame._id);
       })
       .catch(console.error);
   };

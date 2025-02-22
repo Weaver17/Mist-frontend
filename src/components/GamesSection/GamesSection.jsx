@@ -18,6 +18,7 @@ const GamesSection = ({
   setFavoritedGames,
   savedGames,
   setSavedGames,
+  handleRemoveFromFavorites,
 }) => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedPlatform, setSelectedPlatform] = useState("All");
@@ -167,6 +168,7 @@ const GamesSection = ({
                 setFavoritedGames={setFavoritedGames}
                 savedGames={savedGames}
                 setSavedGames={setSavedGames}
+                handleRemoveFromFavorites={handleRemoveFromFavorites}
               />
             );
           })

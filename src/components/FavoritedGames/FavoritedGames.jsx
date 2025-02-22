@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import "./FavoritedGames.css";
 import GameCard from "../GameCard/GameCard";
@@ -11,6 +11,7 @@ const FavoritedGames = ({
   setFavoritedGames,
   savedGames,
   setSavedGames,
+  handleRemoveFromFavorites,
 }) => {
   const [visibleCount, setVisibleCount] = useState(6);
 
@@ -20,7 +21,7 @@ const FavoritedGames = ({
 
   return (
     <div className="favorites">
-      <h3 className="favorites__title">Favorite Games</h3>
+      <h3 className="favorites__title">Favorited Games</h3>
       <ul className="favorites__list">
         {isLoading ? (
           <Preloader />
@@ -36,6 +37,7 @@ const FavoritedGames = ({
                 setFavoritedGames={setFavoritedGames}
                 savedGames={savedGames}
                 setSavedGames={setSavedGames}
+                handleRemoveFromFavorites={handleRemoveFromFavorites}
               />
             ))
         )}

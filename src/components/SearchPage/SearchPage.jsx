@@ -19,6 +19,7 @@ const SearchPage = ({
   setFavoritedGames,
   savedGames,
   setSavedGames,
+  handleRemoveFromFavorites,
 }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredGames, setFilteredGames] = useState([]);
@@ -87,6 +88,7 @@ const SearchPage = ({
                 setFavoritedGames={setFavoritedGames}
                 savedGames={savedGames}
                 setSavedGames={setSavedGames}
+                handleRemoveFromFavorites={handleRemoveFromFavorites}
               />
             );
           })
@@ -101,6 +103,7 @@ const SearchPage = ({
                 setFavoritedGames={setFavoritedGames}
                 savedGames={savedGames}
                 setSavedGames={setSavedGames}
+                handleRemoveFromFavorites={handleRemoveFromFavorites}
               />
             );
           })

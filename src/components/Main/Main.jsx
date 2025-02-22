@@ -9,14 +9,16 @@ import "./Main.css";
 
 const Main = ({
   handleGameClick,
-  games,
-  setGames,
   isLoading,
   setIsLoading,
+  games,
+  setGames,
+
   favoritedGames,
   setFavoritedGames,
   savedGames,
   setSavedGames,
+  handleRemoveFromFavorites,
 }) => {
   const [visibleCount, setVisibleCount] = useState(6);
 
@@ -55,6 +57,7 @@ const Main = ({
                 setFavoritedGames={setFavoritedGames}
                 savedGames={savedGames}
                 setSavedGames={setSavedGames}
+                handleRemoveFromFavorites={handleRemoveFromFavorites}
               />
             );
           })

@@ -23,6 +23,7 @@ const Profile = ({
   setFavoritedGames,
   savedGames,
   setSavedGames,
+  handleRemoveFromFavorites,
 }) => {
   const [isMobileMenuOpened, setMobileMenuOpened] = useState(false);
   const [showFavoritedOrSaved, setShowFavoritedOrSaved] =
@@ -76,6 +77,7 @@ const Profile = ({
             setFavoritedGames={setFavoritedGames}
             savedGames={savedGames}
             setSavedGames={setSavedGames}
+            handleRemoveFromFavorites={handleRemoveFromFavorites}
           />
         ) : (
           <SavedGames
@@ -86,6 +88,7 @@ const Profile = ({
             setFavoritedGames={setFavoritedGames}
             savedGames={savedGames}
             setSavedGames={setSavedGames}
+            handleRemoveFromFavorites={handleRemoveFromFavorites}
           />
         )}
         <button
