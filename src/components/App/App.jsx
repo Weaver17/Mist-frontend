@@ -154,7 +154,6 @@ function App() {
     favedApi
       .getFavoritedGames(token)
       .then((games) => {
-        console.log(games.favoritedGames.map((game) => game._id));
         setFavoritedGames(games.favoritedGames);
       })
       .catch(console.error)
@@ -170,7 +169,6 @@ function App() {
     savedApi
       .getSavedGames(token)
       .then((games) => {
-        console.log(games.savedGames.map((game) => game._id));
         setSavedGames(games.savedGames);
       })
       .catch(console.error)
@@ -190,7 +188,7 @@ function App() {
             handleSignUpClick={handleSignUpClick}
             handleSignInClick={handleSignInClick}
           />
-          <GameIconBanner />
+          {/* <GameIconBanner /> */}
 
           <Routes>
             <Route
