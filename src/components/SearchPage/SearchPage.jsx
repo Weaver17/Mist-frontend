@@ -8,6 +8,7 @@ import * as gameApi from "../../utils/gameApi";
 import "./SearchPage.css";
 
 import searchBtn from "../../assets/btns/search-btn.png";
+import ShowMoreBtn from "../Buttons/ShowMoreBtn/ShowMoreBtn";
 
 const SearchPage = ({
   handleGameClick,
@@ -110,13 +111,11 @@ const SearchPage = ({
         )}
       </ul>
       {!isLoading && visibleCount < games.length && (
-        <button
+        <ShowMoreBtn
           type="button"
           onClick={onShowMoreClick}
-          className="main__show-more-btn"
-        >
-          Show More
-        </button>
+          classModifier="search"
+        />
       )}
     </section>
   );

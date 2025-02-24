@@ -10,15 +10,15 @@ import "./App.css";
 
 import Header from "../Header/Header";
 import Main from "../Main/Main";
-import Profile from "../Profile/Profile";
+import Profile from "../ProfilePage/Profile/Profile";
 import GamesSection from "../GamesSection/GamesSection";
 import SearchPage from "../SearchPage/SearchPage";
 import About from "../About/About";
 import Footer from "../Footer/Footer";
-import RegisterModal from "../RegisterModal/RegisterModal";
-import LoginModal from "../LoginModal/LoginModal";
-import CompletedModal from "../CompletedModal/CompletedModal";
-import GameModal from "../GameModal/GameModal";
+import RegisterModal from "../Modals/RegisterModal/RegisterModal";
+import LoginModal from "../Modals/LoginModal/LoginModal";
+import CompletedModal from "../Modals/CompletedModal/CompletedModal";
+import GameModal from "../Modals/GameModal/GameModal";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 function App() {

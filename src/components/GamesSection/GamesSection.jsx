@@ -7,6 +7,7 @@ import * as gameApi from "../../utils/gameApi";
 import { categories, platforms } from "../../utils/constants";
 
 import "./GamesSection.css";
+import ShowMoreBtn from "../Buttons/ShowMoreBtn/ShowMoreBtn";
 
 const GamesSection = ({
   handleGameClick,
@@ -65,7 +66,6 @@ const GamesSection = ({
       .getGamesByPlatform(selectedPlatform.toLocaleLowerCase())
       .then((items) => {
         setGames(items);
-        console.log(selectedPlatform);
       })
       .catch(console.error)
       .finally(setIsLoading(false));
@@ -175,13 +175,11 @@ const GamesSection = ({
         )}
       </ul>
       {!isLoading && visibleCount < games.length && (
-        <button
+        <ShowMoreBtn
           type="button"
           onClick={onShowMoreClick}
-          className="games__show-more-btn"
-        >
-          Show More
-        </button>
+          classModifier="games"
+        />
       )}
     </div>
   );

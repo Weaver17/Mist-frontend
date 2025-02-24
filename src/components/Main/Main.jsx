@@ -6,6 +6,7 @@ import Preloader from "../Preloader/Preloader";
 import * as gameApi from "../../utils/gameApi";
 
 import "./Main.css";
+import ShowMoreBtn from "../Buttons/ShowMoreBtn/ShowMoreBtn";
 
 const Main = ({
   handleGameClick,
@@ -64,13 +65,11 @@ const Main = ({
         )}
       </ul>
       {!isLoading && visibleCount < games.length && (
-        <button
+        <ShowMoreBtn
           type="button"
           onClick={onShowMoreClick}
-          className="main__show-more-btn"
-        >
-          Show More
-        </button>
+          classModifier="main"
+        />
       )}
     </section>
   );

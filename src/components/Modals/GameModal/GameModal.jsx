@@ -2,19 +2,23 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import Modal from "../Modal/Modal";
-import GameScreenshot from "../GameScreenshot/GameScreenshot";
-import faveBtn from "../../assets/btns/favorite-btn.png";
-import faveBtnFilled from "../../assets/btns/favorite-btn-filled.png";
-import saveBtn from "../../assets/btns/save-btn2.png";
-import saved from "../../assets/btns/saved.png";
+import GameScreenshot from "../../GameScreenshot/GameScreenshot";
+import faveBtn from "../../../assets/btns/favorite-btn.png";
+import faveBtnFilled from "../../../assets/btns/favorite-btn-filled.png";
+import saveBtn from "../../../assets/btns/save-btn2.png";
+import saved from "../../../assets/btns/saved.png";
 
 import "./GameModal.css";
 import {
   addFavoriteGame,
   deleteFavoritedGame,
   getFavorite,
-} from "../../utils/favorited";
-import { addSavedGame, deleteSavedGame, getSavedGame } from "../../utils/saved";
+} from "../../../utils/favorited";
+import {
+  addSavedGame,
+  deleteSavedGame,
+  getSavedGame,
+} from "../../../utils/saved";
 
 const GameModal = ({
   isOpen,

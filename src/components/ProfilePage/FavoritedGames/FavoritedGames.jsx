@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-import "./SavedGames.css";
-import GameCard from "../GameCard/GameCard";
-import Preloader from "../Preloader/Preloader";
+import "./FavoritedGames.css";
+import GameCard from "../../GameCard/GameCard";
+import Preloader from "../../Preloader/Preloader";
+import ShowMoreBtn from "../../Buttons/ShowMoreBtn/ShowMoreBtn";
 
-const SavedGames = ({
+const FavoritedGames = ({
   isLoading,
   favoritedGames,
   handleGameClick,
@@ -20,13 +21,13 @@ const SavedGames = ({
   };
 
   return (
-    <div className="saved">
-      <h3 className="saved__title">Saved Games</h3>
-      <ul className="saved__list">
+    <div className="favorites">
+      <h3 className="favorites__title">Favorited Games</h3>
+      <ul className="favorites__list">
         {isLoading ? (
           <Preloader />
         ) : (
-          savedGames
+          favoritedGames
             .slice(0, visibleCount)
             .map((game) => (
               <GameCard
@@ -42,17 +43,15 @@ const SavedGames = ({
             ))
         )}
       </ul>
-      {!isLoading && visibleCount < savedGames.length && (
-        <button
+      {!isLoading && visibleCount < favoritedGames.length && (
+        <ShowMoreBtn
           type="button"
           onClick={onShowMoreClick}
-          className="saved__show-more-btn"
-        >
-          Show More
-        </button>
+          classModifier="favorite"
+        />
       )}
     </div>
   );
 };
 
-export default SavedGames;
+export default FavoritedGames;

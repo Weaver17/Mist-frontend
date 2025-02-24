@@ -1,6 +1,6 @@
 import "./ModalWithForm.css";
 import Modal from "../Modal/Modal";
-import Form from "../Form/Form";
+import Form from "../../Form/Form";
 
 function ModalWithForm({
   children,

@@ -25,7 +25,7 @@
   min-height: 100px;
 }
 
-.main__show-more-btn {
+/* .main__show-more-btn {
   background: none;
   border: none;
   color: #000;
@@ -42,7 +42,7 @@
 .main__show-more-btn:hover {
   color: #0284b8;
   transition: 0.2s linear;
-}
+} */
 
 @media screen and (max-width: 985px) {
   .main__card-list {

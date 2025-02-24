@@ -1,9 +1,9 @@
 import { useState, useContext, useEffect } from "react";
 
-import CurrentUserContext from "../../contexts/CurrentUserContext";
+import CurrentUserContext from "../../../contexts/CurrentUserContext";
 
 import Sidebar from "../Sidebar/Sidebar";
-import EditModal from "../EditModal/EditModal";
+import EditModal from "../../Modals/EditModal/EditModal";
 
 import "./Profile.css";
 import FavoritedGames from "../FavoritedGames/FavoritedGames";
