@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext } from "react";
 import { getGameById } from "../../utils/gameApi";
 import faveBtn from "../../assets/btns/favorite-btn.png";
 import faveBtnFilled from "../../assets/btns/favorite-btn-filled.png";
@@ -14,6 +14,8 @@ import {
 
 import { addSavedGame, deleteSavedGame, getSavedGame } from "../../utils/saved";
 
+import CurrentUserContext from "../../contexts/CurrentUserContext";
+
 const GameCard = ({
   onGameClick,
   game,
@@ -23,6 +25,8 @@ const GameCard = ({
   setSavedGames,
   handleRemoveFromFavorites,
 }) => {
+  const { isLoggedIn } = useContext(CurrentUserContext);
+
   const favoritedGameIds = new Set(
     favoritedGames?.map((favGame) => favGame.id)
   );
@@ -95,7 +99,8 @@ const GameCard = ({
           type="button"
           className="card__fave-btn"
           onClick={
-            favoritedGameIds.has(game.id) || favoritedGameDbIds.has(game._id)
+            (isLoggedIn && favoritedGameIds.has(game.id)) ||
+            favoritedGameDbIds.has(game._id)
               ? handleRemoveFavorite
               : handleFavoriteGame
           }
@@ -103,7 +108,8 @@ const GameCard = ({
           <img
             className="card__fave-star"
             src={
-              favoritedGameIds.has(game.id) || favoritedGameDbIds.has(game._id)
+              (isLoggedIn && favoritedGameIds.has(game.id)) ||
+              favoritedGameDbIds.has(game._id)
                 ? faveBtnFilled
                 : faveBtn
             }
@@ -116,7 +122,8 @@ const GameCard = ({
           type="button"
           className="card__save-btn"
           onClick={
-            savedGameIds.has(game.id) || savedGameDbIds.has(game._id)
+            (isLoggedIn && savedGameIds.has(game.id)) ||
+            savedGameDbIds.has(game._id)
               ? handleRemoveSaved
               : handleSaveGame
           }
@@ -124,12 +131,14 @@ const GameCard = ({
           <img
             className="card__save-img"
             src={
-              savedGameIds.has(game.id) || savedGameDbIds.has(game._id)
+              (isLoggedIn && savedGameIds.has(game.id)) ||
+              savedGameDbIds.has(game._id)
                 ? saved
                 : saveBtn
             }
             alt={
-              savedGameIds.has(game.id) || savedGameDbIds.has(game._id)
+              (isLoggedIn && savedGameIds.has(game.id)) ||
+              savedGameDbIds.has(game._id)
                 ? "Checkmark"
                 : "Save icon"
             }

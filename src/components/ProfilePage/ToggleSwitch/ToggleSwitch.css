@@ -80,3 +80,33 @@
 .toggle-switch_checkbox:hover ~ .toggle-switch__temp_active {
   color: #fff;
 }
+
+@media screen and (max-width: 630px) {
+  .toggle-switch {
+    margin: 12px auto;
+  }
+
+  .toggle-switch__label {
+    height: 30px;
+  }
+
+  .toggle-switch_checkbox {
+    height: 30px;
+  }
+
+  .toggle-switch__slider {
+    height: 30px;
+  }
+
+  .toggle-switch__temp_F {
+    font-size: 14px;
+    line-height: 14px;
+    top: -6px;
+  }
+
+  .toggle-switch__temp_C {
+    font-size: 14px;
+    line-height: 14px;
+    top: -6px;
+  }
+}

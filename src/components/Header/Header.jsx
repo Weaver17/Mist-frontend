@@ -129,7 +129,15 @@ const Header = ({ handleSignUpClick, handleSignInClick, isLoggedIn }) => {
           <nav className="header__mobile-container">
             <div className="header__mobile-login-btn-container">
               {isLoggedIn ? (
-                <div className="header__mobile-login-btn-hidden"></div>
+                <Link className="header__btn-link" to="/profile">
+                  <button
+                    className="header__mobile-profile-btn header__mobile-profile-btn_menu"
+                    type="button"
+                    onClick={toggleMobileMenu}
+                  >
+                    {currentUser?.username}
+                  </button>
+                </Link>
               ) : (
                 <button
                   className="header__mobile-login-btn"
@@ -142,14 +150,21 @@ const Header = ({ handleSignUpClick, handleSignInClick, isLoggedIn }) => {
             </div>
 
             {/* MOBILE TABS */}
+
             <NavLink className="header__mobile-tab-link" to="/">
-              <p className="header__mobile-tab">Home</p>
+              <p onClick={toggleMobileMenu} className="header__mobile-tab">
+                Home
+              </p>
             </NavLink>
             <NavLink className="header__mobile-tab-link" to="/search">
-              <p className="header__mobile-tab">Search</p>
+              <p onClick={toggleMobileMenu} className="header__mobile-tab">
+                Search
+              </p>
             </NavLink>
             <NavLink className="header__mobile-tab-link" to="/games">
-              <p className="header__mobile-tab">All Games</p>
+              <p onClick={toggleMobileMenu} className="header__mobile-tab">
+                All Games
+              </p>
             </NavLink>
           </nav>
         </div>

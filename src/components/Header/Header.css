@@ -310,6 +310,10 @@
     color: rgba(0, 0, 0, 0.6);
   }
 
+  .header__mobile-profile-btn_menu {
+    display: none;
+  }
+
   .header__mobile-login-btn:hover {
     color: #000;
     transition: 0.2s linear;
@@ -352,6 +356,12 @@
   .header__mobile-profile-btn {
     font-size: 0;
   }
+
+  .header__mobile-profile-btn_menu {
+    display: block;
+    font-size: 16px;
+    margin: 0 0 8px;
+  }
 }
 
 @media screen and (max-width: 445px) {
@@ -367,6 +377,12 @@
 
   .header__mobile-profile-btn {
     display: none;
+  }
+
+  .header__mobile-profile-btn_menu {
+    display: block;
+    font-size: 16px;
+    margin: 0 0 8px;
   }
 }
 

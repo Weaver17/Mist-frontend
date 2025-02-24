@@ -25,25 +25,6 @@
   min-height: 100px;
 }
 
-/* .main__show-more-btn {
-  background: none;
-  border: none;
-  color: #000;
-
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 18px;
-  margin: 24px;
-  padding: 0;
-  align-self: center;
-  cursor: pointer;
-}
-
-.main__show-more-btn:hover {
-  color: #0284b8;
-  transition: 0.2s linear;
-} */
-
 @media screen and (max-width: 985px) {
   .main__card-list {
     grid-template-columns: repeat(auto-fit, 375px);
@@ -51,6 +32,11 @@
 }
 
 @media screen and (max-width: 610px) {
+  .main__card-list-title {
+    font-size: 20px;
+    line-height: 24px;
+  }
+
   .main__card-list {
     grid-template-columns: repeat(auto-fit, 300px);
   }

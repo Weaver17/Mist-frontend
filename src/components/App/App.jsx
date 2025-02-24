@@ -36,6 +36,8 @@ function App() {
   const [favoritedGames, setFavoritedGames] = useState([]);
   const [savedGames, setSavedGames] = useState([]);
 
+  const token = localStorage.getItem("JWT_TOKEN");
+
   const navigate = useNavigate();
 
   const closeActiveModal = () => {
@@ -116,7 +118,6 @@ function App() {
   };
 
   const handleEditUsername = (data) => {
-    const token = localStorage.getItem("JWT_TOKEN");
     console.log(data);
 
     auth
@@ -136,8 +137,6 @@ function App() {
   };
 
   useEffect(() => {
-    const token = localStorage.getItem("JWT_TOKEN");
-
     if (!token) {
       return console.log("Token not found, user is not logged in.");
     }
@@ -154,33 +153,35 @@ function App() {
 
   // Favorited Games
   useEffect(() => {
-    const token = localStorage.getItem("JWT_TOKEN");
-    setIsLoading(true);
-    favedApi
-      .getFavoritedGames(token)
-      .then((games) => {
-        setFavoritedGames(games.favoritedGames);
-      })
-      .catch(console.error)
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, []);
+    if (isLoggedIn) {
+      setIsLoading(true);
+      favedApi
+        .getFavoritedGames(token)
+        .then((games) => {
+          setFavoritedGames(games.favoritedGames);
+        })
+        .catch(console.error)
+        .finally(() => {
+          setIsLoading(false);
+        });
+    }
+  }, [isLoggedIn]);
 
   // Saved Games
   useEffect(() => {
-    const token = localStorage.getItem("JWT_TOKEN");
-    setIsLoading(true);
-    savedApi
-      .getSavedGames(token)
-      .then((games) => {
-        setSavedGames(games.savedGames);
-      })
-      .catch(console.error)
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, []);
+    if (isLoggedIn) {
+      setIsLoading(true);
+      savedApi
+        .getSavedGames(token)
+        .then((games) => {
+          setSavedGames(games.savedGames);
+        })
+        .catch(console.error)
+        .finally(() => {
+          setIsLoading(false);
+        });
+    }
+  }, [isLoggedIn]);
 
   return (
     <CurrentUserContext.Provider
