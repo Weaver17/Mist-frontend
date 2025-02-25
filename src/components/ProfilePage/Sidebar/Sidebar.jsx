@@ -1,8 +1,8 @@
 import { useContext } from "react";
 
-import CurrentUserContext from "../../contexts/CurrentUserContext";
+import CurrentUserContext from "../../../contexts/CurrentUserContext";
 
-import EditModal from "../EditModal/EditModal";
+import EditModal from "../../Modals/EditModal/EditModal";
 
 import "./Sidebar.css";
 

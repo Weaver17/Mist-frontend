@@ -1,9 +1,9 @@
 import { useState, useContext, useEffect } from "react";
 
-import CurrentUserContext from "../../contexts/CurrentUserContext";
+import CurrentUserContext from "../../../contexts/CurrentUserContext";
 
 import Sidebar from "../Sidebar/Sidebar";
-import EditModal from "../EditModal/EditModal";
+import EditModal from "../../Modals/EditModal/EditModal";
 
 import "./Profile.css";
 import FavoritedGames from "../FavoritedGames/FavoritedGames";
@@ -61,7 +61,42 @@ const Profile = ({
           savedGames={savedGames}
         />
       </section>
+      <div className="profile__mobile-btn-container">
+        <button
+          className="profile__mobile-btn"
+          type="button"
+          onClick={toggleMobileMenu}
+        >
+          {currentUser?.username}
+        </button>
+        {/* MOBILE MENU  */}
+        {isMobileMenuOpened && (
+          <div className="profile__mobile">
+            <div className="profile__mobile-container">
+              <button
+                className="profile__mobile-close-btn"
+                type="button"
+                onClick={toggleMobileMenu}
+              />
+              <button
+                type="button"
+                className="sidebar__edit"
+                onClick={handleMobileEditClick}
+              >
+                Change Username
+              </button>
 
+              <button
+                type="button"
+                className="sidebar__logout"
+                onClick={handleLogOut}
+              >
+                Log out
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
       <section className="profile__games">
         <ToggleSwitch
           handleToggleSwitchChange={handleToggleSwitchChange}
@@ -90,41 +125,6 @@ const Profile = ({
             setSavedGames={setSavedGames}
             handleRemoveFromFavorites={handleRemoveFromFavorites}
           />
-        )}
-        <button
-          className="profile__mobile-btn"
-          type="button"
-          onClick={toggleMobileMenu}
-        >
-          {currentUser?.username}
-        </button>
-
-        {/* MOBILE MENU  */}
-        {isMobileMenuOpened && (
-          <div className="profile__mobile">
-            <div className="profile__mobile-container">
-              <button
-                className="profile__mobile-close-btn"
-                type="button"
-                onClick={toggleMobileMenu}
-              />
-              <button
-                type="button"
-                className="sidebar__edit"
-                onClick={handleMobileEditClick}
-              >
-                Change Username
-              </button>
-
-              <button
-                type="button"
-                className="sidebar__logout"
-                onClick={handleLogOut}
-              >
-                Log out
-              </button>
-            </div>
-          </div>
         )}
       </section>
       <EditModal

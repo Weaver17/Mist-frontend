@@ -16,6 +16,11 @@
   width: 70%;
 }
 
+.profile__mobile-btn-container {
+  position: relative;
+  margin: 0 auto;
+}
+
 .profile__mobile-btn {
   margin: 8px 0;
   padding: 0;
@@ -32,6 +37,16 @@
   display: none;
 }
 
+@media screen and (max-width: 770px) {
+  .profile__sidebar {
+    width: 40%;
+  }
+
+  .profile__games {
+    width: 60%;
+  }
+}
+
 @media screen and (max-width: 630px) {
   .profile {
     margin-top: 0;
@@ -39,6 +54,15 @@
   }
   .profile__sidebar {
     display: none;
+  }
+
+  .profile__games {
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .profile__mobile-btn-container {
+    width: 300px;
   }
 
   .profile__mobile-btn {
@@ -76,5 +100,11 @@
     width: 24px;
     border: none;
     cursor: pointer;
+  }
+}
+
+@media screen and (max-width: 385px) {
+  .profile__mobile-btn-container {
+    width: 200px;
   }
 }

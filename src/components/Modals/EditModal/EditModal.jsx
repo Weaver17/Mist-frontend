@@ -1,9 +1,9 @@
 import { useEffect, useContext } from "react";
 
-import CurrentUserContext from "../../contexts/CurrentUserContext";
+import CurrentUserContext from "../../../contexts/CurrentUserContext";
 
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
-import { useForm } from "../../hooks/useForm";
+import { useForm } from "../../../hooks/useForm";
 
 const EditModal = ({
   handleCloseClick,

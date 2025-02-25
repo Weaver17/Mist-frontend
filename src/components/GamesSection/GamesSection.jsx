@@ -7,23 +7,27 @@ import * as gameApi from "../../utils/gameApi";
 import { categories, platforms } from "../../utils/constants";
 
 import "./GamesSection.css";
+import ShowMoreBtn from "../Buttons/ShowMoreBtn/ShowMoreBtn";
+import { useGames } from "../../contexts/GameContext";
 
 const GamesSection = ({
   handleGameClick,
-  games,
-  setGames,
-  isLoading,
-  setIsLoading,
   favoritedGames,
   setFavoritedGames,
   savedGames,
   setSavedGames,
-  handleRemoveFromFavorites,
 }) => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedPlatform, setSelectedPlatform] = useState("All");
 
-  const [visibleCount, setVisibleCount] = useState(9);
+  const {
+    games,
+    setGames,
+    isLoading,
+    setIsLoading,
+    getPopularGames,
+    visibleCount,
+  } = useGames();
 
   // category change
   const handleCatChange = () => {
@@ -65,7 +69,6 @@ const GamesSection = ({
       .getGamesByPlatform(selectedPlatform.toLocaleLowerCase())
       .then((items) => {
         setGames(items);
-        console.log(selectedPlatform);
       })
       .catch(console.error)
       .finally(setIsLoading(false));
@@ -79,20 +82,10 @@ const GamesSection = ({
     setSelectedPlatform(e.target.value);
   };
 
-  const onShowMoreClick = () => {
-    setVisibleCount((prevCount) => prevCount + 6);
-  };
-
   useEffect(() => {
     setIsLoading(true);
     if (selectedCategory === "All") {
-      gameApi
-        .getGamesByRelevance()
-        .then((items) => {
-          setGames(items);
-        })
-        .catch(console.error)
-        .finally(setIsLoading(false));
+      getPopularGames();
     } else handleCatChange();
 
     if (selectedCategory === "All") {
@@ -168,20 +161,13 @@ const GamesSection = ({
                 setFavoritedGames={setFavoritedGames}
                 savedGames={savedGames}
                 setSavedGames={setSavedGames}
-                handleRemoveFromFavorites={handleRemoveFromFavorites}
               />
             );
           })
         )}
       </ul>
       {!isLoading && visibleCount < games.length && (
-        <button
-          type="button"
-          onClick={onShowMoreClick}
-          className="games__show-more-btn"
-        >
-          Show More
-        </button>
+        <ShowMoreBtn type="button" classModifier="games" />
       )}
     </div>
   );

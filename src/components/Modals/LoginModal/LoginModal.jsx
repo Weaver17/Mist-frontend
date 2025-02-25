@@ -1,56 +1,41 @@
 import { useEffect } from "react";
 
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
-import { useForm } from "../../hooks/useForm";
+import { useForm } from "../../../hooks/useForm";
 
-const RegisterModal = ({
+const LoginModal = ({
   isOpen,
   handleCloseClick,
-  handleRegistrationClick,
+  handleSignUpClick,
   isLoading,
-  handleSignInClick,
-  handleRegistration,
+  handleLogin,
 }) => {
   const { values, handleChange, setValues } = useForm({
-    username: "",
     email: "",
     password: "",
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleRegistration(values);
-    handleRegistrationClick();
+    handleLogin(values);
   };
 
   useEffect(() => {
     if (isOpen) {
-      setValues({ username: "", email: "", password: "", confirmPassword: "" });
+      setValues({ email: "", password: "" });
     }
   }, [isOpen]);
 
   return (
     <ModalWithForm
-      title="Sign Up"
-      name="register"
+      title="Sign In"
+      name="signin"
       isOpen={isOpen}
       handleCloseClick={handleCloseClick}
-      buttonText={isLoading ? "Signing Up..." : "Sign Up"}
+      buttonText={isLoading ? "..." : "Sign In"}
       onSubmit={handleSubmit}
-      onClose={handleCloseClick}
     >
       <div className="modal__input-container">
-        <label className="modal__label">
-          <input
-            type="text"
-            name="username"
-            className="modal__input modal__input_disabled"
-            placeholder="Username"
-            value={values.username || ""}
-            onChange={handleChange}
-            required
-          />
-        </label>
         <label className="modal__label">
           <input
             type="email"
@@ -81,10 +66,10 @@ const RegisterModal = ({
           <p className="form__or">or</p>
           <button
             type="button"
-            className="form__submit-btn form__submit-btn_type_go_to_signin"
-            onClick={handleSignInClick}
+            className="form__submit-btn form__submit-btn_type_go_to_register"
+            onClick={handleSignUpClick}
           >
-            Sign In
+            Sign Up
           </button>
         </div>
       )}
@@ -92,4 +77,4 @@ const RegisterModal = ({
   );
 };
 
-export default RegisterModal;
+export default LoginModal;

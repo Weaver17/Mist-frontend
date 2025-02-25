@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 
 import "./FavoritedGames.css";
-import GameCard from "../GameCard/GameCard";
-import Preloader from "../Preloader/Preloader";
+import GameCard from "../../GameCard/GameCard";
+import Preloader from "../../Preloader/Preloader";
+import ShowMoreBtn from "../../Buttons/ShowMoreBtn/ShowMoreBtn";
+import { useGames } from "../../../contexts/GameContext";
 
 const FavoritedGames = ({
   isLoading,
@@ -11,13 +13,8 @@ const FavoritedGames = ({
   setFavoritedGames,
   savedGames,
   setSavedGames,
-  handleRemoveFromFavorites,
 }) => {
-  const [visibleCount, setVisibleCount] = useState(6);
-
-  const onShowMoreClick = () => {
-    setVisibleCount((prevCount) => prevCount + 3);
-  };
+  const { visibleCount } = useGames();
 
   return (
     <div className="favorites">
@@ -37,19 +34,12 @@ const FavoritedGames = ({
                 setFavoritedGames={setFavoritedGames}
                 savedGames={savedGames}
                 setSavedGames={setSavedGames}
-                handleRemoveFromFavorites={handleRemoveFromFavorites}
               />
             ))
         )}
       </ul>
       {!isLoading && visibleCount < favoritedGames.length && (
-        <button
-          type="button"
-          onClick={onShowMoreClick}
-          className="favorites__show-more-btn"
-        >
-          Show More
-        </button>
+        <ShowMoreBtn type="button" classModifier="favorite" />
       )}
     </div>
   );

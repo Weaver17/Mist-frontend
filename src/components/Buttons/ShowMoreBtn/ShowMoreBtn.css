@@ -1,0 +1,17 @@
+.show-more-btn {
+  background: none;
+  border: none;
+  color: #000;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 18px;
+  margin: 24px;
+  padding: 0;
+  align-self: center;
+  cursor: pointer;
+}
+
+.show-more-btn:hover {
+  color: #0284b8;
+  transition: 0.2s linear;
+}

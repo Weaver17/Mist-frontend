@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext } from "react";
 import { getGameById } from "../../utils/gameApi";
 import faveBtn from "../../assets/btns/favorite-btn.png";
 import faveBtnFilled from "../../assets/btns/favorite-btn-filled.png";
@@ -14,6 +14,9 @@ import {
 
 import { addSavedGame, deleteSavedGame, getSavedGame } from "../../utils/saved";
 
+import CurrentUserContext from "../../contexts/CurrentUserContext";
+import { useGames } from "../../contexts/GameContext";
+
 const GameCard = ({
   onGameClick,
   game,
@@ -21,8 +24,11 @@ const GameCard = ({
   setFavoritedGames,
   savedGames,
   setSavedGames,
-  handleRemoveFromFavorites,
 }) => {
+  const { isLoggedIn } = useContext(CurrentUserContext);
+
+  const { handleRemoveFromFavorites, handleRemoveFromSavedGames } = useGames();
+
   const favoritedGameIds = new Set(
     favoritedGames?.map((favGame) => favGame.id)
   );
@@ -56,10 +62,9 @@ const GameCard = ({
   const handleRemoveFavorite = () => {
     getFavorite(game.id, token)
       .then((gameId) => {
-        return deleteFavoritedGame(gameId.mongoId._id, token);
-      })
-      .then((deletedGame) => {
-        handleRemoveFromFavorites(deletedGame.id, deletedGame._id);
+        console.log(game.id, gameId.mongoId._id);
+        handleRemoveFromFavorites(game.id, gameId.mongoId._id);
+        deleteFavoritedGame(gameId.mongoId._id, token);
       })
       .catch(console.error);
   };
@@ -78,9 +83,7 @@ const GameCard = ({
         return deleteSavedGame(gameId.mongoId._id, token);
       })
       .then((deletedGame) => {
-        const newSaves = savedGames?.filter((g) => g._id !== deletedGame._id);
-
-        setSavedGames(newSaves);
+        handleRemoveFromSavedGames(deletedGame.id, deletedGame._id);
       })
       .catch(console.error);
   };
@@ -95,7 +98,8 @@ const GameCard = ({
           type="button"
           className="card__fave-btn"
           onClick={
-            favoritedGameIds.has(game.id) || favoritedGameDbIds.has(game._id)
+            (isLoggedIn && favoritedGameIds.has(game.id)) ||
+            favoritedGameDbIds.has(game._id)
               ? handleRemoveFavorite
               : handleFavoriteGame
           }
@@ -103,7 +107,8 @@ const GameCard = ({
           <img
             className="card__fave-star"
             src={
-              favoritedGameIds.has(game.id) || favoritedGameDbIds.has(game._id)
+              (isLoggedIn && favoritedGameIds.has(game.id)) ||
+              favoritedGameDbIds.has(game._id)
                 ? faveBtnFilled
                 : faveBtn
             }
@@ -116,7 +121,8 @@ const GameCard = ({
           type="button"
           className="card__save-btn"
           onClick={
-            savedGameIds.has(game.id) || savedGameDbIds.has(game._id)
+            (isLoggedIn && savedGameIds.has(game.id)) ||
+            savedGameDbIds.has(game._id)
               ? handleRemoveSaved
               : handleSaveGame
           }
@@ -124,12 +130,14 @@ const GameCard = ({
           <img
             className="card__save-img"
             src={
-              savedGameIds.has(game.id) || savedGameDbIds.has(game._id)
+              (isLoggedIn && savedGameIds.has(game.id)) ||
+              savedGameDbIds.has(game._id)
                 ? saved
                 : saveBtn
             }
             alt={
-              savedGameIds.has(game.id) || savedGameDbIds.has(game._id)
+              (isLoggedIn && savedGameIds.has(game.id)) ||
+              savedGameDbIds.has(game._id)
                 ? "Checkmark"
                 : "Save icon"
             }

@@ -3,44 +3,30 @@ import { useState, useEffect } from "react";
 import GameCard from "../GameCard/GameCard";
 import Preloader from "../Preloader/Preloader";
 
-import * as gameApi from "../../utils/gameApi";
-
 import "./SearchPage.css";
 
 import searchBtn from "../../assets/btns/search-btn.png";
+import ShowMoreBtn from "../Buttons/ShowMoreBtn/ShowMoreBtn";
+import { useGames } from "../../contexts/GameContext";
 
 const SearchPage = ({
   handleGameClick,
-  games,
-  setGames,
-  isLoading,
-  setIsLoading,
   favoritedGames,
   setFavoritedGames,
   savedGames,
   setSavedGames,
-  handleRemoveFromFavorites,
 }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredGames, setFilteredGames] = useState([]);
-  const [visibleCount, setVisibleCount] = useState(12);
+
+  const { games, isLoading, getNewestGames, visibleCount } = useGames();
 
   const handleSearch = (e) => {
     setSearchQuery(e.target.value);
   };
 
-  const onShowMoreClick = () => {
-    setVisibleCount((prevCount) => prevCount + 3);
-  };
-
   useEffect(() => {
-    gameApi
-      .getGamesByReleaseDate()
-      .then((items) => {
-        setGames(items);
-      })
-      .catch(console.error)
-      .finally(setIsLoading(false));
+    getNewestGames();
   }, []);
 
   useEffect(() => {
@@ -88,7 +74,6 @@ const SearchPage = ({
                 setFavoritedGames={setFavoritedGames}
                 savedGames={savedGames}
                 setSavedGames={setSavedGames}
-                handleRemoveFromFavorites={handleRemoveFromFavorites}
               />
             );
           })
@@ -103,20 +88,13 @@ const SearchPage = ({
                 setFavoritedGames={setFavoritedGames}
                 savedGames={savedGames}
                 setSavedGames={setSavedGames}
-                handleRemoveFromFavorites={handleRemoveFromFavorites}
               />
             );
           })
         )}
       </ul>
       {!isLoading && visibleCount < games.length && (
-        <button
-          type="button"
-          onClick={onShowMoreClick}
-          className="main__show-more-btn"
-        >
-          Show More
-        </button>
+        <ShowMoreBtn type="button" classModifier="search" />
       )}
     </section>
   );
