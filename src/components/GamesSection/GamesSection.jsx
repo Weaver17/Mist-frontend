@@ -8,23 +8,26 @@ import { categories, platforms } from "../../utils/constants";
 
 import "./GamesSection.css";
 import ShowMoreBtn from "../Buttons/ShowMoreBtn/ShowMoreBtn";
+import { useGames } from "../../contexts/GameContext";
 
 const GamesSection = ({
   handleGameClick,
-  games,
-  setGames,
-  isLoading,
-  setIsLoading,
   favoritedGames,
   setFavoritedGames,
   savedGames,
   setSavedGames,
-  handleRemoveFromFavorites,
 }) => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedPlatform, setSelectedPlatform] = useState("All");
 
-  const [visibleCount, setVisibleCount] = useState(9);
+  const {
+    games,
+    setGames,
+    isLoading,
+    setIsLoading,
+    getPopularGames,
+    visibleCount,
+  } = useGames();
 
   // category change
   const handleCatChange = () => {
@@ -79,20 +82,10 @@ const GamesSection = ({
     setSelectedPlatform(e.target.value);
   };
 
-  const onShowMoreClick = () => {
-    setVisibleCount((prevCount) => prevCount + 6);
-  };
-
   useEffect(() => {
     setIsLoading(true);
     if (selectedCategory === "All") {
-      gameApi
-        .getGamesByRelevance()
-        .then((items) => {
-          setGames(items);
-        })
-        .catch(console.error)
-        .finally(setIsLoading(false));
+      getPopularGames();
     } else handleCatChange();
 
     if (selectedCategory === "All") {
@@ -168,18 +161,13 @@ const GamesSection = ({
                 setFavoritedGames={setFavoritedGames}
                 savedGames={savedGames}
                 setSavedGames={setSavedGames}
-                handleRemoveFromFavorites={handleRemoveFromFavorites}
               />
             );
           })
         )}
       </ul>
       {!isLoading && visibleCount < games.length && (
-        <ShowMoreBtn
-          type="button"
-          onClick={onShowMoreClick}
-          classModifier="games"
-        />
+        <ShowMoreBtn type="button" classModifier="games" />
       )}
     </div>
   );

@@ -15,6 +15,7 @@ import {
 import { addSavedGame, deleteSavedGame, getSavedGame } from "../../utils/saved";
 
 import CurrentUserContext from "../../contexts/CurrentUserContext";
+import { useGames } from "../../contexts/GameContext";
 
 const GameCard = ({
   onGameClick,
@@ -23,9 +24,10 @@ const GameCard = ({
   setFavoritedGames,
   savedGames,
   setSavedGames,
-  handleRemoveFromFavorites,
 }) => {
   const { isLoggedIn } = useContext(CurrentUserContext);
+
+  const { handleRemoveFromFavorites, handleRemoveFromSavedGames } = useGames();
 
   const favoritedGameIds = new Set(
     favoritedGames?.map((favGame) => favGame.id)
@@ -60,10 +62,9 @@ const GameCard = ({
   const handleRemoveFavorite = () => {
     getFavorite(game.id, token)
       .then((gameId) => {
-        return deleteFavoritedGame(gameId.mongoId._id, token);
-      })
-      .then((deletedGame) => {
-        handleRemoveFromFavorites(deletedGame.id, deletedGame._id);
+        console.log(game.id, gameId.mongoId._id);
+        handleRemoveFromFavorites(game.id, gameId.mongoId._id);
+        deleteFavoritedGame(gameId.mongoId._id, token);
       })
       .catch(console.error);
   };
@@ -82,9 +83,7 @@ const GameCard = ({
         return deleteSavedGame(gameId.mongoId._id, token);
       })
       .then((deletedGame) => {
-        const newSaves = savedGames?.filter((g) => g._id !== deletedGame._id);
-
-        setSavedGames(newSaves);
+        handleRemoveFromSavedGames(deletedGame.id, deletedGame._id);
       })
       .catch(console.error);
   };

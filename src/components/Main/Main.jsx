@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 
 import GameCard from "../GameCard/GameCard";
 import Preloader from "../Preloader/Preloader";
@@ -7,34 +7,19 @@ import * as gameApi from "../../utils/gameApi";
 
 import "./Main.css";
 import ShowMoreBtn from "../Buttons/ShowMoreBtn/ShowMoreBtn";
+import { useGames } from "../../contexts/GameContext";
 
 const Main = ({
   handleGameClick,
-  isLoading,
-  setIsLoading,
-  games,
-  setGames,
-
   favoritedGames,
   setFavoritedGames,
   savedGames,
   setSavedGames,
-  handleRemoveFromFavorites,
 }) => {
-  const [visibleCount, setVisibleCount] = useState(6);
-
-  const onShowMoreClick = () => {
-    setVisibleCount((prevCount) => prevCount + 3);
-  };
+  const { games, getNewestGames, isLoading, visibleCount } = useGames();
 
   useEffect(() => {
-    gameApi
-      .getGamesByReleaseDate()
-      .then((items) => {
-        setGames(items);
-      })
-      .catch(console.error)
-      .finally(setIsLoading(false));
+    getNewestGames();
   }, []);
 
   return (
@@ -58,18 +43,13 @@ const Main = ({
                 setFavoritedGames={setFavoritedGames}
                 savedGames={savedGames}
                 setSavedGames={setSavedGames}
-                handleRemoveFromFavorites={handleRemoveFromFavorites}
               />
             );
           })
         )}
       </ul>
       {!isLoading && visibleCount < games.length && (
-        <ShowMoreBtn
-          type="button"
-          onClick={onShowMoreClick}
-          classModifier="main"
-        />
+        <ShowMoreBtn type="button" classModifier="main" />
       )}
     </section>
   );
