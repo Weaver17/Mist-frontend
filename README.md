@@ -37,7 +37,7 @@ This application for any gamer into PC gaming, and anyone who likes free stuff(M
 
 Desktop-
 
-![Desktop](https://github.com/Weaver17/Mist-frontend/blob/main/public/screenshots/Desktop-View.png?raw=true)
+![Desktop](./public/screenshots/Desktop-Main.png)
 
 **Features**
 
