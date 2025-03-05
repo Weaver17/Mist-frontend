@@ -9,7 +9,6 @@
 - Game API
 - Recent Updates
 - Preview Images
-- Video Overview
 - Future Updates
 
 ### Frontend
@@ -32,15 +31,13 @@
 
 **About**
 
-This application for any gamer into PC gaming, and anyone who likes free stuff(Microtransactions pending)! An API call is made to freetogame.com/api and free-to-play games are displayed in various ways, from recent releases to sorting by genre.
+This application for any gamer into PC gaming, and anyone who likes free stuff(Microtransactions pending)! An API call is made to freetogame.com/api and free-to-play games are displayed in various ways, from recent releases to sorting by genre. Users can register and log in to save games they have played, or favorite ones they really enjoyed!
 
 **Preview Images**
 
-Coming Soon!
+Desktop-
 
-**Video Overview**
-
-Coming Soon!
+![Desktop](https://github.com/Weaver17/Mist-frontend/blob/main/public/screenshots/Desktop-View.png?raw=true)
 
 **Features**
 
@@ -53,5 +50,4 @@ Coming Soon!
 
 **Future Updates**
 
-- Save games to profile
-- Favorite games to profile
+- Dynamically render faves and saves to update on any click
