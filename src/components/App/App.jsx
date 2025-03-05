@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 
 import { GameProvider } from "../../contexts/GameContext";
@@ -36,6 +36,8 @@ function App() {
   });
   const [favoritedGames, setFavoritedGames] = useState([]);
   const [savedGames, setSavedGames] = useState([]);
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const [showToTop, setshowToTop] = useState("main__to-top-btn_hidden");
 
   const token = localStorage.getItem("JWT_TOKEN");
 
@@ -137,7 +139,26 @@ function App() {
     );
   };
 
+  const handleToTopBtn = () => {
+    const position = window.scrollY;
+    setScrollPosition(position);
+
+    if (scrollPosition > 100) {
+      return setshowToTop("main__to-top-btn");
+    } else if (scrollPosition < 100) {
+      return setshowToTop("main__to-top-btn_hidden");
+    }
+  };
+
+  const refScrollUp = useRef();
+
+  const onToTopClick = () => {
+    refScrollUp.current.scrollIntoView({ behavior: "smooth" });
+  };
+
   useEffect(() => {
+    window.addEventListener("scroll", handleToTopBtn);
+
     if (!token) {
       return console.log("Token not found, user is not logged in.");
     }
@@ -190,7 +211,7 @@ function App() {
         value={{ currentUser, isLoggedIn, setIsLoggedIn }}
       >
         <div className="page">
-          <div className="page__content">
+          <div className="page__content" ref={refScrollUp}>
             <Header
               isLoggedIn={isLoggedIn}
               handleSignUpClick={handleSignUpClick}
@@ -203,8 +224,6 @@ function App() {
                 element={
                   <Main
                     handleGameClick={handleGameClick}
-                    // games={games}
-                    // setGames={setGames}
                     isLoading={isLoading}
                     setIsLoading={setIsLoading}
                     selectedGame={selectedGame}
@@ -213,6 +232,8 @@ function App() {
                     savedGames={savedGames}
                     setSavedGames={setSavedGames}
                     handleRemoveFromFavorites={handleRemoveFromFavorites}
+                    onToTopClick={onToTopClick}
+                    scrollPosition={scrollPosition}
                   />
                 }
               />
@@ -234,6 +255,8 @@ function App() {
                       savedGames={savedGames}
                       setSavedGames={setSavedGames}
                       handleRemoveFromFavorites={handleRemoveFromFavorites}
+                      onToTopClick={onToTopClick}
+                      scrollPosition={scrollPosition}
                     />
                   </ProtectedRoute>
                 }
@@ -253,6 +276,8 @@ function App() {
                     savedGames={savedGames}
                     setSavedGames={setSavedGames}
                     handleRemoveFromFavorites={handleRemoveFromFavorites}
+                    onToTopClick={onToTopClick}
+                    scrollPosition={scrollPosition}
                   />
                 }
               />
@@ -272,6 +297,8 @@ function App() {
                     savedGames={savedGames}
                     setSavedGames={setSavedGames}
                     handleRemoveFromFavorites={handleRemoveFromFavorites}
+                    onToTopClick={onToTopClick}
+                    scrollPosition={scrollPosition}
                   />
                 }
               />

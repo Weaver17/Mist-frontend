@@ -1,0 +1,24 @@
+.to-top {
+  display: block;
+  padding: 8px;
+  position: fixed;
+  bottom: 32px;
+  left: 65px;
+  border: 1px solid #162907;
+  border-radius: 4px;
+  background-color: #dcdcdc;
+  color: #162907;
+  cursor: pointer;
+  z-index: 20;
+  box-shadow: 0 4px 4px #00000050;
+  opacity: 50%;
+}
+
+.to-top_hidden {
+  display: none;
+}
+
+.to-top:hover {
+  opacity: 100%;
+  transition: 0.4s linear;
+}

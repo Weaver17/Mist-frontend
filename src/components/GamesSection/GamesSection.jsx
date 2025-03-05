@@ -9,6 +9,7 @@ import { categories, platforms } from "../../utils/constants";
 import "./GamesSection.css";
 import ShowMoreBtn from "../Buttons/ShowMoreBtn/ShowMoreBtn";
 import { useGames } from "../../contexts/GameContext";
+import ToTopBtn from "../Buttons/ToTopBtn/ToTopBtn";
 
 const GamesSection = ({
   handleGameClick,
@@ -16,6 +17,8 @@ const GamesSection = ({
   setFavoritedGames,
   savedGames,
   setSavedGames,
+  onToTopClick,
+  scrollPosition,
 }) => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedPlatform, setSelectedPlatform] = useState("All");
@@ -169,6 +172,7 @@ const GamesSection = ({
       {!isLoading && visibleCount < games.length && (
         <ShowMoreBtn type="button" classModifier="games" />
       )}
+      <ToTopBtn onToTopClick={onToTopClick} scrollPosition={scrollPosition} />
     </div>
   );
 };

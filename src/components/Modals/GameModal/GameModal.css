@@ -24,12 +24,12 @@
 }
 
 .game-modal__btns {
+  margin: 0 36px 0 0;
   display: flex;
   gap: 8px;
 }
 
 .game-modal__save-btn {
-  /* margin: 0 36px 0 0; */
   background-color: #dcdcdc;
   border: none;
   object-fit: contain;
@@ -38,14 +38,12 @@
 
 .game-modal__save-img {
   background-color: #dcdcdc;
-  padding: 4px 4px 12px;
-
-  height: 40px;
-  width: 40px;
+  padding: 4px;
+  height: 30px;
+  width: 30px;
 }
 
 .game-modal__fave-btn {
-  margin: 0 36px 0 0;
   background: none;
   border: none;
   object-fit: contain;
@@ -53,8 +51,8 @@
 }
 
 .game-modal__fave-star {
-  height: 40px;
-  width: 40px;
+  height: 36px;
+  width: 36px;
 }
 
 .game-modal__info-container {
@@ -138,18 +136,6 @@
   display: flex;
   justify-content: flex-end;
   position: relative;
-}
-
-.game-modal__save-btn {
-  margin: 4px 0px 0 20px;
-  padding: 0;
-  background-color: #fff;
-  height: 48px;
-  width: 48px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
 }
 
 .game-modal__dev-info-container {
@@ -280,15 +266,10 @@
 }
 
 @media screen and (max-width: 1055px) {
-  .game-modal__dev-info-wrapper {
-    gap: 4px;
+  .game-modal__title-container {
+    margin-bottom: 12px;
   }
-  .game-modal__description {
-    font-size: 14px;
-  }
-}
 
-@media screen and (max-width: 1055px) {
   .game-modal__info-container {
     flex-direction: column;
   }
@@ -298,6 +279,14 @@
     height: 100%;
   }
 
+  .game-modal__dev-info-wrapper {
+    gap: 4px;
+  }
+
+  .game-modal__description {
+    font-size: 14px;
+  }
+
   .game-modal__bottom-container {
     grid-template-areas:
       "screenshot"
@@ -305,20 +294,31 @@
   }
 }
 
-@media screen and (max-width: 610px) {
-  .game-modal__fav-btn {
-    height: 24px;
-    width: 24px;
+@media screen and (max-width: 770px) {
+  .game-modal__btns {
+    margin-right: 16px;
   }
+}
 
+@media screen and (max-width: 610px) {
   .game-modal__title {
     font-size: 32px;
     line-height: 40px;
   }
 
-  .game-modal__save-btn {
+  .game-modal__btns {
+    margin-right: 4px;
+    gap: 0;
+  }
+
+  .game-modal__save-img {
     height: 24px;
     width: 24px;
+  }
+
+  .game-modal__fave-star {
+    height: 28px;
+    width: 28px;
   }
 }
 
@@ -349,5 +349,19 @@
 
   .game-modal__dev-info {
     font-size: 10px;
+  }
+}
+
+@media screen and (max-width: 515px) {
+  .game-modal__save-img {
+    padding: 0;
+    height: 20px;
+    width: 20px;
+  }
+
+  .game-modal__fave-star {
+    padding: 0;
+    height: 22px;
+    width: 22px;
   }
 }
