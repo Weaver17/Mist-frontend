@@ -24,6 +24,8 @@ const Profile = ({
   savedGames,
   setSavedGames,
   handleRemoveFromFavorites,
+  onToTopClick,
+  scrollPosition,
 }) => {
   const [isMobileMenuOpened, setMobileMenuOpened] = useState(false);
   const [showFavoritedOrSaved, setShowFavoritedOrSaved] =
@@ -113,6 +115,8 @@ const Profile = ({
             savedGames={savedGames}
             setSavedGames={setSavedGames}
             handleRemoveFromFavorites={handleRemoveFromFavorites}
+            onToTopClick={onToTopClick}
+            scrollPosition={scrollPosition}
           />
         ) : (
           <SavedGames
@@ -124,6 +128,8 @@ const Profile = ({
             savedGames={savedGames}
             setSavedGames={setSavedGames}
             handleRemoveFromFavorites={handleRemoveFromFavorites}
+            onToTopClick={onToTopClick}
+            scrollPosition={scrollPosition}
           />
         )}
       </section>

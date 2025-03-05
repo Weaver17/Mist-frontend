@@ -5,6 +5,7 @@ import GameCard from "../../GameCard/GameCard";
 import Preloader from "../../Preloader/Preloader";
 import ShowMoreBtn from "../../Buttons/ShowMoreBtn/ShowMoreBtn";
 import { useGames } from "../../../contexts/GameContext";
+import ToTopBtn from "../../Buttons/ToTopBtn/ToTopBtn";
 
 const SavedGames = ({
   isLoading,
@@ -13,6 +14,8 @@ const SavedGames = ({
   setFavoritedGames,
   savedGames,
   setSavedGames,
+  onToTopClick,
+  scrollPosition,
 }) => {
   const { visibleCount } = useGames();
 
@@ -41,6 +44,7 @@ const SavedGames = ({
       {!isLoading && visibleCount < savedGames.length && (
         <ShowMoreBtn type="button" classModifier="saved" />
       )}
+      <ToTopBtn onToTopClick={onToTopClick} scrollPosition={scrollPosition} />
     </div>
   );
 };

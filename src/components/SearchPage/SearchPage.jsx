@@ -8,6 +8,7 @@ import "./SearchPage.css";
 import searchBtn from "../../assets/btns/search-btn.png";
 import ShowMoreBtn from "../Buttons/ShowMoreBtn/ShowMoreBtn";
 import { useGames } from "../../contexts/GameContext";
+import ToTopBtn from "../Buttons/ToTopBtn/ToTopBtn";
 
 const SearchPage = ({
   handleGameClick,
@@ -15,6 +16,8 @@ const SearchPage = ({
   setFavoritedGames,
   savedGames,
   setSavedGames,
+  onToTopClick,
+  scrollPosition,
 }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredGames, setFilteredGames] = useState([]);
@@ -96,6 +99,7 @@ const SearchPage = ({
       {!isLoading && visibleCount < games.length && (
         <ShowMoreBtn type="button" classModifier="search" />
       )}
+      <ToTopBtn onToTopClick={onToTopClick} scrollPosition={scrollPosition} />
     </section>
   );
 };

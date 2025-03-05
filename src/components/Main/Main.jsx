@@ -1,13 +1,12 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import GameCard from "../GameCard/GameCard";
 import Preloader from "../Preloader/Preloader";
 
-import * as gameApi from "../../utils/gameApi";
-
 import "./Main.css";
 import ShowMoreBtn from "../Buttons/ShowMoreBtn/ShowMoreBtn";
 import { useGames } from "../../contexts/GameContext";
+import ToTopBtn from "../Buttons/ToTopBtn/ToTopBtn";
 
 const Main = ({
   handleGameClick,
@@ -15,6 +14,8 @@ const Main = ({
   setFavoritedGames,
   savedGames,
   setSavedGames,
+  onToTopClick,
+  scrollPosition,
 }) => {
   const { games, getNewestGames, isLoading, visibleCount } = useGames();
 
@@ -51,6 +52,7 @@ const Main = ({
       {!isLoading && visibleCount < games.length && (
         <ShowMoreBtn type="button" classModifier="main" />
       )}
+      <ToTopBtn onToTopClick={onToTopClick} scrollPosition={scrollPosition} />
     </section>
   );
 };
