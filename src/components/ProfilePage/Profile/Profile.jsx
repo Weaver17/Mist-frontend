@@ -67,7 +67,7 @@ const Profile = ({
           type="button"
           onClick={toggleMobileMenu}
         >
-          {currentUser?.username}
+          {currentUser?.username}{" "}
         </button>
         {/* MOBILE MENU  */}
         {isMobileMenuOpened && (
