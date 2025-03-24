@@ -17,6 +17,7 @@
 }
 
 .modal__label {
+  position: relative;
   width: 100%;
 }
 

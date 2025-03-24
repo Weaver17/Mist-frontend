@@ -23,7 +23,7 @@ import GameModal from "../Modals/GameModal/GameModal";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 function App() {
-  const [activeModal, setActiveModal] = useState("");
+  const [activeModal, setActiveModal] = useState("signin");
   const [isLoading, setIsLoading] = useState(false);
   const [selectedGame, setSelectedGame] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -38,6 +38,7 @@ function App() {
   const [savedGames, setSavedGames] = useState([]);
   const [scrollPosition, setScrollPosition] = useState(0);
   const [showToTop, setshowToTop] = useState("main__to-top-btn_hidden");
+  const [showPassword, setShowPassword] = useState(false);
 
   const token = localStorage.getItem("JWT_TOKEN");
 
@@ -313,12 +314,16 @@ function App() {
             handleCloseClick={closeActiveModal}
             handleRegistrationClick={handleRegistrationClick}
             handleRegistration={handleRegistration}
+            showPassword={showPassword}
+            setShowPassword={setShowPassword}
           />
           <LoginModal
             handleSignUpClick={handleSignUpClick}
             isOpen={activeModal === "signin"}
             handleCloseClick={closeActiveModal}
             handleLogin={handleLogin}
+            showPassword={showPassword}
+            setShowPassword={setShowPassword}
           />
 
           <CompletedModal

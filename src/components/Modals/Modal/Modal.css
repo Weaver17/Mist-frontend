@@ -34,8 +34,9 @@
   top: 20px;
   right: 20px;
   border: none;
-  background: transparent url(../../assets/btns/close-btn.png) center no-repeat;
-  z-index: 2;
+  background: transparent url(../../../assets/btns/close-btn.png) center
+    no-repeat;
+  z-index: 50;
   cursor: pointer;
 }
 

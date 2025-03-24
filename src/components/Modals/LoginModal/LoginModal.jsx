@@ -2,6 +2,7 @@ import { useEffect } from "react";
 
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useForm } from "../../../hooks/useForm";
+import ShowPasswordBtn from "../../Buttons/ShowPasswordBtn/ShowPasswordBtn";
 
 const LoginModal = ({
   isOpen,
@@ -9,6 +10,8 @@ const LoginModal = ({
   handleSignUpClick,
   isLoading,
   handleLogin,
+  showPassword,
+  setShowPassword,
 }) => {
   const { values, handleChange, setValues } = useForm({
     email: "",
@@ -49,13 +52,17 @@ const LoginModal = ({
         </label>
         <label className="modal__label">
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             name="password"
             className="modal__input"
             placeholder="Password"
             value={values.password || ""}
             onChange={handleChange}
             required
+          />
+          <ShowPasswordBtn
+            showPassword={showPassword}
+            setShowPassword={setShowPassword}
           />
         </label>
       </div>
