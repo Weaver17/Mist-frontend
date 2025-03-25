@@ -23,7 +23,7 @@ import GameModal from "../Modals/GameModal/GameModal";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 function App() {
-  const [activeModal, setActiveModal] = useState("signin");
+  const [activeModal, setActiveModal] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [selectedGame, setSelectedGame] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
