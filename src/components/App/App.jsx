@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 
 import { GameProvider } from "../../contexts/GameContext";
@@ -23,327 +23,338 @@ import GameModal from "../Modals/GameModal/GameModal";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 function App() {
-  const [activeModal, setActiveModal] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [selectedGame, setSelectedGame] = useState({});
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [games, setGames] = useState([]);
-  const [currentUser, setCurrentUser] = useState({
-    _id: "",
-    username: "",
-    email: "",
-    password: "",
-  });
-  const [favoritedGames, setFavoritedGames] = useState([]);
-  const [savedGames, setSavedGames] = useState([]);
-  const [scrollPosition, setScrollPosition] = useState(0);
-  const [showToTop, setshowToTop] = useState("main__to-top-btn_hidden");
-  const [showPassword, setShowPassword] = useState(false);
+    const [activeModal, setActiveModal] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+    const [selectedGame, setSelectedGame] = useState({});
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [games, setGames] = useState([]);
+    const [currentUser, setCurrentUser] = useState({
+        _id: "",
+        username: "",
+        email: "",
+        password: "",
+    });
+    const [favoritedGames, setFavoritedGames] = useState([]);
+    const [savedGames, setSavedGames] = useState([]);
+    const [scrollPosition, setScrollPosition] = useState(0);
+    // eslint-disable-next-line no-unused-vars
+    const [showToTop, setshowToTop] = useState("main__to-top-btn_hidden");
+    const [showPassword, setShowPassword] = useState(false);
 
-  const token = localStorage.getItem("JWT_TOKEN");
+    const token = localStorage.getItem("JWT_TOKEN");
 
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
-  const closeActiveModal = () => {
-    setActiveModal("");
-  };
+    const closeActiveModal = () => {
+        setActiveModal("");
+    };
 
-  const handleSignUpClick = () => {
-    setActiveModal("register");
-  };
+    const handleSignUpClick = () => {
+        setActiveModal("register");
+    };
 
-  const handleSignInClick = () => {
-    setActiveModal("signin");
-  };
+    const handleSignInClick = () => {
+        setActiveModal("signin");
+    };
 
-  const handleRegistration = (username, email, password, confirmPassword) => {
-    setIsLoading(true);
-    if (password !== confirmPassword) {
-      return;
-    }
+    const handleRegistration = (username, email, password) => {
+        setIsLoading(true);
 
-    auth
-      .register(username, email, password)
-      .catch(console.error)
-      .finally(() => {
-        setIsLoading(false);
-        console.log(username, email, password);
-      });
-    handleRegistrationClick();
-  };
+        auth.register(username, email, password)
+            .catch(console.error)
+            .finally(() => {
+                setIsLoading(false);
+                console.log(username, email, password);
+            });
+        handleRegistrationClick();
+    };
 
-  const handleRegistrationClick = () => {
-    setActiveModal("completed");
-  };
+    const handleRegistrationClick = () => {
+        setActiveModal("completed");
+    };
 
-  const handleLogin = ({ email, password }) => {
-    setIsLoading(true);
+    const handleLogin = ({ email, password }) => {
+        setIsLoading(true);
 
-    if (!email || !password) {
-      return;
-    }
+        if (!email || !password) {
+            return;
+        }
 
-    auth
-      .login(email, password)
-      .then((data) => {
-        setIsLoggedIn(true);
+        auth.login(email, password)
+            .then((data) => {
+                setIsLoggedIn(true);
+                console.log(data);
+
+                localStorage.setItem("JWT_TOKEN", data.token);
+                closeActiveModal();
+
+                return auth.checkToken(data.token);
+            })
+            .then((userData) => {
+                if (userData) {
+                    setCurrentUser(userData);
+                }
+            })
+            .catch(console.error)
+            .finally(() => {
+                setIsLoading(false);
+            });
+    };
+
+    const handleLogOut = () => {
+        localStorage.removeItem("JWT_TOKEN");
+        navigate("/");
+        setIsLoggedIn(false);
+    };
+
+    const handleGameClick = (game) => {
+        setSelectedGame(game);
+        setActiveModal("game");
+    };
+
+    const handleEditClick = () => {
+        setActiveModal("edit");
+        console.log(currentUser);
+    };
+
+    const handleEditUsername = (data) => {
         console.log(data);
 
-        localStorage.setItem("JWT_TOKEN", data.token);
-        closeActiveModal();
+        auth.editProfile(data, token)
+            .then(() => {
+                setCurrentUser(data);
 
-        return auth.checkToken(data.token);
-      })
-      .then((userData) => {
-        if (userData) {
-          setCurrentUser(userData);
+                closeActiveModal();
+            })
+            .catch(console.error);
+    };
+
+    const handleRemoveFromFavorites = (gameId, mongoId) => {
+        setFavoritedGames((prevGames) =>
+            prevGames.filter(
+                (game) => game.id !== gameId && game._id !== mongoId
+            )
+        );
+    };
+
+    const handleToTopBtn = useCallback(() => {
+        const position = window.scrollY;
+        setScrollPosition(position);
+
+        if (position > 100) {
+            setshowToTop("main__to-top-btn");
+        } else {
+            setshowToTop("main__to-top-btn_hidden");
         }
-      })
-      .catch(console.error)
-      .finally(() => {
-        setIsLoading(false);
-      });
-  };
+    }, []);
 
-  const handleLogOut = () => {
-    localStorage.removeItem("JWT_TOKEN");
-    navigate("/");
-    setIsLoggedIn(false);
-  };
+    const refScrollUp = useRef();
 
-  const handleGameClick = (game) => {
-    setSelectedGame(game);
-    setActiveModal("game");
-  };
+    const onToTopClick = () => {
+        refScrollUp.current.scrollIntoView({ behavior: "smooth" });
+    };
 
-  const handleEditClick = () => {
-    setActiveModal("edit");
-    console.log(currentUser);
-  };
+    useEffect(() => {
+        window.addEventListener("scroll", handleToTopBtn);
 
-  const handleEditUsername = (data) => {
-    console.log(data);
+        if (!token) {
+            return console.log("Token not found, user is not logged in.");
+        }
 
-    auth
-      .editProfile(data, token)
-      .then(() => {
-        setCurrentUser(data);
+        auth.checkToken(token)
 
-        closeActiveModal();
-      })
-      .catch(console.error);
-  };
+            .then((user) => {
+                setCurrentUser(user);
+                setIsLoggedIn(true);
+            })
+            .catch(console.error);
+    }, [handleToTopBtn, token]);
 
-  const handleRemoveFromFavorites = (gameId, mongoId) => {
-    setFavoritedGames((prevGames) =>
-      prevGames.filter((game) => game.id !== gameId && game._id !== mongoId)
+    // Favorited Games
+    useEffect(() => {
+        if (isLoggedIn) {
+            setIsLoading(true);
+            favedApi
+                .getFavoritedGames(token)
+                .then((games) => {
+                    setFavoritedGames(games.favoritedGames);
+                })
+                .catch(console.error)
+                .finally(() => {
+                    setIsLoading(false);
+                });
+        }
+    }, [isLoggedIn, token]);
+
+    // Saved Games
+    useEffect(() => {
+        if (isLoggedIn) {
+            setIsLoading(true);
+            savedApi
+                .getSavedGames(token)
+                .then((games) => {
+                    setSavedGames(games.savedGames);
+                })
+                .catch(console.error)
+                .finally(() => {
+                    setIsLoading(false);
+                });
+        }
+    }, [isLoggedIn, token]);
+
+    const currentUserContextValue = useMemo(
+        () => ({ currentUser, isLoggedIn, setIsLoggedIn }),
+        [currentUser, isLoggedIn, setIsLoggedIn]
     );
-  };
 
-  const handleToTopBtn = () => {
-    const position = window.scrollY;
-    setScrollPosition(position);
+    return (
+        <GameProvider>
+            <CurrentUserContext.Provider value={currentUserContextValue}>
+                <div className="page">
+                    <div className="page__content" ref={refScrollUp}>
+                        <Header
+                            isLoggedIn={isLoggedIn}
+                            handleSignUpClick={handleSignUpClick}
+                            handleSignInClick={handleSignInClick}
+                        />
 
-    if (scrollPosition > 100) {
-      return setshowToTop("main__to-top-btn");
-    } else if (scrollPosition < 100) {
-      return setshowToTop("main__to-top-btn_hidden");
-    }
-  };
+                        <Routes>
+                            <Route
+                                path="/"
+                                element={
+                                    <Main
+                                        handleGameClick={handleGameClick}
+                                        isLoading={isLoading}
+                                        setIsLoading={setIsLoading}
+                                        selectedGame={selectedGame}
+                                        favoritedGames={favoritedGames}
+                                        setFavoritedGames={setFavoritedGames}
+                                        savedGames={savedGames}
+                                        setSavedGames={setSavedGames}
+                                        handleRemoveFromFavorites={
+                                            handleRemoveFromFavorites
+                                        }
+                                        onToTopClick={onToTopClick}
+                                        scrollPosition={scrollPosition}
+                                    />
+                                }
+                            />
+                            <Route
+                                path="profile"
+                                element={
+                                    <ProtectedRoute>
+                                        <Profile
+                                            handleEditClick={handleEditClick}
+                                            isOpen={activeModal === "edit"}
+                                            handleEditUsername={
+                                                handleEditUsername
+                                            }
+                                            handleLogOut={handleLogOut}
+                                            games={games}
+                                            handleCloseClick={closeActiveModal}
+                                            isLoading={isLoading}
+                                            handleGameClick={handleGameClick}
+                                            favoritedGames={favoritedGames}
+                                            setFavoritedGames={
+                                                setFavoritedGames
+                                            }
+                                            savedGames={savedGames}
+                                            setSavedGames={setSavedGames}
+                                            handleRemoveFromFavorites={
+                                                handleRemoveFromFavorites
+                                            }
+                                            onToTopClick={onToTopClick}
+                                            scrollPosition={scrollPosition}
+                                        />
+                                    </ProtectedRoute>
+                                }
+                            />
+                            <Route
+                                path="games"
+                                element={
+                                    <GamesSection
+                                        setGames={setGames}
+                                        games={games}
+                                        handleCloseClick={closeActiveModal}
+                                        isLoading={isLoading}
+                                        setIsLoading={setIsLoading}
+                                        handleGameClick={handleGameClick}
+                                        favoritedGames={favoritedGames}
+                                        setFavoritedGames={setFavoritedGames}
+                                        savedGames={savedGames}
+                                        setSavedGames={setSavedGames}
+                                        handleRemoveFromFavorites={
+                                            handleRemoveFromFavorites
+                                        }
+                                        onToTopClick={onToTopClick}
+                                        scrollPosition={scrollPosition}
+                                    />
+                                }
+                            />
 
-  const refScrollUp = useRef();
+                            <Route
+                                path="search"
+                                element={
+                                    <SearchPage
+                                        handleGameClick={handleGameClick}
+                                        games={games}
+                                        setGames={setGames}
+                                        isLoading={isLoading}
+                                        setIsLoading={setIsLoading}
+                                        selectedGame={selectedGame}
+                                        favoritedGames={favoritedGames}
+                                        setFavoritedGames={setFavoritedGames}
+                                        savedGames={savedGames}
+                                        setSavedGames={setSavedGames}
+                                        handleRemoveFromFavorites={
+                                            handleRemoveFromFavorites
+                                        }
+                                        onToTopClick={onToTopClick}
+                                        scrollPosition={scrollPosition}
+                                    />
+                                }
+                            />
+                            <Route path="about" element={<About />} />
+                        </Routes>
+                        <Footer />
+                    </div>
 
-  const onToTopClick = () => {
-    refScrollUp.current.scrollIntoView({ behavior: "smooth" });
-  };
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleToTopBtn);
-
-    if (!token) {
-      return console.log("Token not found, user is not logged in.");
-    }
-
-    auth
-      .checkToken(token)
-
-      .then((user) => {
-        setCurrentUser(user);
-        setIsLoggedIn(true);
-      })
-      .catch(console.error);
-  }, []);
-
-  // Favorited Games
-  useEffect(() => {
-    if (isLoggedIn) {
-      setIsLoading(true);
-      favedApi
-        .getFavoritedGames(token)
-        .then((games) => {
-          setFavoritedGames(games.favoritedGames);
-        })
-        .catch(console.error)
-        .finally(() => {
-          setIsLoading(false);
-        });
-    }
-  }, [isLoggedIn]);
-
-  // Saved Games
-  useEffect(() => {
-    if (isLoggedIn) {
-      setIsLoading(true);
-      savedApi
-        .getSavedGames(token)
-        .then((games) => {
-          setSavedGames(games.savedGames);
-        })
-        .catch(console.error)
-        .finally(() => {
-          setIsLoading(false);
-        });
-    }
-  }, [isLoggedIn]);
-
-  return (
-    <GameProvider>
-      <CurrentUserContext.Provider
-        value={{ currentUser, isLoggedIn, setIsLoggedIn }}
-      >
-        <div className="page">
-          <div className="page__content" ref={refScrollUp}>
-            <Header
-              isLoggedIn={isLoggedIn}
-              handleSignUpClick={handleSignUpClick}
-              handleSignInClick={handleSignInClick}
-            />
-
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <Main
-                    handleGameClick={handleGameClick}
-                    isLoading={isLoading}
-                    setIsLoading={setIsLoading}
-                    selectedGame={selectedGame}
-                    favoritedGames={favoritedGames}
-                    setFavoritedGames={setFavoritedGames}
-                    savedGames={savedGames}
-                    setSavedGames={setSavedGames}
-                    handleRemoveFromFavorites={handleRemoveFromFavorites}
-                    onToTopClick={onToTopClick}
-                    scrollPosition={scrollPosition}
-                  />
-                }
-              />
-              <Route
-                path="profile"
-                element={
-                  <ProtectedRoute>
-                    <Profile
-                      handleEditClick={handleEditClick}
-                      isOpen={activeModal === "edit"}
-                      handleEditUsername={handleEditUsername}
-                      handleLogOut={handleLogOut}
-                      games={games}
-                      handleCloseClick={closeActiveModal}
-                      isLoading={isLoading}
-                      handleGameClick={handleGameClick}
-                      favoritedGames={favoritedGames}
-                      setFavoritedGames={setFavoritedGames}
-                      savedGames={savedGames}
-                      setSavedGames={setSavedGames}
-                      handleRemoveFromFavorites={handleRemoveFromFavorites}
-                      onToTopClick={onToTopClick}
-                      scrollPosition={scrollPosition}
+                    <RegisterModal
+                        handleSignInClick={handleSignInClick}
+                        isOpen={activeModal === "register"}
+                        handleCloseClick={closeActiveModal}
+                        handleRegistrationClick={handleRegistrationClick}
+                        handleRegistration={handleRegistration}
+                        showPassword={showPassword}
+                        setShowPassword={setShowPassword}
                     />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="games"
-                element={
-                  <GamesSection
-                    setGames={setGames}
-                    games={games}
-                    handleCloseClick={closeActiveModal}
-                    isLoading={isLoading}
-                    setIsLoading={setIsLoading}
-                    handleGameClick={handleGameClick}
-                    favoritedGames={favoritedGames}
-                    setFavoritedGames={setFavoritedGames}
-                    savedGames={savedGames}
-                    setSavedGames={setSavedGames}
-                    handleRemoveFromFavorites={handleRemoveFromFavorites}
-                    onToTopClick={onToTopClick}
-                    scrollPosition={scrollPosition}
-                  />
-                }
-              />
+                    <LoginModal
+                        handleSignUpClick={handleSignUpClick}
+                        isOpen={activeModal === "signin"}
+                        handleCloseClick={closeActiveModal}
+                        handleLogin={handleLogin}
+                        showPassword={showPassword}
+                        setShowPassword={setShowPassword}
+                    />
 
-              <Route
-                path="search"
-                element={
-                  <SearchPage
-                    handleGameClick={handleGameClick}
-                    games={games}
-                    setGames={setGames}
-                    isLoading={isLoading}
-                    setIsLoading={setIsLoading}
-                    selectedGame={selectedGame}
-                    favoritedGames={favoritedGames}
-                    setFavoritedGames={setFavoritedGames}
-                    savedGames={savedGames}
-                    setSavedGames={setSavedGames}
-                    handleRemoveFromFavorites={handleRemoveFromFavorites}
-                    onToTopClick={onToTopClick}
-                    scrollPosition={scrollPosition}
-                  />
-                }
-              />
-              <Route path="about" element={<About />} />
-            </Routes>
-            <Footer />
-          </div>
-
-          <RegisterModal
-            handleSignInClick={handleSignInClick}
-            isOpen={activeModal === "register"}
-            handleCloseClick={closeActiveModal}
-            handleRegistrationClick={handleRegistrationClick}
-            handleRegistration={handleRegistration}
-            showPassword={showPassword}
-            setShowPassword={setShowPassword}
-          />
-          <LoginModal
-            handleSignUpClick={handleSignUpClick}
-            isOpen={activeModal === "signin"}
-            handleCloseClick={closeActiveModal}
-            handleLogin={handleLogin}
-            showPassword={showPassword}
-            setShowPassword={setShowPassword}
-          />
-
-          <CompletedModal
-            isOpen={activeModal === "completed"}
-            handleSignInClick={handleSignInClick}
-            handleCloseClick={closeActiveModal}
-          />
-          <GameModal
-            handleCloseClick={closeActiveModal}
-            isOpen={activeModal === "game"}
-            game={selectedGame}
-            favoritedGames={favoritedGames}
-            setFavoritedGames={setFavoritedGames}
-            savedGames={savedGames}
-            setSavedGames={setSavedGames}
-          />
-        </div>
-      </CurrentUserContext.Provider>
-    </GameProvider>
-  );
+                    <CompletedModal
+                        isOpen={activeModal === "completed"}
+                        handleSignInClick={handleSignInClick}
+                        handleCloseClick={closeActiveModal}
+                    />
+                    <GameModal
+                        handleCloseClick={closeActiveModal}
+                        isOpen={activeModal === "game"}
+                        game={selectedGame}
+                        favoritedGames={favoritedGames}
+                        setFavoritedGames={setFavoritedGames}
+                        savedGames={savedGames}
+                        setSavedGames={setSavedGames}
+                    />
+                </div>
+            </CurrentUserContext.Provider>
+        </GameProvider>
+    );
 }
 
 export default App;

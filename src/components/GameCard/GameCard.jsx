@@ -7,9 +7,9 @@ import saved from "../../assets/btns/saved.png";
 
 import "./GameCard.css";
 import {
-  addFavoriteGame,
-  deleteFavoritedGame,
-  getFavorite,
+    addFavoriteGame,
+    deleteFavoritedGame,
+    getFavorite,
 } from "../../utils/favorited";
 
 import { addSavedGame, deleteSavedGame, getSavedGame } from "../../utils/saved";
@@ -18,145 +18,110 @@ import CurrentUserContext from "../../contexts/CurrentUserContext";
 import { useGames } from "../../contexts/GameContext";
 
 const GameCard = ({
-  onGameClick,
-  game,
-  favoritedGames,
-  setFavoritedGames,
-  savedGames,
-  setSavedGames,
+    onGameClick,
+    game,
+    favoritedGames,
+    setFavoritedGames,
+    savedGames,
+    setSavedGames,
 }) => {
-  const { isLoggedIn } = useContext(CurrentUserContext);
+    const { isLoggedIn } = useContext(CurrentUserContext);
 
-  const { handleRemoveFromFavorites, handleRemoveFromSavedGames } = useGames();
+    const { handleRemoveFromFavorites, handleRemoveFromSavedGames } =
+        useGames();
 
-  const favoritedGameIds = new Set(
-    favoritedGames?.map((favGame) => favGame.id)
-  );
+    const token = localStorage.getItem("JWT_TOKEN");
 
-  const favoritedGameDbIds = new Set(
-    favoritedGames?.map((favGame) => favGame._id)
-  );
+    const handleGameClick = () => {
+        getGameById(game.id)
+            .then((item) => {
+                onGameClick(item);
+            })
+            .catch(console.error);
+    };
 
-  const savedGameIds = new Set(savedGames?.map((savGame) => savGame.id));
+    // Use .some for instant UI update
+    const isFavorited = favoritedGames.some((fav) => fav.id === game.id);
 
-  const savedGameDbIds = new Set(savedGames?.map((savGame) => savGame._id));
+    const handleFavoriteClick = () => {
+        if (isFavorited) {
+            setFavoritedGames((prev) =>
+                prev.filter((fav) => fav.id !== game.id)
+            );
+            getFavorite(game.id, token)
+                .then((gameId) => {
+                    handleRemoveFromFavorites(game.id, gameId.mongoId._id);
+                    return deleteFavoritedGame(gameId.mongoId._id, token);
+                })
+                .catch(console.error);
+        } else {
+            setFavoritedGames((prev) => [...prev, game]);
+            addFavoriteGame(game, token).catch(console.error);
+        }
+    };
 
-  const token = localStorage.getItem("JWT_TOKEN");
+    // Use .some for instant UI update, matching favorited logic
+    const isSaved = savedGames.some((sav) => sav.id === game.id);
 
-  const handleGameClick = () => {
-    getGameById(game.id)
-      .then((item) => {
-        onGameClick(item);
-      })
-      .catch(console.error);
-  };
+    const handleSaveClick = () => {
+        if (isSaved) {
+            setSavedGames((prev) => prev.filter((sav) => sav.id !== game.id));
+            getSavedGame(game.id, token)
+                .then((gameId) => {
+                    handleRemoveFromSavedGames(game.id, gameId.mongoId._id);
+                    return deleteSavedGame(gameId.mongoId._id, token);
+                })
+                .catch(console.error);
+        } else {
+            setSavedGames((prev) => [...prev, game]);
+            addSavedGame(game, token).catch(console.error);
+        }
+    };
 
-  const handleFavoriteGame = () => {
-    addFavoriteGame(game, token)
-      .then((newFave) => {
-        setFavoritedGames([...favoritedGames, newFave]);
-      })
-      .catch(console.error);
-  };
-
-  const handleRemoveFavorite = () => {
-    getFavorite(game.id, token)
-      .then((gameId) => {
-        console.log(game.id, gameId.mongoId._id);
-        handleRemoveFromFavorites(game.id, gameId.mongoId._id);
-        deleteFavoritedGame(gameId.mongoId._id, token);
-      })
-      .catch(console.error);
-  };
-
-  const handleSaveGame = () => {
-    addSavedGame(game, token)
-      .then((newSave) => {
-        setSavedGames([...savedGames, newSave]);
-      })
-      .catch(console.error);
-  };
-
-  const handleRemoveSaved = () => {
-    getSavedGame(game.id, token)
-      .then((gameId) => {
-        return deleteSavedGame(gameId.mongoId._id, token);
-      })
-      .then((deletedGame) => {
-        handleRemoveFromSavedGames(deletedGame.id, deletedGame._id);
-      })
-      .catch(console.error);
-  };
-
-  return (
-    <li className="card">
-      <div className="card__top-wrapper">
-        <h3 className="card__title" onClick={handleGameClick}>
-          {game.title}
-        </h3>
-        <button
-          type="button"
-          className="card__fave-btn"
-          onClick={
-            (isLoggedIn && favoritedGameIds.has(game.id)) ||
-            favoritedGameDbIds.has(game._id)
-              ? handleRemoveFavorite
-              : handleFavoriteGame
-          }
-        >
-          <img
-            className="card__fave-star"
-            src={
-              (isLoggedIn && favoritedGameIds.has(game.id)) ||
-              favoritedGameDbIds.has(game._id)
-                ? faveBtnFilled
-                : faveBtn
-            }
-            alt="star"
-          />
-        </button>
-      </div>
-      <div className="card__thumbnail-container">
-        <button
-          type="button"
-          className="card__save-btn"
-          onClick={
-            (isLoggedIn && savedGameIds.has(game.id)) ||
-            savedGameDbIds.has(game._id)
-              ? handleRemoveSaved
-              : handleSaveGame
-          }
-        >
-          <img
-            className="card__save-img"
-            src={
-              (isLoggedIn && savedGameIds.has(game.id)) ||
-              savedGameDbIds.has(game._id)
-                ? saved
-                : saveBtn
-            }
-            alt={
-              (isLoggedIn && savedGameIds.has(game.id)) ||
-              savedGameDbIds.has(game._id)
-                ? "Checkmark"
-                : "Save icon"
-            }
-          />
-        </button>
-        <img
-          className="card__thumbnail"
-          src={game.thumbnail}
-          alt={game.name}
-          onClick={handleGameClick}
-        />
-      </div>
-      <div className="card__info">
-        <p className="card__description">{game.short_description}</p>
-      </div>
-      <p className="card__category">{game.genre}</p>
-      <p className="card__platform">{game.platform}</p>
-    </li>
-  );
+    return (
+        <li className="card">
+            <div className="card__top-wrapper">
+                <h3 className="card__title" onClick={handleGameClick}>
+                    {game.title}
+                </h3>
+                <button
+                    type="button"
+                    className="card__fave-btn"
+                    onClick={isLoggedIn ? handleFavoriteClick : undefined}
+                >
+                    <img
+                        className="card__fave-star"
+                        src={isFavorited ? faveBtnFilled : faveBtn}
+                        alt="star"
+                    />
+                </button>
+            </div>
+            <div className="card__thumbnail-container">
+                <button
+                    type="button"
+                    className="card__save-btn"
+                    onClick={isLoggedIn ? handleSaveClick : undefined}
+                >
+                    <img
+                        className="card__save-img"
+                        src={isSaved ? saved : saveBtn}
+                        alt={isSaved ? "Checkmark" : "Save icon"}
+                    />
+                </button>
+                <img
+                    className="card__thumbnail"
+                    src={game.thumbnail}
+                    alt={game.name}
+                    onClick={handleGameClick}
+                />
+            </div>
+            <div className="card__info">
+                <p className="card__description">{game.short_description}</p>
+            </div>
+            <p className="card__category">{game.genre}</p>
+            <p className="card__platform">{game.platform}</p>
+        </li>
+    );
 };
 
 export default GameCard;
