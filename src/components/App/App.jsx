@@ -38,7 +38,7 @@ function App() {
     const [savedGames, setSavedGames] = useState([]);
     const [scrollPosition, setScrollPosition] = useState(0);
     // eslint-disable-next-line no-unused-vars
-    const [showToTop, setshowToTop] = useState("main__to-top-btn_hidden");
+    const [shotToTop, setshowToTop] = useState("main__to-top-btn_hidden");
     const [showPassword, setShowPassword] = useState(false);
 
     const token = localStorage.getItem("JWT_TOKEN");
@@ -146,6 +146,7 @@ function App() {
         } else {
             setshowToTop("main__to-top-btn_hidden");
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const refScrollUp = useRef();
