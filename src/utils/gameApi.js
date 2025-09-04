@@ -29,6 +29,11 @@ export const getGamesByReleaseDate = () => {
     return request(`${gameUrl}/games?sort-by=release-date`, { headers });
 };
 
+export const getGamesByTag = (tag) => {
+    // change to /games
+    return request(`${gameUrl}/filter?tag=${tag}`, { headers });
+};
+
 export const getGamesByRelevance = () => {
     // change to /games
     return request(`${gameUrl}/games?sort-by=relevance`, { headers });
@@ -59,9 +64,9 @@ export const getGamesByCategory = (category) => {
     return request(`${gameUrl}/games?category=${category}`, { headers });
 };
 
-export const getGamesByPlatCatSort = (platform, category, sortType) => {
+export const getGamesByPlatCatSort = (category, sortType) => {
     return request(
-        `${gameUrl}/games?platform=${platform}&category=${category}&sort-by=${sortType}`,
+        `${gameUrl}/games?platform=all&category=${category}&sort-by=${sortType}`,
         { headers }
     );
 };

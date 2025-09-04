@@ -62,30 +62,37 @@ const GamesSection = ({
 
     useEffect(() => {
         setIsLoading(true);
-        if (selectedCategory === "All" && selectedSort === "popularity") {
+        let apiCategory = selectedCategory;
+        if (selectedCategory === "Card Games") {
+            apiCategory = "card";
+        } else if (selectedCategory === "Battle Royale") {
+            apiCategory = "battle-royale";
+        }
+        if (apiCategory === "All" && selectedSort === "popularity") {
             gameApi
                 .getGamesByPop()
                 .then(setGames)
                 .catch(console.error)
                 .finally(() => setIsLoading(false));
-        } else if (
-            selectedCategory === "All" &&
-            selectedSort !== "popularity"
-        ) {
+        } else if (apiCategory === "All" && selectedSort !== "popularity") {
             gameApi
                 .getGamesBySort(selectedSort)
                 .then(setGames)
                 .catch(console.error)
                 .finally(() => setIsLoading(false));
-        } else
+        } else if (apiCategory !== "All" && selectedSort === "popularity") {
             gameApi
-                .getGames({
-                    category: selectedCategory,
-                    sortType: selectedSort,
-                })
+                .getGamesByCategory(apiCategory)
                 .then(setGames)
                 .catch(console.error)
                 .finally(() => setIsLoading(false));
+        } else if (apiCategory !== "All" && selectedSort !== "popularity") {
+            gameApi
+                .getGamesByPlatCatSort(apiCategory, selectedSort)
+                .then(setGames)
+                .catch(console.error)
+                .finally(() => setIsLoading(false));
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedCategory, selectedSort]);
 
