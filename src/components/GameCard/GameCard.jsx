@@ -36,7 +36,6 @@ const GameCard = ({
         getGameById(game.id)
             .then((item) => {
                 onGameClick(item);
-                console.log(game);
             })
             .catch(console.error);
     };

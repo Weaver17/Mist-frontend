@@ -93,6 +93,7 @@ const GamesSection = ({
                 .catch(console.error)
                 .finally(() => setIsLoading(false));
         }
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedCategory, selectedSort]);
 
@@ -156,13 +157,6 @@ const GamesSection = ({
                     <Preloader />
                 ) : (
                     games
-                        .filter((game) => {
-                            const categoryMatch =
-                                selectedCategory === "All" ||
-                                game.genre === selectedCategory;
-
-                            return categoryMatch;
-                        })
                         .slice(0, visibleCount)
                         .map((game) => (
                             <GameCard
