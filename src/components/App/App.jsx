@@ -64,7 +64,6 @@ function App() {
             .catch(console.error)
             .finally(() => {
                 setIsLoading(false);
-                console.log(username, email, password);
             });
         handleRegistrationClick();
     };
