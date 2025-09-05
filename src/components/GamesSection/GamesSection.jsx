@@ -4,7 +4,7 @@ import GameCard from "../GameCard/GameCard";
 import Preloader from "../Preloader/Preloader";
 
 import * as gameApi from "../../utils/gameApi";
-import { categories } from "../../utils/constants";
+import { categories, sortOptionsArr } from "../../utils/constants";
 
 import "./GamesSection.css";
 import ShowMoreBtn from "../Buttons/ShowMoreBtn/ShowMoreBtn";
@@ -118,10 +118,10 @@ const GamesSection = ({
                                 {categories.map((category) => (
                                     <option
                                         className="games__select-option"
-                                        key={category}
-                                        value={category}
+                                        key={category.title}
+                                        value={category.slug}
                                     >
-                                        {category}
+                                        {category.title}
                                     </option>
                                 ))}
                             </select>
@@ -139,14 +139,15 @@ const GamesSection = ({
                                 id="sort"
                                 value={selectedSort}
                             >
-                                <option value="release-date">
-                                    Release Date
-                                </option>
-                                <option value="popularity">Popularity</option>
-                                <option value="alphabetical">
-                                    Alphabetical
-                                </option>
-                                <option value="relevance">Relevance</option>
+                                {sortOptionsArr.map((sortOption) => (
+                                    <option
+                                        className="games__select-option"
+                                        key={sortOption.title}
+                                        value={sortOption.slug}
+                                    >
+                                        {sortOption.title}
+                                    </option>
+                                ))}
                             </select>
                         </div>
                     </label>
