@@ -60,35 +60,43 @@ const GamesSection = ({
         setSelectedCategory(e.target.value);
     };
 
+    const onSortChange = (e) => {
+        setSelectedSort(e.target.value);
+    };
+
     useEffect(() => {
         setIsLoading(true);
-        let apiCategory = selectedCategory;
-        if (selectedCategory === "Card Games") {
-            apiCategory = "card";
-        } else if (selectedCategory === "Battle Royale") {
-            apiCategory = "battle-royale";
-        }
-        if (apiCategory === "All" && selectedSort === "popularity") {
+
+        if (selectedCategory === "All" && selectedSort === "popularity") {
             gameApi
                 .getGamesByPop()
                 .then(setGames)
                 .catch(console.error)
                 .finally(() => setIsLoading(false));
-        } else if (apiCategory === "All" && selectedSort !== "popularity") {
+        } else if (
+            selectedCategory === "All" &&
+            selectedSort !== "popularity"
+        ) {
             gameApi
                 .getGamesBySort(selectedSort)
                 .then(setGames)
                 .catch(console.error)
                 .finally(() => setIsLoading(false));
-        } else if (apiCategory !== "All" && selectedSort === "popularity") {
+        } else if (
+            selectedCategory !== "All" &&
+            selectedSort === "popularity"
+        ) {
             gameApi
-                .getGamesByCategory(apiCategory)
+                .getGamesByCategory(selectedCategory)
                 .then(setGames)
                 .catch(console.error)
                 .finally(() => setIsLoading(false));
-        } else if (apiCategory !== "All" && selectedSort !== "popularity") {
+        } else if (
+            selectedCategory !== "All" &&
+            selectedSort !== "popularity"
+        ) {
             gameApi
-                .getGamesByPlatCatSort(apiCategory, selectedSort)
+                .getGamesByPlatCatSort(selectedCategory, selectedSort)
                 .then(setGames)
                 .catch(console.error)
                 .finally(() => setIsLoading(false));
@@ -131,9 +139,7 @@ const GamesSection = ({
                         <p className="games__dropdowns-label-title">Sort by:</p>
                         <div className="games-select-container">
                             <select
-                                onChange={(e) =>
-                                    setSelectedSort(e.target.value)
-                                }
+                                onChange={onSortChange}
                                 className="games__select games__select_sort"
                                 name="sort"
                                 id="sort"

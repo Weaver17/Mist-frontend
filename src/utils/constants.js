@@ -22,7 +22,7 @@ export function request(url, options) {
 }
 
 export const categories = [
-    { title: "All", slug: "all" },
+    { title: "All", slug: "All" },
     { title: "2D", slug: "2d" },
     { title: "3D", slug: "3d" },
     { title: "Action", slug: "action" },
